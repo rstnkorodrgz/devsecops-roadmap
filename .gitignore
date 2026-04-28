@@ -1,0 +1,55 @@
+# DevSecOps Roadmap — .gitignore
+
+# Never commit credentials or secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+aws-credentials
+credentials.json
+service-account*.json
+
+# AWS vault / config (local only)
+.aws/credentials
+
+# GCP credentials
+gcloud/
+application_default_credentials.json
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# Editor files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Terraform state (contains sensitive data)
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# Lab outputs (may contain sensitive data)
+lab-outputs/
+scan-results/
+*.json.bak
+
+# Node
+node_modules/
