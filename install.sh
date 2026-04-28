@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # =============================================================================
 #  PATH 2 DEVSECOPS — Automated Tool Installer v1.0
-#  MacBook Pro 2020 13" (Intel & Apple Silicon)
+#  macOS · Intel & Apple Silicon
 #
 #  Usage:
-#    bash install.sh              # install all phases
+#    bash install.sh              # install all phases + VS Code extensions
 #    bash install.sh --phase 1   # install Phase 1 tools only
 #    bash install.sh --phase 2   # install Phase 2 tools only
 #    bash install.sh --phase 3   # install Phase 3 tools only
 #    bash install.sh --phase 4   # install Phase 4 tools only
+#    bash install.sh --vscode    # install VS Code extensions only
 #    bash install.sh --verify    # verify all tools without installing
 #    bash install.sh --help      # show this help
 #
@@ -61,20 +62,33 @@ print_banner() {
   clear
   echo ""
   echo -e "${GREEN}${BOLD}"
-  echo '  ██████╗  █████╗ ████████╗██╗  ██╗    ██████╗'
-  echo '  ██╔══██╗██╔══██╗╚══██╔══╝██║  ██║    ╚════██╗'
-  echo '  ██████╔╝███████║   ██║   ███████║      ███╔═╝'
-  echo '  ██╔═══╝ ██╔══██║   ██║   ██╔══██║     ██╔══╝'
-  echo '  ██║     ██║  ██║   ██║   ██║  ██║     ███████╗'
-  echo '  ╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══════╝'
-  echo -e "${RESET}"
-  echo -e "  ${BOLD}${WHITE}╔══════════════════════════════════════════════════╗${RESET}"
-  echo -e "  ${BOLD}${WHITE}║${RESET}  ${CYAN}${BOLD}PATH 2 DEVSECOPS${RESET}${WHITE} — Automated Installer v1.0   ${BOLD}${WHITE}║${RESET}"
-  echo -e "  ${BOLD}${WHITE}║${RESET}  ${DIM}MacBook Pro 2020 · Intel & Apple Silicon        ${RESET}${BOLD}${WHITE}║${RESET}"
-  echo -e "  ${BOLD}${WHITE}╚══════════════════════════════════════════════════╝${RESET}"
+  echo '        ██████╗  █████╗ ████████╗██╗  ██╗    ██████╗ '
+  echo '        ██╔══██╗██╔══██╗╚══██╔══╝██║  ██║    ╚════██╗'
+  echo '        ██████╔╝███████║   ██║   ███████║      ███╔═╝'
+  echo '        ██╔═══╝ ██╔══██║   ██║   ██╔══██║     ██╔══╝ '
+  echo '        ██║     ██║  ██║   ██║   ██║  ██║     ███████╗'
+  echo '        ╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══════╝'
   echo ""
-  echo -e "  ${DIM}Certifications: AWS SCS-C02 → CKS → GWEB → CISSP${RESET}"
-  echo -e "  ${DIM}Log file: ${LOG}${RESET}"
+  echo '      ██████╗ ███████╗██╗   ██╗███████╗███████╗ ██████╗ ██████╗ ███████╗'
+  echo '      ██╔══██╗██╔════╝██║   ██║██╔════╝██╔════╝██╔════╝██╔═══██╗██╔════╝'
+  echo '      ██║  ██║█████╗  ██║   ██║███████╗█████╗  ██║     ██║   ██║███████╗'
+  echo '      ██║  ██║██╔══╝  ╚██╗ ██╔╝╚════██║██╔══╝  ██║     ██║   ██║╚════██║'
+  echo '      ██████╔╝███████╗ ╚████╔╝ ███████║███████╗╚██████╗╚██████╔╝███████║'
+  echo '      ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝'
+  echo -e "${RESET}"
+  # Dynamic system info — no hardcoded brand/model
+  local os_ver arch_label
+  os_ver=$(sw_vers -productVersion 2>/dev/null || echo "macOS")
+  arch_label="${ARCH_LABEL:-$(uname -m)}"
+  echo -e "  ${BOLD}${WHITE}╔══════════════════════════════════════════════════════╗${RESET}"
+  echo -e "  ${BOLD}${WHITE}║${RESET}  ${CYAN}${BOLD}PATH 2 DEVSECOPS${RESET}  ${WHITE}— Automated Installer v1.0     ${BOLD}${WHITE}║${RESET}"
+  printf  "  ${BOLD}${WHITE}║${RESET}  ${DIM}%-52s${RESET}${BOLD}${WHITE}║${RESET}\n" "macOS ${os_ver} · ${arch_label}"
+  echo -e "  ${BOLD}${WHITE}╠══════════════════════════════════════════════════════╣${RESET}"
+  echo -e "  ${BOLD}${WHITE}║${RESET}  ${GREEN}AWS SCS-C02${RESET}  ${WHITE}→${RESET}  ${CYAN}CKS${RESET}  ${WHITE}→${RESET}  ${BLUE}GWEB${RESET}  ${WHITE}→${RESET}  ${YELLOW}CISSP${RESET}               ${BOLD}${WHITE}║${RESET}"
+  echo -e "  ${BOLD}${WHITE}║${RESET}  ${DIM}65 tools · 4 phases · 10 months · 4 certifications${RESET}  ${BOLD}${WHITE}║${RESET}"
+  echo -e "  ${BOLD}${WHITE}╚══════════════════════════════════════════════════════╝${RESET}"
+  echo ""
+  echo -e "  ${DIM}Log file → ${WHITE}${LOG}${RESET}"
   echo ""
 }
 
@@ -248,6 +262,98 @@ verify_cmd() {
   else
     status_fail "$display" "not found in PATH — run: bash install.sh"
   fi
+}
+
+# ── Install a VS Code extension ───────────────────────────────────────────────
+vscode_install() {
+  local ext_id="$1"
+  local display="${2:-$ext_id}"
+
+  if ! command -v code &>/dev/null; then
+    status_fail "$display" "VS Code CLI 'code' not found — open VS Code → ⌘⇧P → 'Shell Command: Install code in PATH'"
+    return 1
+  fi
+
+  if code --list-extensions 2>/dev/null | grep -qi "^${ext_id}$"; then
+    status_skip "$display" "already installed in VS Code"
+    return 0
+  fi
+
+  local tmp_out
+  tmp_out=$(mktemp)
+
+  (code --install-extension "$ext_id" --force >> "$tmp_out" 2>&1) &
+  local pid=$!
+  spinner $pid "Installing extension: $display"
+  wait $pid
+  local exit_code=$?
+
+  if [[ $exit_code -eq 0 ]]; then
+    status_ok "$display"
+  else
+    local reason
+    reason=$(grep -i "error\|not found\|failed\|unable" "$tmp_out" 2>/dev/null | head -1 \
+      || echo "extension install failed — check $LOG or install manually via ⌘⇧X")
+    status_fail "$display" "$reason"
+    cat "$tmp_out" >> "$LOG"
+  fi
+  rm -f "$tmp_out"
+}
+
+# =============================================================================
+#  VS CODE EXTENSIONS — Path 2 DevSecOps
+# =============================================================================
+vscode_extensions() {
+  section "VS CODE — Core IDE Extensions"
+
+  echo -e "  ${DIM}Checking for VS Code CLI...${RESET}"
+  if ! command -v code &>/dev/null; then
+    echo ""
+    echo -e "  ${YELLOW}⚠  VS Code 'code' CLI not found in PATH.${RESET}"
+    echo -e "  ${DIM}  Fix: Open VS Code → press ⌘⇧P → type 'Shell Command: Install code in PATH' → press Enter${RESET}"
+    echo -e "  ${DIM}  Then re-run: bash install.sh --vscode${RESET}"
+    echo ""
+    log "WARN: VS Code CLI not in PATH — skipping all extensions"
+    return 1
+  fi
+
+  echo -e "  ${DIM}VS Code CLI found: $(code --version | head -1)${RESET}"
+  echo ""
+
+  vscode_install "esbenp.prettier-vscode"       "Prettier (formatter — YAML, JSON, Markdown)"
+  vscode_install "eamodio.gitlens"              "GitLens (Git history, inline blame)"
+  vscode_install "timonwong.shellcheck"         "ShellCheck (bash/zsh linter)"
+  vscode_install "remisa.shellman"              "Shell Script (bash IntelliSense)"
+  vscode_install "yzhang.markdown-all-in-one"  "Markdown All in One (roadmap docs)"
+
+  section "VS CODE — Phase 1: Cloud Security"
+
+  vscode_install "amazonwebservices.aws-toolkit-vscode" "AWS Toolkit (IAM, S3, CloudWatch, Lambda)"
+  vscode_install "hashicorp.terraform"                  "HashiCorp Terraform (IaC syntax + validation)"
+  vscode_install "redhat.vscode-yaml"                   "YAML (K8s manifests, GitHub Actions, Threagile)"
+  vscode_install "mikestead.dotenv"                     "DotENV (safe .env file editing)"
+
+  section "VS CODE — Phase 2: CI/CD, Containers & Kubernetes"
+
+  vscode_install "ms-azuretools.vscode-docker"                "Docker (containers, images, Compose)"
+  vscode_install "ms-kubernetes-tools.vscode-kubernetes-tools" "Kubernetes (cluster browser, pod logs)"
+  vscode_install "github.vscode-github-actions"               "GitHub Actions (workflow validation)"
+  vscode_install "semgrep.semgrep"                            "Semgrep (inline SAST scanning)"
+  vscode_install "exiasr.hadolint"                            "hadolint (Dockerfile security linter)"
+  vscode_install "tsandall.opa"                               "OPA (Rego policy syntax + evaluation)"
+
+  section "VS CODE — Phase 3: AppSec & Threat Modeling"
+
+  vscode_install "humao.rest-client"                          "REST Client (API security testing)"
+  vscode_install "jflbr.jwt-decoder"                          "JWT Decoder (token inspection)"
+  vscode_install "sonarsource.sonarlint-vscode"               "SonarLint (real-time vuln detection)"
+  vscode_install "snyk-security.snyk-vulnerability-scanner"   "Snyk Security (deps, containers, IaC)"
+  vscode_install "gitguardian.gitguardian"                    "GitGuardian (secret detection inline)"
+
+  section "VS CODE — Phase 4: Expert & Multi-Cloud"
+
+  vscode_install "ms-python.python"                    "Python (bandit, safety, ScoutSuite support)"
+  vscode_install "ms-vscode.vscode-node-azure-pack"    "Azure Tools (multi-cloud, CISSP Domain 4)"
 }
 
 # =============================================================================
@@ -486,6 +592,45 @@ verify_all() {
   verify_cmd bandit      "bandit"
   verify_cmd safety      "safety"
   verify_cmd scout       "ScoutSuite"
+
+  section "Verification — VS Code Extensions"
+  if ! command -v code &>/dev/null; then
+    echo -e "  ${YELLOW}–${RESET}  VS Code CLI 'code' not in PATH — cannot verify extensions"
+    echo -e "  ${DIM}  Fix: VS Code → ⌘⇧P → 'Shell Command: Install code in PATH'${RESET}"
+  else
+    local installed_exts
+    installed_exts=$(code --list-extensions 2>/dev/null | tr '[:upper:]' '[:lower:]')
+    verify_ext() {
+      local id="$1" display="$2"
+      if echo "$installed_exts" | grep -q "^$(echo "$id" | tr '[:upper:]' '[:lower:]')$"; then
+        status_ok "$display"
+      else
+        status_fail "$display" "not installed — run: code --install-extension $id"
+      fi
+    }
+    verify_ext "esbenp.prettier-vscode"                       "Prettier"
+    verify_ext "eamodio.gitlens"                              "GitLens"
+    verify_ext "timonwong.shellcheck"                         "ShellCheck"
+    verify_ext "remisa.shellman"                              "Shell Script"
+    verify_ext "yzhang.markdown-all-in-one"                   "Markdown All in One"
+    verify_ext "amazonwebservices.aws-toolkit-vscode"          "AWS Toolkit"
+    verify_ext "hashicorp.terraform"                          "HashiCorp Terraform"
+    verify_ext "redhat.vscode-yaml"                           "YAML"
+    verify_ext "mikestead.dotenv"                             "DotENV"
+    verify_ext "ms-azuretools.vscode-docker"                  "Docker"
+    verify_ext "ms-kubernetes-tools.vscode-kubernetes-tools"  "Kubernetes"
+    verify_ext "github.vscode-github-actions"                 "GitHub Actions"
+    verify_ext "semgrep.semgrep"                              "Semgrep"
+    verify_ext "exiasr.hadolint"                              "hadolint"
+    verify_ext "tsandall.opa"                                 "OPA"
+    verify_ext "humao.rest-client"                            "REST Client"
+    verify_ext "jflbr.jwt-decoder"                            "JWT Decoder"
+    verify_ext "sonarsource.sonarlint-vscode"                 "SonarLint"
+    verify_ext "snyk-security.snyk-vulnerability-scanner"     "Snyk Security"
+    verify_ext "gitguardian.gitguardian"                      "GitGuardian"
+    verify_ext "ms-python.python"                             "Python"
+    verify_ext "ms-vscode.vscode-node-azure-pack"             "Azure Tools"
+  fi
 }
 
 # =============================================================================
@@ -529,11 +674,12 @@ print_summary() {
 usage() {
   echo ""
   echo -e "  ${BOLD}Usage:${RESET}"
-  echo -e "    bash install.sh              ${DIM}# install all phases${RESET}"
+  echo -e "    bash install.sh              ${DIM}# install all phases + VS Code extensions${RESET}"
   echo -e "    bash install.sh --phase 1   ${DIM}# Phase 1 only (cloud security)${RESET}"
   echo -e "    bash install.sh --phase 2   ${DIM}# Phase 2 only (CI/CD + containers)${RESET}"
   echo -e "    bash install.sh --phase 3   ${DIM}# Phase 3 only (AppSec + IaC)${RESET}"
   echo -e "    bash install.sh --phase 4   ${DIM}# Phase 4 only (expert tools)${RESET}"
+  echo -e "    bash install.sh --vscode    ${DIM}# VS Code extensions only${RESET}"
   echo -e "    bash install.sh --verify    ${DIM}# verify all tools, no installation${RESET}"
   echo -e "    bash install.sh --help      ${DIM}# show this message${RESET}"
   echo ""
@@ -548,7 +694,8 @@ main() {
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      --phase) shift; target_phase="$1"; mode="phase" ;;
+      --phase)  shift; target_phase="$1"; mode="phase" ;;
+      --vscode) mode="vscode" ;;
       --verify) mode="verify" ;;
       --help|-h) usage; exit 0 ;;
       *) echo -e "  ${RED}Unknown argument: $1${RESET}"; usage; exit 1 ;;
@@ -559,6 +706,9 @@ main() {
   case "$mode" in
     verify)
       verify_all
+      ;;
+    vscode)
+      vscode_extensions
       ;;
     phase)
       phase0
@@ -576,6 +726,7 @@ main() {
       phase2
       phase3
       phase4
+      vscode_extensions
       ;;
   esac
 
