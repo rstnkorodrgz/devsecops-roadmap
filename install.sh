@@ -95,7 +95,7 @@ print_banner() {
   os_ver=$(sw_vers -productVersion 2>/dev/null || echo "macOS")
   arch_label="${ARCH_LABEL:-$(uname -m)}"
   echo -e "  ${BOLD}${WHITE}╔══════════════════════════════════════════════════════╗${RESET}"
-  echo -e "  ${BOLD}${WHITE}║${RESET}  ${CYAN}${BOLD}PATH 2 DEVSECOPS${RESET}  ${WHITE}— Automated Installer v1.3${BOLD}${WHITE}║${RESET}"
+  echo -e "  ${BOLD}${WHITE}║${RESET}  ${CYAN}${BOLD}PATH 2 DEVSECOPS${RESET}  ${WHITE}— Automated Installer v1.3     ${BOLD}${WHITE}║${RESET}"
   printf  "  ${BOLD}${WHITE}║${RESET}  ${DIM}%-52s${RESET}${BOLD}${WHITE}║${RESET}\n" "macOS ${os_ver} · ${arch_label}"
   echo -e "  ${BOLD}${WHITE}╠══════════════════════════════════════════════════════╣${RESET}"
   echo -e "  ${BOLD}${WHITE}║${RESET}  ${GREEN}AWS SCS-C02${RESET}  ${WHITE}→${RESET}  ${CYAN}CKS${RESET}  ${WHITE}→${RESET}  ${BLUE}GWEB${RESET}  ${WHITE}→${RESET}  ${YELLOW}CISSP${RESET}               ${BOLD}${WHITE}║${RESET}"
@@ -248,8 +248,9 @@ pip_install() {
     status_ok "$display"
   else
     local reason
-    reason=$(grep -i "error\|not found\|failed\|requires\|conflict\|externally" \
-      "$tmp" 2>/dev/null | head -1 || echo "pip3 failed — see $LOG")
+    reason=$(grep -iv "^warning" "$tmp" 2>/dev/null \
+      | grep -iE "error|not found|cannot|no matching|requires|conflict|externally" \
+      | head -1 || echo "pip3 failed — see $LOG")
     status_fail "$display" "$reason"
     cat "$tmp" >> "$LOG"
   fi
@@ -317,6 +318,17 @@ gh_binary() {
       status_ok "$display  ${DIM}(→ $dest/$name)${RESET}"
     else
       status_fail "$display" "binary '$name' not found in zip — see $LOG"
+    fi
+    rm -rf "$tmpdir"
+  elif [[ "$url" == *.tar.gz ]] || [[ "$url" == *.tgz ]]; then
+    local tmpdir; tmpdir=$(mktemp -d)
+    tar -xzf "$tmp" -C "$tmpdir" >> "$LOG" 2>&1
+    local binary; binary=$(find "$tmpdir" -name "$name" -type f | head -1)
+    if [[ -n "$binary" ]]; then
+      cp "$binary" "$dest/$name" && chmod +x "$dest/$name"
+      status_ok "$display  ${DIM}(→ $dest/$name)${RESET}"
+    else
+      status_fail "$display" "binary '$name' not found in tar.gz — see $LOG"
     fi
     rm -rf "$tmpdir"
   else
@@ -783,20 +795,22 @@ verify_all() {
   verify_cmd gitleaks    "gitleaks"
   verify_cmd cosign      "cosign"
   verify_cmd pre-commit  "pre-commit"
-  verify_cmd kubectl     "kubectl"
-  verify_cmd kind        "kind"
-  verify_cmd helm        "helm"
-  verify_cmd kube-bench  "kube-bench"
-  verify_cmd kubescape   "kubescape"
-  verify_cmd opa         "opa"
-  verify_cmd kubectx     "kubectx"
-  verify_cmd k9s         "k9s"
+  verify_cmd kubectl      "kubectl"
+  verify_cmd kind         "kind"
+  verify_cmd helm         "helm"
+  verify_cmd kube-bench   "kube-bench"
+  verify_cmd kubescape    "kubescape"
+  verify_cmd opa          "opa"
+  verify_cmd kubectx      "kubectx"
+  verify_cmd k9s          "k9s"
+  verify_cmd kube-hunter  "kube-hunter"
 
   section "Verify — Phase 3 (AppSec & IaC)"
   verify_cmd ffuf      "ffuf"
   verify_cmd nuclei    "nuclei"
   verify_cmd http      "httpie"
   verify_cmd istioctl  "istioctl"
+  verify_cmd jwt_tool  "jwt_tool"
   verify_cmd threagile "threagile"
   verify_cmd katana    "katana"
   verify_cmd terraform "Terraform"
@@ -916,7 +930,13 @@ main() {
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      --phase)   shift; target_phase="$1"; mode="phase" ;;
+      --phase)
+        shift
+        if [[ $# -eq 0 ]]; then
+          echo -e "  ${RED}--phase requires an argument (1–4)${RESET}"
+          usage; exit 1
+        fi
+        target_phase="$1"; mode="phase" ;;
       --vscode)  mode="vscode" ;;
       --verify)  mode="verify" ;;
       --help|-h) usage; exit 0 ;;
