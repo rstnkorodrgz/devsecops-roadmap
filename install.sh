@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-#  PATH 2 DEVSECOPS — Automated Tool Installer v1.1
+#  PATH 2 DEVSECOPS — Automated Tool Installer v1.3
 #  macOS · Intel & Apple Silicon
 #
 #  Usage:
@@ -95,7 +95,7 @@ print_banner() {
   os_ver=$(sw_vers -productVersion 2>/dev/null || echo "macOS")
   arch_label="${ARCH_LABEL:-$(uname -m)}"
   echo -e "  ${BOLD}${WHITE}╔══════════════════════════════════════════════════════╗${RESET}"
-  echo -e "  ${BOLD}${WHITE}║${RESET}  ${CYAN}${BOLD}PATH 2 DEVSECOPS${RESET}  ${WHITE}— Automated Installer v1.1     ${BOLD}${WHITE}║${RESET}"
+  echo -e "  ${BOLD}${WHITE}║${RESET}  ${CYAN}${BOLD}PATH 2 DEVSECOPS${RESET}  ${WHITE}— Automated Installer v1.3${BOLD}${WHITE}║${RESET}"
   printf  "  ${BOLD}${WHITE}║${RESET}  ${DIM}%-52s${RESET}${BOLD}${WHITE}║${RESET}\n" "macOS ${os_ver} · ${arch_label}"
   echo -e "  ${BOLD}${WHITE}╠══════════════════════════════════════════════════════╣${RESET}"
   echo -e "  ${BOLD}${WHITE}║${RESET}  ${GREEN}AWS SCS-C02${RESET}  ${WHITE}→${RESET}  ${CYAN}CKS${RESET}  ${WHITE}→${RESET}  ${BLUE}GWEB${RESET}  ${WHITE}→${RESET}  ${YELLOW}CISSP${RESET}               ${BOLD}${WHITE}║${RESET}"
@@ -131,8 +131,11 @@ brew_install() {
   local display="${2:-$formula}"
   local leaf="${formula##*/}"   # e.g. goodwithtech/r/dockle → dockle
 
-  if brew list --formula 2>/dev/null | grep -q "^${leaf}$"; then
-    status_skip "$display" "already installed via Homebrew"
+  # Check both brew list (catches tap-qualified names via leaf) and command -v
+  # (catches tap-installed formulas that brew list may return as tap/leaf).
+  if brew list --formula 2>/dev/null | grep -qE "(^|/)${leaf}$" \
+     || command -v "$leaf" &>/dev/null; then
+    status_skip "$display" "already installed"
     return 0
   fi
 
@@ -214,21 +217,28 @@ brew_tap() {
   return 0
 }
 
-# FIX 4 — pip_install: add --break-system-packages which is required on
-#          macOS Ventura (13) and Sonoma (14) where pip refuses to install
-#          into the system Python without this flag.
+# FIX 4 — pip_install: use PYTHONUSERBASE + --user + --ignore-installed so pip
+#          always installs to ~/.local (user-writable), never touching Homebrew's
+#          /usr/local prefix where permission errors arise. Scripts land in
+#          ~/.local/bin which is already in PATH via .zshrc.
 pip_install() {
   local pkg="$1"
   local display="${2:-$pkg}"
   local show_name="${3:-$pkg}"   # pip show name can differ from install name
 
-  if pip3 show "$show_name" &>/dev/null 2>&1; then
+  # Ensure ~/.local/bin is in PATH so installed scripts are found immediately
+  local dest="$HOME/.local/bin"
+  mkdir -p "$dest"
+  if [[ ":$PATH:" != *":${dest}:"* ]]; then export PATH="$PATH:$dest"; fi
+
+  if PYTHONUSERBASE="$HOME/.local" pip3 show "$show_name" &>/dev/null 2>&1 \
+     || pip3 show "$show_name" &>/dev/null 2>&1; then
     status_skip "$display" "already installed via pip3"
     return 0
   fi
 
   local tmp; tmp=$(mktemp)
-  ( pip3 install --quiet --break-system-packages "$pkg" >> "$tmp" 2>&1 ) &
+  ( PYTHONUSERBASE="$HOME/.local" pip3 install --quiet --user --break-system-packages --ignore-installed "$pkg" >> "$tmp" 2>&1 ) &
   local pid=$!
   spinner $pid "Installing $display (pip3)"
   wait $pid
@@ -424,18 +434,39 @@ phase1() {
 
   brew_install awscli    "AWS CLI v2"
   brew_install aws-vault "aws-vault (credential manager)"
-  brew_install iamlive   "iamlive (IAM policy generator)"
+
+  # FIX 12 — iamlive: brew formula removed upstream; use go install instead.
+  echo -e "\n  ${DIM}Installing iamlive via go install...${RESET}"
+  ensure_gopath
+  if command -v iamlive &>/dev/null; then
+    status_skip "iamlive (IAM policy generator)" "already installed"
+  else
+    local tmp_il; tmp_il=$(mktemp)
+    ( go install github.com/iann0036/iamlive@latest >> "$tmp_il" 2>&1 ) &
+    local pid=$!
+    spinner $pid "iamlive (IAM policy generator)"
+    wait $pid
+    local rc=$?
+    ensure_gopath
+    if [[ $rc -eq 0 ]] && command -v iamlive &>/dev/null; then
+      status_ok "iamlive (IAM policy generator)"
+    else
+      status_fail "iamlive" "go install failed — run: go install github.com/iann0036/iamlive@latest"
+      cat "$tmp_il" >> "$LOG"
+    fi
+    rm -f "$tmp_il"
+  fi
 
   echo -e "\n  ${DIM}Adding Turbot tap for steampipe...${RESET}"
   if brew_tap "turbot/tap"; then
     brew_install steampipe "steampipe (cloud SQL queries)"
 
-    # FIX 11 — steampipe plugin: pass --agree-tos to suppress the
-    #           interactive license agreement prompt that hangs non-TTY runs.
+    # FIX 11 — steampipe plugin: --agree-tos flag was removed in steampipe v0.21+;
+    #           the plugin installer no longer prompts interactively.
     echo -e "\n  ${DIM}Installing steampipe AWS plugin...${RESET}"
     if command -v steampipe &>/dev/null; then
       local tmp_sp; tmp_sp=$(mktemp)
-      ( steampipe plugin install aws --agree-tos >> "$tmp_sp" 2>&1 ) &
+      ( steampipe plugin install aws >> "$tmp_sp" 2>&1 ) &
       local pid=$!
       spinner $pid "steampipe AWS plugin"
       wait $pid
@@ -516,7 +547,36 @@ phase3() {
   brew_install httpie   "httpie (API testing CLI)"
   brew_install istioctl "istioctl (Istio service mesh CLI)"
 
-  pip_install "jwt_tool" "jwt_tool (JWT security testing)" "jwt_tool"
+  # FIX 13 — jwt_tool: not on PyPI and the GitHub repo has no setup.py/pyproject.toml.
+  #           Download the standalone script + install its requirements into ~/.local.
+  echo -e "\n  ${DIM}Installing jwt_tool (JWT security testing)...${RESET}"
+  local dest="$HOME/.local/bin"
+  mkdir -p "$dest"
+  if [[ ":$PATH:" != *":${dest}:"* ]]; then export PATH="$PATH:$dest"; fi
+  if command -v jwt_tool &>/dev/null; then
+    status_skip "jwt_tool (JWT security testing)" "already installed"
+  else
+    local tmp_jwt; tmp_jwt=$(mktemp)
+    (
+      PYTHONUSERBASE="$HOME/.local" pip3 install --quiet --user --break-system-packages --ignore-installed \
+        termcolor pycryptodomex requests ratelimit cprint >> "$tmp_jwt" 2>&1 \
+      && curl -sSL \
+          "https://raw.githubusercontent.com/ticarpi/jwt_tool/master/jwt_tool.py" \
+          -o "$dest/jwt_tool" >> "$tmp_jwt" 2>&1 \
+      && chmod +x "$dest/jwt_tool"
+    ) &
+    local pid=$!
+    spinner $pid "jwt_tool (JWT security testing)"
+    wait $pid
+    local rc=$?
+    if [[ $rc -eq 0 ]] && command -v jwt_tool &>/dev/null; then
+      status_ok "jwt_tool (JWT security testing)  ${DIM}(→ $dest/jwt_tool)${RESET}"
+    else
+      status_fail "jwt_tool" "install failed — see $LOG"
+      cat "$tmp_jwt" >> "$LOG"
+    fi
+    rm -f "$tmp_jwt"
+  fi
 
   # FIX 10 — nuclei: use -ut short flag which works across all recent
   #           versions (-update-templates was renamed in newer releases).
@@ -564,22 +624,51 @@ phase3() {
 
   section "PHASE 3 — IaC Security & Multi-Cloud Tools"
 
-  brew_install terraform "Terraform (IaC)"
+  # FIX 14 — terraform: formula moved from core to hashicorp/tap in 2023.
+  if ! brew_tap "hashicorp/tap"; then
+    status_fail "Terraform (IaC)" "hashicorp/tap failed — cannot install terraform"
+  else
+    brew_install "hashicorp/tap/terraform" "Terraform (IaC)"
+  fi
   brew_install tfsec     "tfsec (Terraform security scanner)"
   brew_install terrascan "terrascan (multi-cloud IaC scanner)"
   pip_install  "checkov" "checkov (IaC security scanner)"
   cask_install google-cloud-sdk "gcloud CLI (GCP)"
   brew_install azure-cli "Azure CLI"
 
-  # FIX 8 — Threagile: install to ~/.local/bin so no sudo is required.
-  echo -e "\n  ${DIM}Installing Threagile (threat modeling as code)...${RESET}"
-  local threagile_url
-  if [[ "$ARCH" == "arm64" ]]; then
-    threagile_url="https://github.com/Threagile/threagile/releases/latest/download/threagile-macos-arm64.zip"
+  # FIX 8 / FIX 15 — Threagile: GitHub releases no longer ship binary assets
+  #                   (all releases have empty assets as of v0.9.x). Install via
+  #                   Docker and wrap with a shell shim in ~/.local/bin.
+  echo -e "\n  ${DIM}Installing Threagile via Docker wrapper...${RESET}"
+  local dest="$HOME/.local/bin"
+  mkdir -p "$dest"
+  if [[ ":$PATH:" != *":${dest}:"* ]]; then export PATH="$PATH:$dest"; fi
+  if command -v threagile &>/dev/null; then
+    status_skip "threagile (threat modeling as code)" "already installed"
+  elif ! command -v docker &>/dev/null; then
+    status_fail "threagile" "Docker not found — install Docker Desktop first"
+  elif ! docker info &>/dev/null 2>&1; then
+    status_fail "threagile" "Docker daemon not running — start Docker Desktop, then re-run installer"
   else
-    threagile_url="https://github.com/Threagile/threagile/releases/latest/download/threagile-macos-amd64.zip"
+    local tmp_th; tmp_th=$(mktemp)
+    ( docker pull threagile/threagile:latest >> "$tmp_th" 2>&1 ) &
+    local pid=$!
+    spinner $pid "threagile (pulling Docker image)"
+    wait $pid
+    local rc=$?
+    if [[ $rc -eq 0 ]]; then
+      cat > "$dest/threagile" <<'SHIM'
+#!/bin/bash
+docker run --rm -v "$(pwd)":/app/work threagile/threagile:latest "$@"
+SHIM
+      chmod +x "$dest/threagile"
+      status_ok "threagile (threat modeling as code)  ${DIM}(Docker wrapper → $dest/threagile)${RESET}"
+    else
+      status_fail "threagile" "docker pull failed — run: docker pull threagile/threagile:latest"
+      cat "$tmp_th" >> "$LOG"
+    fi
+    rm -f "$tmp_th"
   fi
-  gh_binary "threagile" "$threagile_url" "threagile (threat modeling as code)"
 }
 
 # =============================================================================
@@ -591,7 +680,9 @@ phase4() {
   pip_install "bandit"      "bandit (Python SAST)"
   pip_install "safety"      "safety (Python dependency scanner)"
   pip_install "scoutsuite"  "ScoutSuite (multi-cloud security audit)"
-  pip_install "cloudmapper" "cloudmapper (AWS environment visualizer)"
+  # FIX 16 — cloudmapper: removed from PyPI; project is unmaintained (last release 2022).
+  echo -e "  ${YELLOW}ℹ  cloudmapper removed from PyPI — project unmaintained; skipping.${RESET}"
+  log "INFO: cloudmapper skipped — removed from PyPI"
 
   echo ""
   echo -e "  ${YELLOW}ℹ  Falco & Tetragon need a running cluster — install after:${RESET}"
@@ -652,7 +743,8 @@ vscode_extensions() {
   vscode_install "jflbr.jwt-decoder"                         "JWT Decoder"
   vscode_install "sonarsource.sonarlint-vscode"              "SonarLint"
   vscode_install "snyk-security.snyk-vulnerability-scanner"  "Snyk Security"
-  vscode_install "gitguardian.gitguardian"                   "GitGuardian"
+  # FIX 17 — GitGuardian: correct extension ID is gitguardian-secret-security.gitguardian
+  vscode_install "gitguardian-secret-security.gitguardian"   "GitGuardian"
 
   section "VS CODE — Phase 4: Expert & Multi-Cloud"
   vscode_install "ms-python.python"                 "Python"
@@ -755,7 +847,7 @@ verify_all() {
     verify_ext "jflbr.jwt-decoder"                           "JWT Decoder"
     verify_ext "sonarsource.sonarlint-vscode"                "SonarLint"
     verify_ext "snyk-security.snyk-vulnerability-scanner"    "Snyk Security"
-    verify_ext "gitguardian.gitguardian"                     "GitGuardian"
+    verify_ext "gitguardian-secret-security.gitguardian"     "GitGuardian"
     verify_ext "ms-python.python"                            "Python"
     verify_ext "ms-vscode.vscode-node-azure-pack"            "Azure Tools"
   fi
