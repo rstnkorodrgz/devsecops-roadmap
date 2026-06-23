@@ -1,9 +1,30 @@
-# 🛡️ DevSecOps Engineer — Personal Certification Roadmap
+# 🛡️ DevSecOps Engineer → Architect — Capability Roadmap
 
-> **Goal:** Transition from Senior DevOps Engineer to certified DevSecOps practitioner  
-> **Duration:** 10 months  
-> **MacBook Pro:** 2020 13" (Apple M1 / Intel — tool instructions cover both)  
+> **Goal:** Senior DevOps → **Senior DevSecOps → DevSecOps/Security Architect**
+> **Duration:** ~10 months core track + a parallel Architect track
+> **Philosophy:** **Capability-centric, not certification-centric.** Certs get you past the résumé filter; demonstrated capability and a public portfolio get you hired and promoted.
+> **MacBook Pro:** 2020 13" (Apple M1 / Intel — tool instructions cover both)
 > **Start date:** _Fill in your start date_
+
+---
+
+## ⭐ What's new in v1.2
+
+This branch restructures the roadmap from *cert progression* to *capability building*, based on a senior-hiring-manager review. Each change below is independently reviewable in the diff.
+
+| # | Change | Where |
+|---|---|---|
+| 1 | **Real Phase 0 foundations** (Linux, Python, Git, Networking) added to the existing leverage map | [`phases/phase-0-foundation.md`](phases/phase-0-foundation.md) |
+| 2 | **New Phase 1.5 — Infrastructure as Code** (Terraform, Terragrunt, Checkov, tfsec, OPA) | [`phases/phase-1.5-iac.md`](phases/phase-1.5-iac.md) |
+| 3 | **Supply chain deep-dive** (provenance, keyless signing, verify-at-deploy) | [`phases/phase-2-cicd.md`](phases/phase-2-cicd.md) |
+| 4 | **New Phase 3.5 — Platform Engineering** (IDP, Backstage, golden paths, K8s multi-tenancy) | [`phases/phase-3.5-platform-engineering.md`](phases/phase-3.5-platform-engineering.md) |
+| 5 | **Expanded threat modeling** (STRIDE + MITRE ATT&CK + attack trees + Threat Model Report deliverable) | [`phases/phase-3-appsec.md`](phases/phase-3-appsec.md) |
+| 6 | **GWEB demoted to optional**, PortSwigger practical path made primary | [`phases/phase-3-appsec.md`](phases/phase-3-appsec.md#-note-on-gweb) |
+| 7 | **New Architect track** (SABSA, Zero Trust, Secure SDLC, Platform Eng, Reference Architectures) | [`architect/`](architect/) |
+| 8 | **New Portfolio projects** (5 standalone repos + capstone) | [`projects/`](projects/) |
+| 9 | **Reordered certification ladder** (Terraform + CKA + SABSA in, GWEB out of the critical path) | [below](#-certification-ladder) |
+
+> These are *proposals on a branch* — accept or revert any of them via the diff against `main`.
 
 ---
 
@@ -20,21 +41,50 @@
 ## 🗺️ Roadmap Overview
 
 ```
-Month 1–2   ██████░░░░░░░░░░░░░░  Phase 1 — Cloud Security Foundations
-Month 3–5   ░░░░░░██████████░░░░  Phase 2 — CI/CD Pipeline & Container Security
-Month 6–8   ░░░░░░░░░░░░██████░░  Phase 3 — Advanced AppSec & Threat Modeling
-Month 9–10  ░░░░░░░░░░░░░░░░████  Phase 4 — Expert Capstone & CISSP
+Weeks 1–4    Phase 0    Foundations & Assessment (Linux · Python · Git · Networking)
+Month 1–2    Phase 1    Cloud Security Foundations (AWS)
+Weeks 9–12   Phase 1.5  Infrastructure & Policy as Code (Terraform)
+Month 3–5    Phase 2    CI/CD, Containers & Supply Chain (CKS)
+Month 6–8    Phase 3    Advanced AppSec & Threat Modeling
+Weeks 33–36  Phase 3.5  Platform Engineering & Paved Roads
+Month 9–10   Phase 4    Expert Capstone & CISSP
+   ║
+   ╚═ parallel ═►  Architect Track  (SABSA · Zero Trust · Secure SDLC · Reference Architectures)
+                   Portfolio Projects  (01 → 05, building toward the Capstone)
 ```
 
 ### Certification Ladder
 
+Reordered to front-load the skills senior roles actually screen for (Terraform, Kubernetes) and to drop GWEB from the critical path.
+
 ```
-[Done] CompTIA Security+
-  └─► [Phase 1] AWS Security Specialty (SCS-C02)
-        └─► [Phase 2] CKS — Certified Kubernetes Security Specialist
-              └─► [Phase 3] GIAC GWEB — Web Application Defender
-                    └─► [Phase 4] CISSP
+[Done]   CompTIA Security+
+  └─►  Terraform Associate (003)        ← NEW: near-universal Senior DevSecOps requirement
+        └─►  AWS Security Specialty (SCS-C02)
+              └─►  CKA  ← NEW: earn the operator cert before the security one
+                    └─►  CKS — Certified Kubernetes Security Specialist
+                          └─►  CISSP
+                                └─►  SABSA (SCF → SCP)  ← NEW: the architecture credential
 ```
+
+> **GWEB** and **GCP Pro Cloud Security Engineer** remain valuable but **optional** — pursue if employer-funded. See [Phase 3](phases/phase-3-appsec.md#-note-on-gweb).
+
+---
+
+## 🎯 Capability Matrix
+
+What a hiring panel actually evaluates — and where you build it.
+
+| Capability | Built in | Proven by |
+|---|---|---|
+| Pipeline security design | Phase 2 | [Project 01](projects/project-01-secure-cicd.md) |
+| Infrastructure as Code | Phase 1.5 | [Project 03](projects/project-03-cloud-security.md) |
+| Kubernetes security | Phase 2 | [Project 02](projects/project-02-kubernetes-security.md) |
+| Cloud security architecture | Phase 1 / 1.5 | [Project 03](projects/project-03-cloud-security.md) + [architect/cloud-security.md](architect/cloud-security.md) |
+| Supply chain security | Phase 2 | [Project 01](projects/project-01-secure-cicd.md) |
+| Threat modeling | Phase 3 | Threat Model Report (Capstone) |
+| Platform engineering | Phase 3.5 | [Project 04](projects/project-04-platform-engineering.md) |
+| Security architecture | Architect track | [architect/reference-architectures.md](architect/reference-architectures.md) |
 
 ---
 
@@ -42,23 +92,33 @@ Month 9–10  ░░░░░░░░░░░░░░░░████  Phas
 
 ```
 devsecops-roadmap/
-├── README.md                  ← You are here
+├── README.md                        ← You are here
 ├── phases/
-│   ├── phase-0-foundation.md  ← Baseline credentials & leverage map
-│   ├── phase-1-cloud.md       ← Months 1–2: Cloud Security
-│   ├── phase-2-cicd.md        ← Months 3–5: CI/CD & Containers
-│   ├── phase-3-appsec.md      ← Months 6–8: AppSec & Threat Modeling
-│   └── phase-4-cissp.md       ← Months 9–10: Capstone & CISSP
-├── tools/
-│   ├── macos-setup.md         ← Master tool installation guide (macOS 2020 MBP)
-│   ├── homebrew-packages.md   ← All Homebrew formulae & casks
-│   └── lab-environments.md    ← Cloud lab & cluster setup guides
-├── resources/
-│   ├── books.md               ← Recommended books per phase
-│   ├── courses.md             ← Online courses & platforms
-│   └── practice-labs.md      ← Hands-on lab platforms & exercises
-└── progress/
-    └── weekly-log.md          ← Weekly study log template
+│   ├── phase-0-foundation.md        ← Leverage map + foundations track (Linux/Python/Git/Net)
+│   ├── phase-1-cloud.md             ← Cloud Security (AWS)
+│   ├── phase-1.5-iac.md             ← NEW: Infrastructure & Policy as Code (Terraform)
+│   ├── phase-2-cicd.md              ← CI/CD, Containers & Supply Chain
+│   ├── phase-3-appsec.md            ← AppSec & Threat Modeling
+│   ├── phase-3.5-platform-engineering.md  ← NEW: Platform Engineering
+│   └── phase-4-cissp.md             ← Capstone & CISSP
+├── architect/                       ← NEW: Architect track
+│   ├── README.md
+│   ├── sabsa.md
+│   ├── zero-trust.md
+│   ├── cloud-security.md
+│   ├── secure-sdlc.md
+│   ├── platform-engineering.md
+│   └── reference-architectures.md
+├── projects/                        ← NEW: Portfolio projects (5 standalone repos)
+│   ├── README.md
+│   ├── project-01-secure-cicd.md
+│   ├── project-02-kubernetes-security.md
+│   ├── project-03-cloud-security.md
+│   ├── project-04-platform-engineering.md
+│   └── project-05-devsecops-capstone.md
+├── tools/                           ← Tool installation guides (macOS 2020 MBP)
+├── resources/                       ← Books, courses, labs
+└── progress/                        ← Weekly study log
 ```
 
 ---
@@ -69,20 +129,27 @@ devsecops-roadmap/
 
 | Phase | Progress | Status |
 |---|---|---|
-| Phase 1 — Cloud Security | `░░░░░░░░░░` 0% | 🔜 Not started |
+| Phase 0 — Foundations | `░░░░░░░░░░` 0% | 🔜 Not started |
+| Phase 1 — Cloud Security | `░░░░░░░░░░` 0% | 🔒 Locked |
+| Phase 1.5 — IaC & Policy | `░░░░░░░░░░` 0% | 🔒 Locked |
 | Phase 2 — CI/CD & Containers | `░░░░░░░░░░` 0% | 🔒 Locked |
 | Phase 3 — AppSec & Threat Modeling | `░░░░░░░░░░` 0% | 🔒 Locked |
+| Phase 3.5 — Platform Engineering | `░░░░░░░░░░` 0% | 🔒 Locked |
 | Phase 4 — CISSP Capstone | `░░░░░░░░░░` 0% | 🔒 Locked |
+| Architect Track | `░░░░░░░░░░` 0% | 🔜 Parallel |
+| Portfolio Projects | `0 / 5` | 🔜 Parallel |
 
 ---
 
 ## 🚀 Quick Start
 
 1. **Clone this repo** and start with [`tools/macos-setup.md`](tools/macos-setup.md)
-2. **Install Phase 1 tools** from the setup guide
-3. **Open [`phases/phase-1-cloud.md`](phases/phase-1-cloud.md)** and start checking off tasks
-4. **Log your weekly progress** in [`progress/weekly-log.md`](progress/weekly-log.md)
+2. **Self-assess** [`phases/phase-0-foundation.md`](phases/phase-0-foundation.md) — close any foundation gaps first
+3. **Install Phase 1 tools** from the setup guide, then work [`phases/phase-1-cloud.md`](phases/phase-1-cloud.md)
+4. **Start a portfolio project early** — pick up [`projects/`](projects/) as soon as Phase 1.5 gives you infrastructure
+5. **Run the Architect track in parallel** once you reach Phase 3
+6. **Log your weekly progress** in [`progress/weekly-log.md`](progress/weekly-log.md)
 
 ---
 
-_Last updated: — | Built for macOS 13" MBP 2020_
+_Last updated: 2026-06-23 (v1.2 restructure) | Built for macOS 13" MBP 2020_

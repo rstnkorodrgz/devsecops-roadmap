@@ -47,6 +47,15 @@ Count your checked boxes and update the README table.
 - [ ] `grype` (vulnerability scanner)
 - [ ] Docker Desktop (if not installed)
 
+### 🔗 Supply Chain Security — deep dive
+The basics above (SBOM, signing, SLSA levels) are the entry point. Go one layer deeper — this is a frequent senior interview topic and the backbone of [Project 01](../projects/project-01-secure-cicd.md):
+- [ ] Understand **provenance & attestations** — in-toto, SLSA provenance, what an attestation proves
+- [ ] Generate **keyless signatures** with Cosign (Fulcio + Rekor transparency log) — no key management
+- [ ] **Verify at deploy time**, not just sign at build time — admission rejects unsigned/unattested images (Kyverno `verifyImages` / sigstore policy-controller)
+- [ ] Study real supply-chain attacks (SolarWinds, `event-stream`, dependency confusion, typosquatting) and which control would have stopped each
+- [ ] Dependency integrity — lockfiles, pinning, `npm`/`pip` hash verification, private registry + allow-list
+- [ ] Map your controls to **SLSA levels** and **NIST SSDF "PS" practices** ([architect/secure-sdlc.md](../architect/secure-sdlc.md))
+
 ---
 
 ## 🗓️ Weeks 4–6 — Container Image Security
