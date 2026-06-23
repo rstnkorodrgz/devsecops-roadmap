@@ -1,9 +1,11 @@
-# Phase 0 — Your Existing Foundation
+# Phase 0 — Foundations & Assessment
 
-> These are your earned credentials and the skills they unlock across the roadmap.  
-> Nothing to complete here — this is your **starting advantage map**.
+> **Two parts:** (1) a *starting-advantage map* of credentials you already hold, and (2) a short **foundations track** to solidify the practitioner skills every Senior DevSecOps role assumes. Don't skip Part 2 because it "looks basic" — these are the skills interviewers probe when certifications run out.
+> **Duration:** Weeks 1–4 (run in parallel with the start of Phase 1; skip what you already own).
 
 ---
+
+# Part 1 — Your Existing Foundation (Leverage Map)
 
 ## ✅ Completed Credentials
 
@@ -71,6 +73,51 @@ Areas that will require full study time (no shortcut):
 - 🔶 Threat modeling frameworks (STRIDE, PASTA, LINDDUN)
 - 🔶 Cloud-native AppSec (OWASP API Top 10, service mesh mTLS)
 - 🔶 CISSP Domains 1–3, 5–8
+
+---
+
+# Part 2 — Foundations Track (skills to solidify)
+
+> Self-assess each area honestly. If you can already do everything in a section, check it off and move on. If not, spend a few evenings closing the gap before Phase 1 gets demanding.
+
+## 🐧 Linux
+- [ ] `systemd` — units, `systemctl`, enabling/masking services, dependencies
+- [ ] `journald` / `journalctl` — querying logs, filtering by unit/time/priority
+- [ ] Networking — `ip`, `ss`, `dig`, `curl -v`, routing tables, `/etc/resolv.conf`
+- [ ] Permissions — users/groups, `chmod`/`chown`, SUID/SGID, capabilities
+- [ ] Processes & namespaces — `ps`, `top`, cgroups/namespaces (the basis of containers)
+- [ ] **Bash** — variables, conditionals, loops, functions, `set -euo pipefail`, traps
+
+## 🐍 Python (DevSecOps automation)
+- [ ] Core: virtualenvs, `pip`, type hints, exceptions, f-strings
+- [ ] `requests` — calling APIs, handling auth headers, pagination, retries
+- [ ] `subprocess` — running tools safely (no `shell=True` with user input)
+- [ ] `boto3` — basic AWS automation (list resources, assume roles)
+- [ ] `argparse` + logging — making a real CLI tool
+- [ ] **Mini-project:** a script that audits something (e.g. lists public S3 buckets or IAM keys older than 90 days)
+
+## 🌿 Git & GitHub
+- [ ] Branching, rebasing vs merging, resolving conflicts
+- [ ] **PR workflow** — small PRs, reviews, conventional commits
+- [ ] Branch protection & required status checks
+- [ ] **GitHub Actions basics** — workflows, jobs, steps, secrets, `GITHUB_TOKEN` scoping, OIDC
+- [ ] `.gitignore`, signed commits, never committing secrets (pre-commit + gitleaks)
+
+## 🌐 Networking (applied)
+- [ ] **DNS** — record types, resolution path, caching/TTL, common failures
+- [ ] **TLS** — handshake, certificates/chains, SNI, mTLS, inspecting with `openssl s_client`
+- [ ] **HTTP(S)** — methods, status codes, headers, cookies, CORS, caching
+- [ ] **Load balancers** — L4 vs L7, health checks, TLS termination, sticky sessions
+- [ ] Proxies & reverse proxies, WAF placement in the request path
+
+### Foundations deliverable
+- [ ] One small Python automation script + one GitHub Actions workflow that runs it on PR, committed to a public repo. This becomes warm-up material for [Project 01](../projects/project-01-secure-cicd.md).
+
+## 📚 Resources
+- *The Linux Command Line* — William Shotts (free PDF)
+- *Automate the Boring Stuff with Python* — Al Sweigart (free online)
+- Julia Evans' zines (networking, DNS, Bash) — wizardzines.com
+- GitHub Actions docs — Security hardening for GitHub Actions
 
 ---
 

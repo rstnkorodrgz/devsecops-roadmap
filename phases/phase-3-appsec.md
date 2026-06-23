@@ -1,8 +1,11 @@
 # Phase 3 — Advanced AppSec & Threat Modeling
 
 > **Duration:** Months 6–8 (12 weeks)  
-> **Target Certifications:** GIAC GWEB + GCP Professional Cloud Security Engineer  
+> **Primary outcome:** **PortSwigger Web Security Academy** completion (practical, free, employer-recognized) + a full **Threat Model Report** for your capstone.  
+> **Optional certs:** GCP Professional Cloud Security Engineer; GIAC GWEB *only if your employer pays* — see the [GWEB note](#-note-on-gweb).  
 > **Accelerated by:** SonicWall DPI experience → service mesh observability
+
+> 🔁 **Roadmap v1.2 change:** GWEB was demoted from a required cert to optional. Market demand for cloud-native + Kubernetes security (AWS Sec, CKS) is higher than for GWEB alone, and PortSwigger gives you the same web-AppSec depth, hands-on and free. See [Recommendation #6 rationale in the README](../README.md#-whats-new-in-v12).
 
 ---
 
@@ -17,7 +20,10 @@ Count your checked boxes and update the README table.
 ## 🗓️ Weeks 1–3 — Advanced Threat Modeling
 
 ### Concepts
+- [ ] Master **STRIDE** — the six categories, per-element application, and its limits
 - [ ] Understand PASTA (Process for Attack Simulation & Threat Analysis) — all 7 stages
+- [ ] Learn **MITRE ATT&CK** — tactics vs techniques, how to map threats to real adversary TTPs
+- [ ] Learn **MITRE ATT&CK for Containers/Cloud** — relevant matrices for this roadmap
 - [ ] Understand LINDDUN — privacy-focused threat modeling framework
 - [ ] Learn how to run a threat modeling session in a sprint team setting
 - [ ] Study architecture risk analysis (ARA) — how to quantify architectural risks
@@ -35,6 +41,15 @@ Count your checked boxes and update the README table.
 - [ ] Write a complete threat model document for an API you know well
 - [ ] Build an attack tree for an AWS S3 data exfiltration scenario
 - [ ] Run OWASP Threat Dragon and export findings as JSON
+- [ ] Map your top threats to MITRE ATT&CK technique IDs (e.g. T1078, T1525)
+
+### 📄 Deliverable — Threat Model Report
+- [ ] Produce a complete **Threat Model Report** for your [capstone application](../projects/project-05-devsecops-capstone.md), containing:
+  - System description + architecture diagram with trust boundaries
+  - STRIDE pass per element + a PASTA narrative for the top attack path
+  - Ranked threats (CVSS/DREAD) mapped to **MITRE ATT&CK** technique IDs
+  - Mitigations, and **explicit residual-risk acceptance** for anything unmitigated
+  - Commit it to the capstone repo and link from [`architect/reference-architectures.md`](../architect/reference-architectures.md)
 
 ### Tools to install (see [`../tools/macos-setup.md`](../tools/macos-setup.md))
 - [ ] `threagile` (threat modeling as code)
@@ -106,28 +121,32 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 10–12 — GWEB Exam Prep & Bug Bar
+## 🗓️ Weeks 10–12 — Practical Web AppSec Mastery (PortSwigger) & Bug Bar
+
+> Primary path is hands-on and free. GWEB is optional below.
 
 ### Concepts
-- [ ] Review all GWEB exam domains: web app security, testing, defense
-- [ ] Study secure SDLC — how to embed security at each stage
+- [ ] Study secure SDLC — how to embed security at each stage (deep-dive: [`architect/secure-sdlc.md`](../architect/secure-sdlc.md))
 - [ ] Understand bug bar definition — how to define severity thresholds and SLAs
 - [ ] Learn penetration testing methodology (PTES, OWASP WSTG)
 - [ ] Review XSS (all types), CSRF, SSRF, XXE, IDOR, Insecure Deserialization deeply
 - [ ] Study secure code review methodology — what to look for in code, tooling vs manual
 
-### Exam Prep
-- [ ] Complete GIAC practice exam — GWEB domain 1
-- [ ] Complete GIAC practice exam — GWEB domain 2
-- [ ] Build a personal GWEB cheat sheet / index (GIAC is open-book)
-- [ ] Score 80%+ on two full GIAC practice tests
-- [ ] Schedule GWEB exam
-- [ ] ✅ **PASS GIAC GWEB — Web Application Defender**
+### Practical Path (primary)
+- [ ] Complete the **PortSwigger Web Security Academy** core topics (SQLi, XSS, SSRF, access control, auth, JWT, deserialization)
+- [ ] Finish the "Expert" labs in at least 3 topics you're weakest in
+- [ ] Write a short blog/README walk-through of 2 exploits you solved (portfolio signal)
+- [ ] Run a full OWASP WSTG-guided assessment on your own capstone app and log findings
 
 ### GCP Security Engineer (Optional / Parallel)
 - [ ] Complete Google Cloud Skills Boost — Security Engineer learning path
 - [ ] Pass GCP Professional Cloud Security Engineer exam
 - [ ] ✅ **PASS GCP Professional Cloud Security Engineer** _(optional)_
+
+### <a id="-note-on-gweb"></a>📌 Note on GWEB (optional)
+GIAC GWEB is excellent but expensive (~$2.5k+ with training). Pursue it **only if your employer pays**. If self-funding, the PortSwigger path above plus the threat-model deliverable demonstrate the same web-AppSec competence to hiring managers at zero cost, and your budget is better spent on CKS/CISSP.
+- [ ] _(optional)_ Build a personal GWEB cheat sheet / index (GIAC is open-book)
+- [ ] _(optional)_ Score 80%+ on two full GIAC practice tests → schedule → ✅ **PASS GIAC GWEB**
 
 ---
 
@@ -150,8 +169,8 @@ Count your checked boxes and update the README table.
 - [ ] All weekly concept boxes checked
 - [ ] All hands-on labs completed
 - [ ] All Phase 3 tools installed and tested
-- [ ] GWEB exam passed
-- [ ] Complete threat model document written for a real or realistic system
+- [ ] PortSwigger Web Security Academy core topics completed (GWEB optional)
+- [ ] **Threat Model Report** written for your capstone (STRIDE + PASTA + MITRE ATT&CK mapping)
 - [ ] Multi-cloud IaC scanning pipeline built (Checkov + tfsec)
 - [ ] Weekly log entries written for all 12 weeks
 
