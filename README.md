@@ -22,7 +22,7 @@ This branch restructures the roadmap from *cert progression* to *capability buil
 | 6 | **GWEB demoted to optional**, PortSwigger practical path made primary | [`phases/phase-3-appsec.md`](phases/phase-3-appsec.md#-note-on-gweb) |
 | 7 | **New Architect track** (SABSA, Zero Trust, Secure SDLC, Platform Eng, Reference Architectures) | [`architect/`](architect/) |
 | 8 | **New Portfolio projects** (5 standalone repos + capstone) | [`projects/`](projects/) |
-| 9 | **Reordered certification ladder** (Terraform + CKA + SABSA in, GWEB out of the critical path) | [below](#-certification-ladder) |
+| 9 | **Reordered certification ladder** (Terraform + CKA + SABSA in, GWEB out of the critical path) | [below](#certification-ladder) |
 
 > These are *proposals on a branch* — accept or revert any of them via the diff against `main`.
 
