@@ -81,7 +81,7 @@ Areas that will require full study time (no shortcut):
 > Self-assess each area honestly. If you can already do everything in a section, check it off and move on. If not, spend a few evenings closing the gap before Phase 1 gets demanding.
 
 ## 🐧 Linux
-- [ ] `systemd` — units, `systemctl`, enabling/masking services, dependencies
+- [x] `systemd` — units, `systemctl`, enabling/masking services, dependencies
 - [ ] `journald` / `journalctl` — querying logs, filtering by unit/time/priority
 - [ ] Networking — `ip`, `ss`, `dig`, `curl -v`, routing tables, `/etc/resolv.conf`
 - [ ] Permissions — users/groups, `chmod`/`chown`, SUID/SGID, capabilities
