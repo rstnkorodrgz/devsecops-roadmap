@@ -15,11 +15,18 @@ brew "wget"
 # --- Phase 1: Cloud Security ---
 brew "awscli"
 brew "aws-vault"
-brew "iamlive"
-brew "prowler"
+# iamlive — removed from Homebrew; install.sh uses: go install github.com/iann0036/iamlive@latest
+# prowler — removed from Homebrew; install.sh uses: pip3 install prowler
 tap  "turbot/tap"
 brew "steampipe"
 brew "trufflehog"
+
+# --- Phase 1.5: IaC & Policy as Code ---
+tap  "hashicorp/tap"
+brew "hashicorp/tap/terraform"
+brew "terragrunt"
+brew "conftest"
+brew "infracost"
 
 # --- Phase 2: CI/CD & Container Security ---
 cask "docker"
@@ -53,11 +60,16 @@ brew "nuclei"
 brew "httpie"
 brew "go"
 brew "istioctl"
-brew "tfsec"
+# tfsec — merged into Trivy (installed above); use `trivy config <dir>`
 brew "terrascan"
-brew "terraform"
 cask "google-cloud-sdk"
 brew "azure-cli"
+
+# --- Phase 3.5: Platform Engineering ---
+brew "kustomize"
+brew "argocd"
+brew "kyverno"
+brew "vcluster"
 
 # --- Phase 3 & 4: Python toolchain ---
 brew "python@3.11"

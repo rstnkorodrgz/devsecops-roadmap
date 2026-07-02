@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 # =============================================================================
-#  PATH 2 DEVSECOPS — Automated Tool Installer v1.3
+#  PATH 2 DEVSECOPS — Automated Tool Installer v1.4
 #  macOS · Intel & Apple Silicon
 #
 #  Usage:
 #    bash install.sh              # install all phases + VS Code extensions
-#    bash install.sh --phase 1   # install Phase 1 tools only
-#    bash install.sh --phase 2   # install Phase 2 tools only
-#    bash install.sh --phase 3   # install Phase 3 tools only
-#    bash install.sh --phase 4   # install Phase 4 tools only
+#    bash install.sh --phase 1    # Phase 1 tools only (cloud security)
+#    bash install.sh --phase 1.5  # Phases 1 → 1.5 (adds IaC & policy as code)
+#    bash install.sh --phase 2    # Phases 1 → 2 (adds CI/CD + containers + K8s)
+#    bash install.sh --phase 3    # Phases 1 → 3 (adds AppSec + multi-cloud)
+#    bash install.sh --phase 3.5  # Phases 1 → 3.5 (adds platform engineering)
+#    bash install.sh --phase 4    # Phases 1 → 4 (everything)
 #    bash install.sh --vscode    # install VS Code extensions only
 #    bash install.sh --verify    # verify all tools without installing
 #    bash install.sh --help      # show this help
@@ -95,11 +97,12 @@ print_banner() {
   os_ver=$(sw_vers -productVersion 2>/dev/null || echo "macOS")
   arch_label="${ARCH_LABEL:-$(uname -m)}"
   echo -e "  ${BOLD}${WHITE}╔══════════════════════════════════════════════════════╗${RESET}"
-  echo -e "  ${BOLD}${WHITE}║${RESET}  ${CYAN}${BOLD}PATH 2 DEVSECOPS${RESET}  ${WHITE}— Automated Installer v1.3     ${BOLD}${WHITE}║${RESET}"
-  printf  "  ${BOLD}${WHITE}║${RESET}  ${DIM}%-52s${RESET}${BOLD}${WHITE}║${RESET}\n" "macOS ${os_ver} · ${arch_label}"
+  echo -e "  ${BOLD}${WHITE}║${RESET}  ${CYAN}${BOLD}PATH 2 DEVSECOPS${RESET}  ${WHITE}— Automated Installer v1.4        ${BOLD}${WHITE}║${RESET}"
+  # %-53s pads by bytes, not glyphs — the " · " separator's '·' is 2 bytes/1 glyph
+  printf  "  ${BOLD}${WHITE}║${RESET}  ${DIM}%-53s${RESET}${BOLD}${WHITE}║${RESET}\n" "macOS ${os_ver} · ${arch_label}"
   echo -e "  ${BOLD}${WHITE}╠══════════════════════════════════════════════════════╣${RESET}"
-  echo -e "  ${BOLD}${WHITE}║${RESET}  ${GREEN}AWS SCS-C02${RESET}  ${WHITE}→${RESET}  ${CYAN}CKS${RESET}  ${WHITE}→${RESET}  ${BLUE}GWEB${RESET}  ${WHITE}→${RESET}  ${YELLOW}CISSP${RESET}               ${BOLD}${WHITE}║${RESET}"
-  echo -e "  ${BOLD}${WHITE}║${RESET}  ${DIM}65 tools · 4 phases · 10 months · 4 certifications${RESET}  ${BOLD}${WHITE}║${RESET}"
+  echo -e "  ${BOLD}${WHITE}║${RESET}  ${GREEN}SCS-C02${RESET} ${WHITE}→${RESET} ${CYAN}TF Assoc${RESET} ${WHITE}→${RESET} ${BLUE}CKA${RESET} ${WHITE}→${RESET} ${CYAN}CKS${RESET} ${WHITE}→${RESET} ${YELLOW}CISSP${RESET}              ${BOLD}${WHITE}║${RESET}"
+  echo -e "  ${BOLD}${WHITE}║${RESET}  ${DIM}70+ tools · 7 phases · 12 months · 5 certifications${RESET} ${BOLD}${WHITE}║${RESET}"
   echo -e "  ${BOLD}${WHITE}╚══════════════════════════════════════════════════════╝${RESET}"
   echo ""
   echo -e "  ${DIM}Log file → ${WHITE}${LOG}${RESET}"
@@ -508,6 +511,30 @@ phase1() {
 }
 
 # =============================================================================
+#  PHASE 1.5 — Infrastructure & Policy as Code   (roadmap v1.2+)
+# =============================================================================
+phase15() {
+  section "PHASE 1.5 — IaC & Policy as Code Tools"
+
+  # FIX 14 — terraform: formula moved from core to hashicorp/tap in 2023.
+  if ! brew_tap "hashicorp/tap"; then
+    status_fail "Terraform (IaC)" "hashicorp/tap failed — cannot install terraform"
+  else
+    brew_install "hashicorp/tap/terraform" "Terraform (IaC)"
+  fi
+  brew_install terragrunt "Terragrunt (DRY Terraform wrapper)"
+  brew_install conftest   "conftest (OPA policy testing)"
+  brew_install infracost  "infracost (cost-aware IaC reviews)"
+  brew_install trivy      "trivy ('trivy config' replaces tfsec)"
+  brew_install opa        "opa (Open Policy Agent CLI)"
+  pip_install  "checkov"  "checkov (IaC security scanner)"
+
+  # tflint: no Homebrew formula available — manual install from GitHub releases.
+  echo -e "  ${YELLOW}ℹ  tflint has no Homebrew formula — grab a release from github.com/terraform-linters/tflint${RESET}"
+  log "INFO: tflint skipped — no Homebrew formula"
+}
+
+# =============================================================================
 #  PHASE 2 — CI/CD Pipeline & Container Security
 # =============================================================================
 phase2() {
@@ -542,7 +569,10 @@ phase2() {
   brew_install opa        "opa (Open Policy Agent CLI)"
   brew_install kubectx    "kubectx + kubens"
   brew_install k9s        "k9s (K8s terminal UI)"
-  pip_install  "kube-hunter" "kube-hunter (K8s penetration testing)"
+  # v1.4 — kube-hunter: unmaintained upstream (last release 2022); kubescape
+  #         and `trivy k8s` cover the same ground. Dropped from the install set.
+  echo -e "  ${YELLOW}ℹ  kube-hunter skipped — unmaintained; use kubescape or 'trivy k8s' instead.${RESET}"
+  log "INFO: kube-hunter skipped — unmaintained upstream"
 }
 
 # =============================================================================
@@ -636,15 +666,11 @@ phase3() {
 
   section "PHASE 3 — IaC Security & Multi-Cloud Tools"
 
-  # FIX 14 — terraform: formula moved from core to hashicorp/tap in 2023.
-  if ! brew_tap "hashicorp/tap"; then
-    status_fail "Terraform (IaC)" "hashicorp/tap failed — cannot install terraform"
-  else
-    brew_install "hashicorp/tap/terraform" "Terraform (IaC)"
-  fi
-  brew_install tfsec     "tfsec (Terraform security scanner)"
+  # v1.4 — terraform + checkov now install in Phase 1.5 (which always runs
+  #         before this phase); tfsec was merged into Trivy — use `trivy config`.
+  echo -e "  ${YELLOW}ℹ  tfsec skipped — merged into Trivy; use 'trivy config <dir>' instead.${RESET}"
+  log "INFO: tfsec skipped — deprecated, merged into trivy"
   brew_install terrascan "terrascan (multi-cloud IaC scanner)"
-  pip_install  "checkov" "checkov (IaC security scanner)"
   cask_install google-cloud-sdk "gcloud CLI (GCP)"
   brew_install azure-cli "Azure CLI"
 
@@ -681,6 +707,21 @@ SHIM
     fi
     rm -f "$tmp_th"
   fi
+}
+
+# =============================================================================
+#  PHASE 3.5 — Platform Engineering   (roadmap v1.2+)
+# =============================================================================
+phase35() {
+  section "PHASE 3.5 — Platform Engineering Tools"
+
+  brew_install kustomize "kustomize (K8s config management)"
+  brew_install argocd    "Argo CD CLI (GitOps)"
+  brew_install kyverno   "kyverno CLI (policy admission)"
+  brew_install vcluster  "vcluster (virtual K8s multi-tenancy)"
+
+  echo -e "  ${YELLOW}ℹ  Backstage is a Node app — run 'npx @backstage/create-app' when you reach Week 42.${RESET}"
+  log "INFO: Backstage not installed — Node app, created per-project via npx"
 }
 
 # =============================================================================
@@ -783,6 +824,13 @@ verify_all() {
   verify_cmd trufflehog     "trufflehog"
   verify_cmd detect-secrets "detect-secrets"
 
+  section "Verify — Phase 1.5 (IaC & Policy as Code)"
+  verify_cmd terraform  "Terraform"
+  verify_cmd terragrunt "Terragrunt"
+  verify_cmd conftest   "conftest"
+  verify_cmd infracost  "infracost"
+  verify_cmd checkov    "checkov"
+
   section "Verify — Phase 2 (CI/CD & Containers)"
   verify_cmd docker      "Docker"
   verify_cmd semgrep     "semgrep"
@@ -803,7 +851,6 @@ verify_all() {
   verify_cmd opa          "opa"
   verify_cmd kubectx      "kubectx"
   verify_cmd k9s          "k9s"
-  verify_cmd kube-hunter  "kube-hunter"
 
   section "Verify — Phase 3 (AppSec & IaC)"
   verify_cmd ffuf      "ffuf"
@@ -813,12 +860,15 @@ verify_all() {
   verify_cmd jwt_tool  "jwt_tool"
   verify_cmd threagile "threagile"
   verify_cmd katana    "katana"
-  verify_cmd terraform "Terraform"
-  verify_cmd tfsec     "tfsec"
   verify_cmd terrascan "terrascan"
-  verify_cmd checkov   "checkov"
   verify_cmd gcloud    "gcloud CLI"
   verify_cmd az        "Azure CLI"
+
+  section "Verify — Phase 3.5 (Platform Engineering)"
+  verify_cmd kustomize "kustomize"
+  verify_cmd argocd    "Argo CD CLI"
+  verify_cmd kyverno   "kyverno CLI"
+  verify_cmd vcluster  "vcluster"
 
   section "Verify — Phase 4 (Expert Tools)"
   verify_cmd bandit "bandit"
@@ -912,9 +962,11 @@ usage() {
   echo -e "  ${BOLD}Usage:${RESET}"
   echo -e "    bash install.sh              ${DIM}# all phases + VS Code extensions${RESET}"
   echo -e "    bash install.sh --phase 1   ${DIM}# Phase 1 — cloud security${RESET}"
-  echo -e "    bash install.sh --phase 2   ${DIM}# Phase 2 — CI/CD + containers${RESET}"
-  echo -e "    bash install.sh --phase 3   ${DIM}# Phase 3 — AppSec + IaC${RESET}"
-  echo -e "    bash install.sh --phase 4   ${DIM}# Phase 4 — expert tools${RESET}"
+  echo -e "    bash install.sh --phase 1.5 ${DIM}# + IaC & policy as code${RESET}"
+  echo -e "    bash install.sh --phase 2   ${DIM}# + CI/CD, containers, K8s${RESET}"
+  echo -e "    bash install.sh --phase 3   ${DIM}# + AppSec, multi-cloud${RESET}"
+  echo -e "    bash install.sh --phase 3.5 ${DIM}# + platform engineering${RESET}"
+  echo -e "    bash install.sh --phase 4   ${DIM}# + expert tools (everything)${RESET}"
   echo -e "    bash install.sh --vscode    ${DIM}# VS Code extensions only${RESET}"
   echo -e "    bash install.sh --verify    ${DIM}# verify tools, no install${RESET}"
   echo -e "    bash install.sh --help      ${DIM}# show this message${RESET}"
@@ -933,7 +985,7 @@ main() {
       --phase)
         shift
         if [[ $# -eq 0 ]]; then
-          echo -e "  ${RED}--phase requires an argument (1–4)${RESET}"
+          echo -e "  ${RED}--phase requires an argument (1, 1.5, 2, 3, 3.5 or 4)${RESET}"
           usage; exit 1
         fi
         target_phase="$1"; mode="phase" ;;
@@ -953,17 +1005,19 @@ main() {
     phase)
       phase0
       case "$target_phase" in
-        1) phase1 ;;
-        2) phase1; phase2 ;;
-        3) phase1; phase2; phase3 ;;
-        4) phase1; phase2; phase3; phase4 ;;
+        1)   phase1 ;;
+        1.5) phase1; phase15 ;;
+        2)   phase1; phase15; phase2 ;;
+        3)   phase1; phase15; phase2; phase3 ;;
+        3.5) phase1; phase15; phase2; phase3; phase35 ;;
+        4)   phase1; phase15; phase2; phase3; phase35; phase4 ;;
         *)
-          echo -e "  ${RED}Invalid phase '$target_phase' — use 1, 2, 3 or 4${RESET}"
+          echo -e "  ${RED}Invalid phase '$target_phase' — use 1, 1.5, 2, 3, 3.5 or 4${RESET}"
           usage; exit 1 ;;
       esac
       ;;
     all)
-      phase0; phase1; phase2; phase3; phase4
+      phase0; phase1; phase15; phase2; phase3; phase35; phase4
       vscode_extensions
       ;;
   esac

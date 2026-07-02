@@ -35,7 +35,30 @@ Content-currency and consistency pass on the v1.2 capability-centric restructure
 - **kube-hunter** from Phase 2 tools and tools docs (unmaintained; `kubescape` / `trivy k8s` cover it)
 
 ### Known gaps
-- `install.sh` still installs `tfsec` and `kube-hunter`; harmless but an installer v1.4 should drop them
+- ~~`install.sh` still installs `tfsec` and `kube-hunter`~~ — resolved by installer v1.4.0 (below)
+
+---
+
+## [v1.4.0] — 2026-07-02
+
+Aligns the installer with roadmap v1.3.
+
+### Added
+- **`--phase 1.5`** — IaC & policy-as-code tools: terraform (hashicorp/tap), terragrunt, conftest, infracost, trivy, opa, checkov
+- **`--phase 3.5`** — platform engineering tools: kustomize, argocd, kyverno, vcluster
+- Verify-mode sections for Phases 1.5 and 3.5
+- Brewfile: `hashicorp/tap` terraform plus the Phase 1.5 / 3.5 formulas
+
+### Removed
+- **tfsec** — merged into Trivy; `trivy config <dir>` replaces it (informational message printed instead)
+- **kube-hunter** — unmaintained upstream (last release 2022); kubescape / `trivy k8s` cover it
+- Brewfile: stale `brew "tfsec"`, core `brew "terraform"` (moved to hashicorp/tap), and broken `brew "iamlive"` / `brew "prowler"` lines (both removed from Homebrew — install.sh installs them via `go install` / pip3)
+
+### Changed
+- terraform + checkov installation moved from Phase 3 into Phase 1.5 (phase installs are cumulative, so every path that needs them still gets them; Phase 3 keeps terrascan)
+- tflint: no Homebrew formula available — prints a pointer to GitHub releases instead of failing
+- Banner updated: v1.4, cert ladder now `SCS-C02 → TF Assoc → CKA → CKS → CISSP` (GWEB removed), "70+ tools · 7 phases · 12 months · 5 certifications"; fixed two banner lines that under-padded multi-byte glyphs (`·`, `—`) and broke the box border
+- `--help` and error messages document the new phase arguments
 
 ---
 
