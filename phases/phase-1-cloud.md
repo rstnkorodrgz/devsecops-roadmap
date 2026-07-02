@@ -1,6 +1,6 @@
 # Phase 1 — Cloud Security Foundations
 
-> **Duration:** Months 1–2 (8 weeks)  
+> **Duration:** Weeks 1–8 (Phase 0 runs in parallel with the first weeks)  
 > **Target Certification:** AWS Certified Security Specialty (SCS-C02)  
 > **Accelerated by:** Security+ theory + CCNA networking depth
 
@@ -24,7 +24,7 @@ Count your checked boxes and update the README table.
 - [ ] Study AWS Organizations structure and multi-account patterns
 - [ ] Review Service Control Policies (SCPs) — allow vs deny hierarchy
 - [ ] Learn AWS IAM Access Analyzer — what it detects and how to act on findings
-- [ ] Study CIS AWS Foundations Benchmark v1.5 (read the PDF)
+- [ ] Study CIS AWS Foundations Benchmark v5.0 (read the PDF — this is the version Security Hub scores against)
 
 ### Hands-on Labs
 - [ ] Create an AWS Free Tier account (if not already done)
@@ -56,7 +56,7 @@ Count your checked boxes and update the README table.
 
 ### Hands-on Labs
 - [ ] Enable GuardDuty in your AWS account and generate sample findings
-- [ ] Set up Security Hub with CIS AWS Foundations standard enabled
+- [ ] Set up Security Hub with the CIS AWS Foundations v5.0 standard enabled
 - [ ] Enable CloudTrail with S3 + CloudWatch Logs integration
 - [ ] Create a VPC with public/private subnet isolation
 - [ ] Configure VPC Flow Logs and query them with CloudWatch Insights
@@ -103,7 +103,7 @@ Count your checked boxes and update the README table.
 - [ ] Practice mapping an AWS architecture diagram to STRIDE threats
 - [ ] Learn OWASP Threat Dragon (free threat modeling tool)
 - [ ] Understand the difference between a vulnerability, a threat, and a risk
-- [ ] Study the DREAD scoring system for threat prioritization
+- [ ] Skim DREAD scoring for threat prioritization (deep dive, with CVSS v3.1/v4.0, comes in Phase 3)
 
 ### Hands-on Labs
 - [ ] Install and run OWASP Threat Dragon on your MacBook
@@ -139,7 +139,7 @@ Count your checked boxes and update the README table.
 | Stephane Maarek — AWS Security Specialty (Udemy) | Course | ⭐⭐⭐ |
 | Tutorials Dojo SCS-C02 Practice Exams | Practice | ⭐⭐⭐ |
 | AWS Well-Architected Security Pillar whitepaper | Free PDF | ⭐⭐⭐ |
-| CIS AWS Foundations Benchmark v1.5 | Free PDF | ⭐⭐ |
+| CIS AWS Foundations Benchmark v5.0 | Free PDF | ⭐⭐ |
 | CloudSecDocs.com | Reference | ⭐⭐ |
 
 ---

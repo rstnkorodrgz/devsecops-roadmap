@@ -1,7 +1,41 @@
 # Changelog
 
-All notable changes to `install.sh` are documented here.
+All notable changes to this repo — roadmap content and `install.sh` — are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+---
+
+## Roadmap [v1.3] — 2026-07-02
+
+Content-currency and consistency pass on the v1.2 capability-centric restructure.
+
+### Added
+- **CKA block in Phase 2 (Weeks 19–22)** — a passed, active CKA is a registration prerequisite for CKS; Phase 2 extended from 12 to 16 weeks
+- **AI/LLM security module in Phase 3 (Weeks 38–40)** — OWASP LLM Top 10, prompt injection labs, AI pipeline security, NIST AI RMF awareness
+- **Terraform Associate exam milestone** in Phase 1.5 Week 12
+- **OpenTofu awareness note** in Phase 1.5 (post-IBM acquisition of HashiCorp)
+- **AWS cost note** in the README Quick Start (budget alert + teardown discipline)
+- Resources for Phases 0 / 1.5 / 3.5 and the architect track in `resources/courses.md`
+
+### Changed
+- **Global week numbering across all phases** — honest total of 52 weeks (~12 months); previously mixed local/global schemes summed to 48+ weeks against a "~10 months" claim, with Phase 3.5 colliding with Phase 4
+- **Certification ladder reordered to match phase order** (AWS SCS → Terraform Associate → CKA → CKS → CISSP → SABSA)
+- **CIS AWS Foundations Benchmark v1.5 → v5.0** (published March 2025; what Security Hub scores against)
+- **SLSA references updated to v1.0** — Build track L0–L3; the draft-era "Level 4" no longer exists
+- **CISSP exam facts corrected** — CAT format is 3 hours / 100–150 questions since April 2024 (was listed as 4 hours / 125–175)
+- **CVSS coverage now v3.1 + v4.0** in Phase 3
+- **Pod Security Admission replaces PodSecurityPolicy** in Phase 2 (PSP removed in K8s 1.25, off the CKS exam)
+- **NIST SP 800-88 replaces DoD 5220.22-M** for media sanitization in Phase 4
+- **tfsec → Trivy (`trivy config`)** as the default IaC scanner across phases, Project 03, and tools docs (tfsec merged into Trivy, no new checks)
+- **Phase 4 Full Roadmap Completion Checklist rewritten** — all 7 phases + 5 certs + architect track + 5 projects (previously still listed GWEB and only 3 projects)
+- **Weekly log regenerated** — 52-week table matching the new structure; cert milestones now AWS SCS / Terraform / CKA / CKS / CISSP (GWEB removed)
+- SANS SEC542 / GWEB prep demoted to optional-priority in resources
+
+### Removed
+- **kube-hunter** from Phase 2 tools and tools docs (unmaintained; `kubescape` / `trivy k8s` cover it)
+
+### Known gaps
+- `install.sh` still installs `tfsec` and `kube-hunter`; harmless but an installer v1.4 should drop them
 
 ---
 

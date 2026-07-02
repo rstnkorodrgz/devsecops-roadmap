@@ -271,8 +271,8 @@ brew install helm
 # kube-bench — CIS Kubernetes Benchmark auditor
 brew install kube-bench
 
-# kube-hunter — Kubernetes penetration testing
-pip3 install kube-hunter
+# kube-hunter — DEPRECATED/unmaintained; use kubescape or `trivy k8s` instead
+# pip3 install kube-hunter   # (kept for reference only)
 
 # kubescape — Kubernetes security scanner (NSA/CISA guidelines)
 brew install kubescape
@@ -408,8 +408,8 @@ kubectl get pods -n istio-system
 # checkov — IaC security scanner (Terraform, CloudFormation, K8s manifests)
 pip3 install checkov
 
-# tfsec — Terraform security scanner
-brew install tfsec
+# tfsec — DEPRECATED: merged into Trivy; use `trivy config <dir>` instead
+# brew install tfsec   # (kept for reference only — trivy is installed in Phase 2)
 
 # terrascan — multi-cloud IaC scanner
 brew install terrascan
@@ -427,7 +427,7 @@ az login
 
 # Verify
 checkov --version
-tfsec --version
+trivy --version   # trivy config replaces tfsec
 terrascan version
 terraform version
 gcloud --version
@@ -435,7 +435,7 @@ az --version
 ```
 
 - [ ] `checkov --version` works
-- [ ] `tfsec --version` works
+- [ ] `trivy config --help` works (replaces tfsec)
 - [ ] `terraform version` works
 - [ ] `gcloud --version` works
 - [ ] `az --version` works
@@ -531,7 +531,7 @@ scoutsuite --version
 - [ ] jwt_tool
 - [ ] istioctl
 - [ ] checkov
-- [ ] tfsec
+- [ ] trivy (config mode — replaces tfsec)
 - [ ] terrascan
 - [ ] terraform
 - [ ] gcloud CLI

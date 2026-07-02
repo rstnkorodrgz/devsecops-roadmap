@@ -24,7 +24,7 @@ Terraform / Terragrunt
 
 ## Acceptance criteria
 - [ ] 100% provisioned via Terraform with remote, locked, encrypted state
-- [ ] Checkov + tfsec gate the apply; findings triaged
+- [ ] Checkov + Trivy (`trivy config`) gate the apply; findings triaged
 - [ ] CloudTrail org trail delivers to a separate log-archive account
 - [ ] GuardDuty + Security Hub enabled; at least one finding triaged end-to-end
 - [ ] No IAM users with long-lived keys; OIDC for CI, roles for workloads
@@ -36,7 +36,7 @@ Terraform / Terragrunt
 - [ ] Cost guardrails (budgets, Infracost in CI)
 
 ## Tools
-Terraform · Terragrunt · Checkov · tfsec · Prowler · steampipe · GuardDuty · Security Hub
+Terraform · Terragrunt · Checkov · Trivy · Prowler · steampipe · GuardDuty · Security Hub
 
 ---
 

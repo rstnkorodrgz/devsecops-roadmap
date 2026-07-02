@@ -65,7 +65,7 @@ check "ffuf"               "ffuf -V"
 check "nuclei"             "nuclei -version"
 check "httpie"             "http --version"
 check "threagile"          "threagile --help"
-check "tfsec"              "tfsec --version"
+# tfsec deprecated -> covered by trivy (checked above)
 check "terrascan"          "terrascan version"
 check "checkov"            "checkov --version"
 check "terraform"          "terraform version"

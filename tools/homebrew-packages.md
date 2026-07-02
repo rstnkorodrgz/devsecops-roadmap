@@ -76,7 +76,7 @@ brew "nuclei"
 brew "httpie"
 brew "go"
 brew "istioctl"
-brew "tfsec"
+# brew "tfsec"  # DEPRECATED — merged into trivy; use `trivy config`
 brew "terrascan"
 brew "terraform"
 cask "google-cloud-sdk"
@@ -96,7 +96,7 @@ These tools require manual download or pip install:
 |---|---|---|
 | OWASP Threat Dragon | [GitHub Releases](https://github.com/OWASP/threat-dragon/releases) `.dmg` | 3 |
 | Threagile | [GitHub Releases](https://github.com/Threagile/threagile/releases) binary | 3 |
-| kube-hunter | `pip3 install kube-hunter` | 2 |
+| ~~kube-hunter~~ | unmaintained — use kubescape / `trivy k8s` | 2 |
 | jwt_tool | `pip3 install jwt_tool` | 3 |
 | detect-secrets | `pip3 install detect-secrets` | 1 |
 | checkov | `pip3 install checkov` | 3 |
@@ -115,7 +115,6 @@ These tools require manual download or pip install:
 ```bash
 pip3 install --upgrade pip
 pip3 install \
-  kube-hunter \
   jwt_tool \
   detect-secrets \
   checkov \
@@ -162,7 +161,6 @@ tools=(
   "ffuf -V"
   "nuclei -version"
   "http --version"
-  "tfsec --version"
   "terraform version"
   "gcloud --version"
   "az --version"

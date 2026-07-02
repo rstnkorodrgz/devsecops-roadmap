@@ -1,6 +1,6 @@
-# Phase 3 — Advanced AppSec & Threat Modeling
+# Phase 3 — Advanced AppSec, Threat Modeling & AI Security
 
-> **Duration:** Months 6–8 (12 weeks)  
+> **Duration:** Weeks 29–40 (12 weeks)  
 > **Primary outcome:** **PortSwigger Web Security Academy** completion (practical, free, employer-recognized) + a full **Threat Model Report** for your capstone.  
 > **Optional certs:** GCP Professional Cloud Security Engineer; GIAC GWEB *only if your employer pays* — see the [GWEB note](#-note-on-gweb).  
 > **Accelerated by:** SonicWall DPI experience → service mesh observability
@@ -13,11 +13,11 @@
 
 Count your checked boxes and update the README table.
 
-`Week 1–3` `Week 4–6` `Week 7–9` `Week 10–12`
+`Weeks 29–31` `Weeks 32–34` `Weeks 35–37` `Weeks 38–40`
 
 ---
 
-## 🗓️ Weeks 1–3 — Advanced Threat Modeling
+## 🗓️ Weeks 29–31 — Advanced Threat Modeling
 
 ### Concepts
 - [ ] Master **STRIDE** — the six categories, per-element application, and its limits
@@ -31,7 +31,7 @@ Count your checked boxes and update the README table.
 - [ ] Understand attack trees — how to construct and use them
 - [ ] Study red team vs threat modeling — complementary, not competing
 - [ ] Learn how to write a threat model document (assets, threats, mitigations, residual risk)
-- [ ] Study CVSS v3.1 scoring — how to score vulnerabilities accurately
+- [ ] Study CVSS scoring — v3.1 (still what most scanners emit) **and v4.0** (new threat/environmental metrics, supplemental attributes)
 - [ ] Understand DREAD — alternative risk scoring (Damage, Reproducibility, Exploitability, Affected users, Discoverability)
 
 ### Hands-on Labs
@@ -58,7 +58,7 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 4–6 — Cloud-Native AppSec & API Security
+## 🗓️ Weeks 32–34 — Cloud-Native AppSec & API Security
 
 ### Concepts
 - [ ] Study OWASP API Security Top 10 (2023 edition) — know every category deeply
@@ -91,7 +91,7 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 7–9 — Multi-Cloud Security & CSPM
+## 🗓️ Weeks 35–37 — Multi-Cloud Security & CSPM
 
 ### Concepts
 - [ ] Understand Cloud Security Posture Management (CSPM) — what it detects, how it differs from CSEM
@@ -114,14 +114,14 @@ Count your checked boxes and update the README table.
 
 ### Tools to install
 - [ ] `checkov` (IaC security scanner — Python)
-- [ ] `tfsec` (Terraform security scanner)
+- [ ] `trivy` (`trivy config` — successor to the deprecated tfsec)
 - [ ] `terrascan` (multi-cloud IaC scanner)
 - [ ] `gcloud` CLI (GCP — for GCP Security Engineer cert)
 - [ ] `az` CLI (Azure CLI — for multi-cloud awareness)
 
 ---
 
-## 🗓️ Weeks 10–12 — Practical Web AppSec Mastery (PortSwigger) & Bug Bar
+## 🗓️ Weeks 38–40 — Practical Web AppSec (PortSwigger), AI/LLM Security & Bug Bar
 
 > Primary path is hands-on and free. GWEB is optional below.
 
@@ -137,6 +137,23 @@ Count your checked boxes and update the README table.
 - [ ] Finish the "Expert" labs in at least 3 topics you're weakest in
 - [ ] Write a short blog/README walk-through of 2 exploits you solved (portfolio signal)
 - [ ] Run a full OWASP WSTG-guided assessment on your own capstone app and log findings
+
+### 🤖 AI/LLM Security (new in v1.3)
+
+> AI security shows up in most 2026 senior DevSecOps job descriptions. This is the minimum viable coverage — treat it like any other attack surface.
+
+#### Concepts
+- [ ] Study the **OWASP Top 10 for LLM Applications** — prompt injection (direct & indirect), insecure output handling, sensitive data disclosure, excessive agency
+- [ ] Understand **AI pipeline security** — training data poisoning, model provenance & signing, model registry access control (the supply chain lens from Phase 2 applied to models)
+- [ ] Learn LLM app patterns and their risks — RAG (retrieval poisoning), tool-use/agents (privilege escalation via tools), output validation before execution
+- [ ] Skim the **NIST AI Risk Management Framework** — enough to place AI risk in a governance conversation
+- [ ] Understand where classic controls still apply: secrets in prompts, tenant isolation of context, logging/audit of model I/O
+
+#### Hands-on Labs
+- [ ] Complete a prompt-injection lab (e.g. Lakera's Gandalf, or PortSwigger's LLM attack labs)
+- [ ] Build a small LLM-backed app (API + one tool call) and **threat-model it** — STRIDE plus the LLM Top 10 as a checklist
+- [ ] Add guardrails and demonstrate one blocked attack (input filtering, output validation, tool allow-listing)
+- [ ] Extend your capstone Threat Model Report with an AI/LLM section if the capstone gains any AI-assisted feature
 
 ### GCP Security Engineer (Optional / Parallel)
 - [ ] Complete Google Cloud Skills Boost — Security Engineer learning path
@@ -156,8 +173,9 @@ GIAC GWEB is excellent but expensive (~$2.5k+ with training). Pursue it **only i
 |---|---|---|
 | "The Web Application Hacker's Handbook" | Book | ⭐⭐⭐ |
 | PortSwigger Web Security Academy (free) | Labs | ⭐⭐⭐ |
-| GIAC GWEB Course (SANS SEC542 or self-study) | Course | ⭐⭐⭐ |
 | OWASP API Security Top 10 (owasp.org) | Free | ⭐⭐⭐ |
+| OWASP Top 10 for LLM Applications (free) | Free | ⭐⭐⭐ |
+| GIAC GWEB Course (SANS SEC542) | Course | ⭐ _(optional — only if employer-funded)_ |
 | crAPI — Completely Ridiculous API (lab) | Lab | ⭐⭐⭐ |
 | Istio Security Documentation | Reference | ⭐⭐ |
 | Google Cloud Security Best Practices | Free | ⭐⭐ |
@@ -170,8 +188,9 @@ GIAC GWEB is excellent but expensive (~$2.5k+ with training). Pursue it **only i
 - [ ] All hands-on labs completed
 - [ ] All Phase 3 tools installed and tested
 - [ ] PortSwigger Web Security Academy core topics completed (GWEB optional)
+- [ ] AI/LLM security section completed — one prompt-injection lab + one threat-modeled LLM app
 - [ ] **Threat Model Report** written for your capstone (STRIDE + PASTA + MITRE ATT&CK mapping)
-- [ ] Multi-cloud IaC scanning pipeline built (Checkov + tfsec)
+- [ ] Multi-cloud IaC scanning pipeline built (Checkov + Trivy)
 - [ ] Weekly log entries written for all 12 weeks
 
 ---

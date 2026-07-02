@@ -24,6 +24,7 @@ Count your checked boxes and update the README table.
 - [ ] Learn `for_each` vs `count` and when to use each
 - [ ] Understand the dependency graph and `depends_on`
 - [ ] Study workspaces vs directory-per-environment patterns
+- [ ] Know that **OpenTofu** exists (the open-source fork, post-IBM acquisition of HashiCorp) — syntax-compatible; the cert target remains Terraform Associate, but some shops have migrated
 
 ### Hands-on Labs
 - [ ] Provision a single AWS S3 bucket + IAM policy from scratch
@@ -55,7 +56,7 @@ Count your checked boxes and update the README table.
 
 ### Concepts
 - [ ] Understand **Checkov** — policy packs, custom checks, baselines, suppressions
-- [ ] Understand **tfsec / Trivy config** — Terraform misconfiguration scanning
+- [ ] Understand **Trivy** (`trivy config`) — Terraform misconfiguration scanning (successor to the now-deprecated tfsec; legacy tfsec rule IDs map to Trivy AVD IDs)
 - [ ] Learn **OPA / Rego** fundamentals and **Conftest** for arbitrary config
 - [ ] Study **Sentinel** (Terraform Cloud/Enterprise) at a conceptual level
 - [ ] Understand the difference between *preventive* (policy gate) and *detective* (drift/scan) controls
@@ -87,9 +88,15 @@ Terraform / Terragrunt
 ### Deliverables
 - [ ] Versioned Terraform modules for VPC + EKS in a public repo
 - [ ] Remote state with locking and encrypted backend
-- [ ] CI pipeline: `fmt` → `validate` → `plan` → Checkov → `tfsec` → manual approve → `apply`
+- [ ] CI pipeline: `fmt` → `validate` → `plan` → Checkov → `trivy config` → manual approve → `apply`
 - [ ] A `SECURITY.md` documenting the controls enforced by the pipeline
 - [ ] Architecture diagram (`.png` + source) committed to the repo
+
+### 🎓 Terraform Associate (003) exam milestone
+- [ ] Work through the official HashiCorp exam review guide — flag weak objectives
+- [ ] Complete two full practice exams (e.g. Bryan Krausen's on Udemy) at 85%+
+- [ ] Schedule the exam (online proctored, 60 min, ~57 questions)
+- [ ] ✅ **PASS HashiCorp Terraform Associate (003)**
 
 ---
 
@@ -97,7 +104,7 @@ Terraform / Terragrunt
 - [ ] `terraform` (via `hashicorp/tap`)
 - [ ] `terragrunt`
 - [ ] `checkov`
-- [ ] `tfsec` (or `trivy config`)
+- [ ] `trivy` (`trivy config` replaces the deprecated `tfsec`)
 - [ ] `opa` + `conftest`
 - [ ] `tflint`
 - [ ] `infracost` (cost-aware reviews — bonus)

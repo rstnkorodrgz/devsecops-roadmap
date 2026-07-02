@@ -38,7 +38,7 @@ By the end of this track you should be able to, on a whiteboard, in 45 minutes:
 See the [root README](../README.md#certification-ladder) for the full rationale.
 
 ```
-Security+  →  Terraform Associate  →  AWS Security Specialty
+Security+  →  AWS Security Specialty  →  Terraform Associate
           →  CKA  →  CKS  →  CISSP  →  SABSA (SCF/SCP)
 ```
 

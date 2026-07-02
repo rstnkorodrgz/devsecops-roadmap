@@ -1,6 +1,6 @@
 # Phase 3.5 — Platform Engineering & Paved Roads
 
-> **Duration:** Weeks 33–36 (bridges AppSec → Architect track)
+> **Duration:** Weeks 41–44 (bridges AppSec → Architect track)
 > **Target outcome:** A working Internal Developer Platform (IDP) slice that makes the *secure* path the *easy* path.
 > **Why this phase exists:** This is the bridge from Senior → Architect. Architect interviews increasingly center on self-service platforms, golden paths, and multi-tenancy — not on running scanners.
 
@@ -8,11 +8,11 @@
 
 ## 📊 Phase Progress
 
-`Week 33` `Week 34` `Week 35` `Week 36`
+`Week 41` `Week 42` `Week 43` `Week 44`
 
 ---
 
-## 🗓️ Week 33 — Platform Engineering Foundations
+## 🗓️ Week 41 — Platform Engineering Foundations
 
 ### Concepts
 - [ ] Understand the **Internal Developer Platform (IDP)** model vs "DevOps team as ticket queue"
@@ -28,7 +28,7 @@
 
 ---
 
-## 🗓️ Week 34 — Backstage & Service Catalogs
+## 🗓️ Week 42 — Backstage & Service Catalogs
 
 ### Concepts
 - [ ] Understand **Backstage** — software catalog, TechDocs, scaffolder templates
@@ -43,7 +43,7 @@
 
 ---
 
-## 🗓️ Week 35 — Self-Service Infrastructure & GitOps
+## 🗓️ Week 43 — Self-Service Infrastructure & GitOps
 
 ### Concepts
 - [ ] Understand **GitOps** (Argo CD / Flux) — desired state in Git, reconciliation
@@ -59,7 +59,7 @@
 
 ---
 
-## 🗓️ Week 36 — Kubernetes Multi-Tenancy
+## 🗓️ Week 44 — Kubernetes Multi-Tenancy
 
 ### Concepts
 - [ ] Understand soft vs hard multi-tenancy

@@ -1,6 +1,6 @@
 # Phase 4 — Expert Capstone & CISSP
 
-> **Duration:** Months 9–10 (8 weeks)  
+> **Duration:** Weeks 45–52 (8 weeks)  
 > **Target Certification:** CISSP — Certified Information Systems Security Professional  
 > **Accelerated by:** Security+ (theory) + CCNA (Domain 4 = ~13% of exam)
 
@@ -10,11 +10,11 @@
 
 Count your checked boxes and update the README table.
 
-`Week 1–2` `Week 3–4` `Week 5–6` `Week 7–8`
+`Weeks 45–46` `Weeks 47–48` `Weeks 49–50` `Weeks 51–52`
 
 ---
 
-## 🗓️ Weeks 1–2 — CISSP Domains 1–4
+## 🗓️ Weeks 45–46 — CISSP Domains 1–4
 
 ### Domain 1 — Security & Risk Management (15%)
 - [ ] Understand CIA triad, security governance, and organizational roles (CISO, DPO, etc.)
@@ -30,7 +30,7 @@ Count your checked boxes and update the README table.
 - [ ] Understand data classification — public, internal, confidential, restricted
 - [ ] Learn data ownership roles — owner, custodian, steward, processor, controller
 - [ ] Study data lifecycle — creation, storage, use, sharing, archival, destruction
-- [ ] Understand data remanence and secure disposal methods (DoD 5220.22-M, degaussing)
+- [ ] Understand data remanence and secure disposal methods — **NIST SP 800-88** clear/purge/destroy (supersedes the old DoD 5220.22-M reference)
 - [ ] Learn privacy concepts — GDPR, CCPA, data minimization, purpose limitation
 
 ### Domain 3 — Security Architecture & Engineering (13%)
@@ -53,7 +53,7 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 3–4 — CISSP Domains 5–8
+## 🗓️ Weeks 47–48 — CISSP Domains 5–8
 
 ### Domain 5 — Identity & Access Management (13%)
 - [ ] Understand authentication factors and MFA
@@ -89,15 +89,15 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 5–6 — Compliance, Governance & Emerging Threats
+## 🗓️ Weeks 49–50 — Compliance, Governance & Emerging Threats
 
 ### Concepts
 - [ ] Deep dive ISO 27001 — ISMS structure, controls (Annex A), certification process
 - [ ] Study SOC 2 — Trust Service Criteria, Type I vs Type II reports
 - [ ] Understand NIST Cybersecurity Framework 2.0 — Govern, Identify, Protect, Detect, Respond, Recover
 - [ ] Learn NIST SP 800-53 — control families and baselines
-- [ ] Study AI/ML pipeline security — model poisoning, prompt injection, training data integrity
-- [ ] Understand LLM security risks — OWASP LLM Top 10
+- [ ] Review AI/ML pipeline security — model poisoning, prompt injection, training data integrity (hands-on deep dive was [Phase 3, Weeks 38–40](phase-3-appsec.md))
+- [ ] Review LLM security risks — OWASP LLM Top 10 (through the CISSP governance lens)
 - [ ] Learn eBPF-based runtime security — how Tetragon and similar tools work
 - [ ] Study software supply chain attacks — SolarWinds, XZ Utils — what went wrong, how to prevent
 
@@ -112,7 +112,7 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 7–8 — CISSP Exam Prep & Final Review
+## 🗓️ Weeks 51–52 — CISSP Exam Prep & Final Review
 
 ### Study Strategy
 - [ ] Take full-length CISSP practice exam (250 questions) — Session 1 — record score
@@ -132,7 +132,7 @@ Count your checked boxes and update the README table.
 ### Exam Day
 - [ ] Bring two forms of valid ID
 - [ ] Arrive 30 minutes early
-- [ ] Remember: CISSP is adaptive (CAT format) — 125–175 questions, 4 hours
+- [ ] Remember: CISSP is adaptive (CAT format) — **100–150 questions, 3 hours** (changed April 2024); you cannot skip or revisit questions
 - [ ] Answer as a "senior security manager" not a technician
 - [ ] ✅ **PASS CISSP — Certified Information Systems Security Professional**
 
@@ -160,14 +160,17 @@ Count your checked boxes and update the README table.
 
 ## 🏆 Full Roadmap Completion Checklist
 
-- [ ] Phase 1 complete — AWS Security Specialty ✅
-- [ ] Phase 2 complete — CKS ✅
-- [ ] Phase 3 complete — GIAC GWEB ✅
-- [ ] Phase 4 complete — CISSP ✅
-- [ ] Portfolio GitHub repo published and public
+- [ ] Phase 0 complete — foundations self-assessment closed, warm-up script + workflow published
+- [ ] Phase 1 complete — **AWS Security Specialty (SCS-C02)** ✅
+- [ ] Phase 1.5 complete — **Terraform Associate (003)** ✅ + secure landing zone repo
+- [ ] Phase 2 complete — **CKA** ✅ then **CKS** ✅
+- [ ] Phase 3 complete — PortSwigger core topics + Threat Model Report + AI/LLM module (GWEB optional)
+- [ ] Phase 3.5 complete — working paved-road slice (Backstage + GitOps + admission control)
+- [ ] Phase 4 complete — **CISSP** ✅
+- [ ] Architect track complete — all six modules + deliverables in `architect/`
+- [ ] All **5 portfolio projects** published as public repos (capstone included)
 - [ ] LinkedIn updated with all new certifications
-- [ ] At least 3 real-world security projects documented in repo
-- [ ] Resume updated with DevSecOps Engineer title
+- [ ] Resume updated targeting **Senior DevSecOps Engineer / Security Architect** roles
 
 ---
 

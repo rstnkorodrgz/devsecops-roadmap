@@ -1,8 +1,8 @@
-# Phase 2 — CI/CD Pipeline & Container Security
+# Phase 2 — CI/CD Pipeline, Container & Kubernetes Security
 
-> **Duration:** Months 3–5 (12 weeks)  
-> **Target Certification:** CKS — Certified Kubernetes Security Specialist  
-> **Accelerated by:** Networking knowledge → Kubernetes CNI & NetworkPolicy
+> **Duration:** Weeks 13–28 (16 weeks)  
+> **Target Certifications:** CKA → CKS. **CKA is not optional:** a passed, active CKA is required before you can register for CKS, so it gets its own block below.  
+> **Accelerated by:** Networking knowledge → Kubernetes CNI & NetworkPolicy; senior DevOps experience → most CKA domains are review
 
 ---
 
@@ -10,17 +10,17 @@
 
 Count your checked boxes and update the README table.
 
-`Week 1–3` `Week 4–6` `Week 7–9` `Week 10–12`
+`Weeks 13–15` `Weeks 16–18` `Weeks 19–22` `Weeks 23–25` `Weeks 26–28`
 
 ---
 
-## 🗓️ Weeks 1–3 — Secure CI/CD Pipelines
+## 🗓️ Weeks 13–15 — Secure CI/CD Pipelines
 
 ### Concepts
 - [ ] Understand SAST (Static Analysis) — how it works, what it finds, limitations
 - [ ] Understand DAST (Dynamic Analysis) — how it works, when to run it
 - [ ] Understand SCA (Software Composition Analysis) — dependency vulnerability scanning
-- [ ] Learn SLSA supply chain security framework — levels 1 through 4
+- [ ] Learn the SLSA v1.0 supply chain framework — Build track levels L0–L3 and what each requires (the old draft's "Level 4" no longer exists)
 - [ ] Study artifact signing with Sigstore / Cosign
 - [ ] Understand SBOM (Software Bill of Materials) — formats (CycloneDX, SPDX), generation, consumption
 - [ ] Learn GitHub Actions security hardening — token scoping, pinning actions by SHA
@@ -54,11 +54,11 @@ The basics above (SBOM, signing, SLSA levels) are the entry point. Go one layer 
 - [ ] **Verify at deploy time**, not just sign at build time — admission rejects unsigned/unattested images (Kyverno `verifyImages` / sigstore policy-controller)
 - [ ] Study real supply-chain attacks (SolarWinds, `event-stream`, dependency confusion, typosquatting) and which control would have stopped each
 - [ ] Dependency integrity — lockfiles, pinning, `npm`/`pip` hash verification, private registry + allow-list
-- [ ] Map your controls to **SLSA levels** and **NIST SSDF "PS" practices** ([architect/secure-sdlc.md](../architect/secure-sdlc.md))
+- [ ] Map your controls to **SLSA v1.0 Build levels** and **NIST SSDF "PS" practices** ([architect/secure-sdlc.md](../architect/secure-sdlc.md))
 
 ---
 
-## 🗓️ Weeks 4–6 — Container Image Security
+## 🗓️ Weeks 16–18 — Container Image Security
 
 ### Concepts
 - [ ] Understand the container image attack surface — layers, registries, runtime
@@ -87,7 +87,29 @@ The basics above (SBOM, signing, SLSA levels) are the entry point. Go one layer 
 
 ---
 
-## 🗓️ Weeks 7–9 — Kubernetes Security
+## 🗓️ Weeks 19–22 — Kubernetes Operations & CKA
+
+> **Why this block exists (v1.3):** the Linux Foundation requires a passed, active **CKA** before you can register for CKS. As a senior DevOps engineer much of this is review — spend the four weeks on gaps and exam-speed practice, not on relearning basics.
+
+### Concepts (current CKA curriculum)
+- [ ] Cluster architecture & lifecycle — `kubeadm` install, upgrades, etcd backup/restore
+- [ ] Workloads & scheduling — Deployments, rolling updates/rollbacks, taints/tolerations, affinity
+- [ ] Services & networking — Service types, Ingress, **Gateway API**, CoreDNS
+- [ ] Storage — PV/PVC, StorageClasses, dynamic provisioning, access modes
+- [ ] **Helm & Kustomize** — both are in the current CKA curriculum
+- [ ] Troubleshooting — nodes, control plane, and application failures (the highest-weight domain)
+
+### Hands-on Labs & Exam Prep
+- [ ] Build a multi-node cluster with `kubeadm` (VMs via UTM/multipass, or a cheap cloud VM)
+- [ ] Perform an etcd backup and restore; upgrade the cluster one minor version
+- [ ] Break a cluster on purpose (kubelet down, wrong CNI, bad cert) and repair it under time pressure
+- [ ] Complete killer.sh CKA simulator — both sessions
+- [ ] Schedule the CKA exam (online proctored, 2 hours, performance-based)
+- [ ] ✅ **PASS CKA — Certified Kubernetes Administrator**
+
+---
+
+## 🗓️ Weeks 23–25 — Kubernetes Security
 
 ### Concepts
 - [ ] Understand Kubernetes RBAC — Roles, ClusterRoles, Bindings, ServiceAccounts
@@ -117,22 +139,21 @@ The basics above (SBOM, signing, SLSA levels) are the entry point. Go one layer 
 - [ ] `kind` (local Kubernetes clusters)
 - [ ] `helm` (Kubernetes package manager)
 - [ ] `kube-bench` (CIS Kubernetes Benchmark auditor)
-- [ ] `kube-hunter` (Kubernetes penetration testing)
-- [ ] `kubescape` (Kubernetes security scanner)
+- [ ] `kubescape` (Kubernetes security scanner — also covers what the now-unmaintained `kube-hunter` did; `trivy k8s` is another option)
 - [ ] `falco` (runtime security — install via Helm in cluster)
 - [ ] `opa` (Open Policy Agent CLI)
 
 ---
 
-## 🗓️ Weeks 10–12 — Supply Chain & CKS Exam Prep
+## 🗓️ Weeks 26–28 — Supply Chain & CKS Exam Prep
 
 ### Concepts
-- [ ] Review SLSA framework levels in depth — what attestations are required at each level
+- [ ] Review SLSA v1.0 Build levels in depth — what provenance/attestations are required at each level
 - [ ] Understand in-toto framework for software supply chain security
 - [ ] Study Kubernetes audit logging — policy configuration, log analysis
 - [ ] Learn image admission control — only allow signed/scanned images from approved registries
 - [ ] Review all CKS exam domains: Cluster Setup, Hardening, Supply Chain, Runtime, Monitoring
-- [ ] Study minimize microservice vulnerabilities domain (securityContext, PodSecurityPolicy migration)
+- [ ] Study minimize microservice vulnerabilities domain (securityContext, **Pod Security Admission** — PSP was removed in K8s 1.25 and is no longer on the exam)
 
 ### Exam Prep
 - [ ] Complete killer.sh CKS simulator (comes with exam purchase) — Session 1
@@ -148,6 +169,8 @@ The basics above (SBOM, signing, SLSA levels) are the entry point. Go one layer 
 
 | Resource | Type | Priority |
 |---|---|---|
+| KodeKloud CKA Course (Mumshad Mannambeth) | Course | ⭐⭐⭐ |
+| Killer.sh CKA Simulator (included with exam) | Practice | ⭐⭐⭐ |
 | Killer.sh CKS Simulator | Practice | ⭐⭐⭐ |
 | "Container Security" — Liz Rice (O'Reilly) | Book | ⭐⭐⭐ |
 | KodeKloud CKS Course | Course | ⭐⭐⭐ |
@@ -163,9 +186,10 @@ The basics above (SBOM, signing, SLSA levels) are the entry point. Go one layer 
 - [ ] All weekly concept boxes checked
 - [ ] All hands-on labs completed
 - [ ] All Phase 2 tools installed and tested
+- [ ] CKA exam passed (prerequisite for CKS registration)
 - [ ] CKS exam passed
 - [ ] At least one full pipeline (SAST + SCA + image scan + sign) built end-to-end
-- [ ] Weekly log entries written for all 12 weeks
+- [ ] Weekly log entries written for all 16 weeks
 
 ---
 
