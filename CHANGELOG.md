@@ -5,6 +5,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## Roadmap [v2.1] — 2026-07-04 — API Track + Credential Refresh
+
+Content pass: adds the hands-on API track and cleans the credential presentation for recruiters.
+
+### Added
+- **`api-track/`** — a hands-on Build → Secure → Test → Break API path with a runnable FastAPI "Findings API" scaffold (SQLModel + SQLite, Docker, pytest; verified 4/4 tests + live boot). Ships an intentional BOLA closed in Phase 2 / exploited in Phase 4. Companion to `tracks/appsec.md` Module B; feeds Pillars C and D.
+- **Networking / network-security refresh training** — new Phase 0 section in `resources/courses.md` (John Savill Azure Networking Master Class, Practical Networking, Microsoft Learn network paths) and `**Refresh with:**` pointers in `phases/phase-0-foundation.md`.
+
+### Changed
+- **Credential Baseline (README) lists active credentials only** — expired CCNA and SonicWall Administrator removed from the recruiter-facing snapshot; replaced with a one-line note that the underlying networking/network-security foundation is being refreshed to cloud-native.
+- **Phase 0 Leverage Map reframed** — "Completed Credentials" → "Active Credential" + a new "Prior Experience — Refresh to Cloud-Native" section; the legacy→modern tables are now refresh checklists rather than "certs you already hold."
+- **CISSP-contingency D4 note** de-references the lapsed CCNA (now "networking foundation refreshed in Phase 0").
+
+---
+
 ## Roadmap [v2.0] — 2026-07-03 — Technical Expertise Track
 
 Strategy shift: deep technical IC track (senior → staff/principal). Azure-primary. Quarterly artifact rule.

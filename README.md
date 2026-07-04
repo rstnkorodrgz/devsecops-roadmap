@@ -1,4 +1,4 @@
-# 🛡️ DevSecOps Roadmap v2.0 — Technical Expertise Track
+# 🛡️ DevSecOps Roadmap v2.1 — Technical Expertise Track
 
 > **Goal:** Senior DevSecOps → **Staff/Principal (deep technical IC)** — not the management ladder
 > **Duration:** 18 months of certification phases + an open-ended technical ladder (the Pillars)
@@ -7,6 +7,11 @@
 > **Budget:** 8–10 hrs/week (two weeknights + one weekend block)
 
 ---
+
+## 🆕 What's new in v2.1 (2026-07-04)
+
+- **API track added** — [`api-track/`](api-track/): a hands-on Build → Secure → Test → Break path with a runnable FastAPI scaffold. Companion to [tracks/appsec.md](tracks/appsec.md).
+- **Credential presentation cleaned for recruiters** — the baseline now lists active credentials only; older networking / firewall certs are reframed as a *foundation to refresh* in [Phase 0](phases/phase-0-foundation.md), with modern refresher training added.
 
 ## ⭐ What's new in v2.0
 
@@ -28,9 +33,9 @@ Full history in [`CHANGELOG.md`](CHANGELOG.md).
 
 | Credential | Status | Notes |
 |---|---|---|
-| CompTIA Security+ | ✅ Active | Theory foundation covered |
-| CCNA | ⚠️ Expired | Networking knowledge intact — accelerates Phases 2–4 |
-| SonicWall Administrator | ⚠️ Expired | Firewall/IDS experience → Phase 4 SecOps |
+| CompTIA Security+ | ✅ Active | Theory foundation across the roadmap |
+
+> Backed by hands-on **networking and network-security** experience — routing & segmentation, firewall and IDS/IPS administration — now being **refreshed to its cloud-native equivalents** in [Phase 0](phases/phase-0-foundation.md). Only current, active certifications are listed above.
 
 ---
 
@@ -120,4 +125,4 @@ devsecops-roadmap/
 
 ---
 
-_Last updated: 2026-07-03 (v2.0 — technical expertise track) | Azure-primary · quarterly artifacts · 8–10 hrs/week_
+_Last updated: 2026-07-04 (v2.1 — API track + credential refresh) | Azure-primary · quarterly artifacts · 8–10 hrs/week_

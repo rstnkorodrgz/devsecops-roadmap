@@ -7,7 +7,7 @@
 
 # Part 1 — Your Existing Foundation (Leverage Map)
 
-## ✅ Completed Credentials
+## ✅ Active Credential
 
 ### CompTIA Security+ (Active)
 Covers the theory layer for the entire roadmap. Key areas that carry forward:
@@ -20,10 +20,13 @@ Covers the theory layer for the entire roadmap. Key areas that carry forward:
 
 ---
 
-### CCNA — Cisco Certified Network Associate (Expired)
-Knowledge is intact even if certification is lapsed. Key areas that carry forward:
+## 🔄 Prior Experience — Refresh to Cloud-Native
 
-| CCNA Domain | DevSecOps Application | Phase |
+> You carry hands-on networking and network-security experience from earlier roles. The knowledge is real but **dated** — the job here is to refresh each area to its current cloud-native equivalent, not to lean on it as-is. Treat the tables below as a refresh checklist, not a victory lap.
+
+### Networking foundation → cloud-native
+
+| Legacy networking skill | Current equivalent to refresh into | Phase |
 |---|---|---|
 | Subnetting & VLANs | VNet design, subnet isolation, NSGs | Phases 1 & 4 |
 | Routing protocols | Hub-spoke routing, UDRs, Azure Firewall | Phase 4 |
@@ -33,31 +36,36 @@ Knowledge is intact even if certification is lapsed. Key areas that carry forwar
 | Port security | Kubernetes NetworkPolicy, CNI | Phases 2–3 |
 | Network segmentation | Zero-trust, micro-segmentation | Pillar D |
 | OSI model depth | mTLS, service mesh concepts | Track: AppSec |
-| TCP/IP fundamentals | CCSP D3 / CISSP D4 (if triggered) | Phase 5 |
+| TCP/IP fundamentals | CCSP D3 infrastructure content | Phase 5 |
 
-> 💡 **ISC2 note:** your CCNA maps directly onto CCSP Domain 3 infrastructure content (Phase 5) — and if the [CISSP contingency](../electives/cissp-contingency.md) ever fires, Domain 4 (~13% of that exam) is nearly free.
+**Refresh with:** John Savill's *Azure Networking Master Class* (YouTube, free) · Microsoft Learn — *Configure and manage virtual networks* · Julia Evans' networking/DNS zines.
+
+> 💡 **ISC2 note:** this networking foundation maps directly onto CCSP Domain 3 infrastructure content (Phase 5) — and if the [CISSP contingency](../electives/cissp-contingency.md) ever fires, Domain 4 (~13% of that exam) is largely review.
 
 ---
 
-### SonicWall Administrator (Expired)
-Hands-on firewall administration experience that maps to modern cloud-native security:
+### Network-security / firewall foundation → cloud-native
 
-| SonicWall Skill | Modern Equivalent | Phase |
+The concepts transfer, but the products and detection stack have moved on — refresh toward cloud-native controls and modern NGFW:
+
+| Legacy network-security skill | Current equivalent to refresh into | Phase |
 |---|---|---|
-| Stateful firewall rules | NSGs + Azure Firewall | Phase 4 |
+| Stateful firewall rules | NSGs + Azure Firewall (and NGFW: Palo Alto / Fortinet concepts) | Phase 4 |
 | IDS/IPS management | Defender for Cloud alerts, Sentinel analytics | Phase 4 |
 | VPN configuration | VPN Gateway, Site-to-Site | Phase 4 |
 | Content filtering policies | WAF rules, Azure Policy | Phase 4 |
 | Log monitoring & alerting | Sentinel + KQL analytics rules | Phase 4 |
 | Threat signatures | Falco rules, runtime detection | Phase 3 |
-| Network segmentation | Kubernetes NetworkPolicy | Phase 3 |
+| Network segmentation | Kubernetes NetworkPolicy, zero-trust | Phase 3 |
 | DPI (Deep Packet Inspection) | Service mesh observability | Track: AppSec |
+
+**Refresh with:** Microsoft Learn — *Azure network security* path · NIST SP 800-207 *Zero Trust Architecture* · the Defender for Cloud + Sentinel labs in [Phase 4](phase-4-sc500.md).
 
 ---
 
-## 🧭 Your Accelerated Advantages
+## 🧭 Where Your Background Still Helps
 
-Based on your background, expect to move **~30–40% faster** than a typical learner in these areas:
+Your networking and network-security foundation gives you a real head start here — **once refreshed** to current tooling, expect to move faster than a cold-start learner:
 
 - ✅ VNet/VPC architecture and network security configuration
 - ✅ Firewall rules, WAF, and access control design
@@ -104,6 +112,7 @@ Areas that will require full study time (no shortcut):
 - [ ] `.gitignore`, signed commits, never committing secrets (pre-commit + gitleaks)
 
 ## 🌐 Networking (applied)
+> Doubles as the **refresh** for the dated networking foundation in Part 1 — modern, cloud-era networking.
 - [ ] **DNS** — record types, resolution path, caching/TTL, common failures
 - [ ] **TLS** — handshake, certificates/chains, SNI, mTLS, inspecting with `openssl s_client`
 - [ ] **HTTP(S)** — methods, status codes, headers, cookies, CORS, caching
@@ -118,6 +127,9 @@ Areas that will require full study time (no shortcut):
 - *Automate the Boring Stuff with Python* — Al Sweigart (free online)
 - Julia Evans' zines (networking, DNS, Bash) — wizardzines.com
 - GitHub Actions docs — Security hardening for GitHub Actions
+- **Networking refresh:** John Savill's *Azure Networking Master Class* (YouTube, free) — on-prem → cloud
+- **Networking refresh:** *Practical Networking* (YouTube, free) — modern fundamentals
+- **Network-security refresh:** Microsoft Learn — *Azure network security* path (Firewall, NSG, WAF)
 
 ---
 

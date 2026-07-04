@@ -36,7 +36,7 @@ With 10+ years of experience and the completed technical phases, **Domains 3, 4,
 
 ## Review-only domains (one pass each)
 - [ ] D3 Architecture & Engineering — crypto, security models, cloud models *(CCSP overlap)*
-- [ ] D4 Network Security — *(CCNA foundation; ~13% nearly free)*
+- [ ] D4 Network Security — *(networking foundation refreshed in Phase 0; ~13% mostly review)*
 - [ ] D6 Assessment & Testing — *(daily ASPM work)*
 - [ ] D7 Security Operations — IR lifecycle, forensics, DR metrics *(SC-500 Sentinel overlap)*
 - [ ] D8 Software Development Security — *(Phase 3 + SSDF, strongest domain)*

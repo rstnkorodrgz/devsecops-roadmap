@@ -69,6 +69,16 @@ _CISSP titles below apply **only if the [contingency](../electives/cissp-conting
 
 ## 🎓 Online Courses
 
+### Phase 0 — Networking & Foundations Refresh
+> For bringing older networking / network-security knowledge up to current cloud-native practice.
+
+| Course | Platform | Instructor | Priority |
+|---|---|---|---|
+| Azure Networking Master Class | YouTube | John Savill | ⭐⭐⭐ (FREE) |
+| Practical Networking (full series) | YouTube | Ed Harmoush | ⭐⭐ (FREE) |
+| Configure and manage virtual networks | Microsoft Learn | Microsoft | ⭐⭐ (FREE) |
+| Azure network security (Firewall, NSG, WAF) | Microsoft Learn | Microsoft | ⭐⭐ (FREE) |
+
 ### Phase 4 — SC-500 (Cloud & AI Security on Azure)
 | Course | Platform | Instructor | Priority |
 |---|---|---|---|
