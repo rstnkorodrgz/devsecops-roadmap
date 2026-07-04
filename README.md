@@ -6,6 +6,12 @@
 > **Philosophy:** past senior level, certifications stop differentiating — **public artifacts do**. One artifact ships every quarter, no exceptions.
 > **Budget:** 8–10 hrs/week (two weeknights + one weekend block)
 
+![Status](https://img.shields.io/badge/Status-Active%20Development-2E7D32?style=flat-square)
+![Focus](https://img.shields.io/badge/Focus-Defensive%20Security-1565C0?style=flat-square)
+![Cloud](https://img.shields.io/badge/Cloud-Azure--Primary-0078D4?style=flat-square)
+![Cadence](https://img.shields.io/badge/Cadence-8%E2%80%9310%20hrs%2Fweek-E95420?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-0277BD?style=flat-square)
+
 ---
 
 ## 🆕 What's new in v2.1 (2026-07-04)
