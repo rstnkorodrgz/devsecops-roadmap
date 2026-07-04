@@ -1,6 +1,6 @@
 # Project 03 — Cloud Security (AWS)
 
-> **Pairs with:** [Phase 1](../phases/phase-1-cloud.md) + [Phase 1.5](../phases/phase-1.5-iac.md) · **Proves:** you can provision a secure-by-default AWS environment as code, then continuously verify it.
+> **Pairs with:** [AWS elective](../electives/aws-security-specialty.md) *(dormant)* + [Phase 1](../phases/phase-1-terraform.md) · **Proves:** you can provision a secure-by-default AWS environment as code, then continuously verify it.
 
 ---
 

@@ -1,6 +1,6 @@
 # Platform Engineering — The Architect Lens
 
-> Hands-on platform work lives in [Phase 3.5](../phases/phase-3.5-platform-engineering.md). This module is the *architectural* framing: how a platform strategy is the highest-leverage security control an architect owns.
+> Hands-on platform work lives in the [platform track](../tracks/platform-engineering.md). This module is the *architectural* framing: how a platform strategy is the highest-leverage security control an architect owns.
 
 ---
 
@@ -40,7 +40,7 @@ Every security control you add is either a **gate** (someone must pass it) or a 
 - [ ] Read the CNCF Platforms White Paper
 - [ ] Read *Team Topologies* (platform team / enabling team patterns)
 - [ ] Be able to argue centralize-vs-federate for a platform capability
-- [ ] Connect each [Phase 3.5](../phases/phase-3.5-platform-engineering.md) artifact to a security default it creates
+- [ ] Connect each [platform track](../tracks/platform-engineering.md) artifact to a security default it creates
 
 ## Deliverable
 - [ ] A "paved road" design doc for one workload type that lists the security controls made automatic

@@ -1,6 +1,6 @@
 # Project 04 — Platform Engineering (Paved Road)
 
-> **Pairs with:** [Phase 3.5](../phases/phase-3.5-platform-engineering.md) · **Proves:** you can make the secure path the default — the core architect capability.
+> **Pairs with:** [Platform track](../tracks/platform-engineering.md) + [Pillar D](../pillars/pillar-d-architecture.md) · **Proves:** you can make the secure path the default — the core architect capability.
 
 ---
 

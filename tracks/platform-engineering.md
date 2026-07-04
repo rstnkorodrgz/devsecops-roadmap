@@ -1,18 +1,11 @@
-# Phase 3.5 — Platform Engineering & Paved Roads
+# Track — Platform Engineering & Paved Roads (Background)
 
-> **Duration:** Weeks 41–44 (bridges AppSec → Architect track)
-> **Target outcome:** A working Internal Developer Platform (IDP) slice that makes the *secure* path the *easy* path.
-> **Why this phase exists:** This is the bridge from Senior → Architect. Architect interviews increasingly center on self-service platforms, golden paths, and multi-tenancy — not on running scanners.
-
----
-
-## 📊 Phase Progress
-
-`Week 41` `Week 42` `Week 43` `Week 44`
+> **Status: background track — no fixed schedule.** Feeds [Pillar D](../pillars/pillar-d-architecture.md) (multi-tenant K8s baseline, paved-road design docs) and staff-level design conversations.
+> **Target outcome:** A working Internal Developer Platform (IDP) slice that makes the *secure* path the *easy* path — the highest-leverage security control a staff engineer owns.
 
 ---
 
-## 🗓️ Week 41 — Platform Engineering Foundations
+## 📖 Module A — Platform Engineering Foundations
 
 ### Concepts
 - [ ] Understand the **Internal Developer Platform (IDP)** model vs "DevOps team as ticket queue"
@@ -28,7 +21,7 @@
 
 ---
 
-## 🗓️ Week 42 — Backstage & Service Catalogs
+## 📖 Module B — Backstage & Service Catalogs
 
 ### Concepts
 - [ ] Understand **Backstage** — software catalog, TechDocs, scaffolder templates
@@ -43,23 +36,23 @@
 
 ---
 
-## 🗓️ Week 43 — Self-Service Infrastructure & GitOps
+## 📖 Module C — Self-Service Infrastructure & GitOps
 
 ### Concepts
 - [ ] Understand **GitOps** (Argo CD / Flux) — desired state in Git, reconciliation
 - [ ] Learn **Crossplane** / Terraform modules as self-service infrastructure APIs
 - [ ] Study secure-by-default Helm charts / Kustomize bases
 - [ ] Understand progressive delivery (canary, blue/green) and its security implications
-- [ ] Learn admission control as a guardrail (Kyverno / OPA Gatekeeper) — link to [Phase 2 CKS](phase-2-cicd.md)
+- [ ] Learn admission control as a guardrail (Kyverno / OPA Gatekeeper) — link to [Phase 3 CKS](../phases/phase-3-cks.md)
 
 ### Hands-on
-- [ ] Stand up Argo CD against your EKS cluster from Phase 1.5
+- [ ] Stand up Argo CD against your AKS cluster from Phase 1 (or kind locally)
 - [ ] Deploy an app via GitOps with a signed image gate (link to Cosign / supply chain)
 - [ ] Enforce a Kyverno policy: "no container runs as root, all images from approved registry"
 
 ---
 
-## 🗓️ Week 44 — Kubernetes Multi-Tenancy
+## 📖 Module D — Kubernetes Multi-Tenancy  → feeds the Pillar D multi-tenant baseline
 
 ### Concepts
 - [ ] Understand soft vs hard multi-tenancy
@@ -92,4 +85,4 @@
 
 ---
 
-_← [Phase 3](phase-3-appsec.md) | [Architect Track →](../architect/README.md)_
+_← [Pillars](../pillars/README.md) | [Architect library →](../architect/README.md)_

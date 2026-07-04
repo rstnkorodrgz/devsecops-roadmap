@@ -21,7 +21,7 @@ Commit diagram **source** (e.g. `diagrams/*.drawio`, Mermaid, or `diagrams-as-co
 
 | # | Architecture | Source | Status |
 |---|---|---|---|
-| 1 | Secure AWS landing zone ([Phase 1.5](../phases/phase-1.5-iac.md)) | `diagrams/landing-zone.*` | ☐ |
+| 1 | Secure Azure landing zone ([Phase 1](../phases/phase-1-terraform.md)) | `diagrams/landing-zone.*` | ☐ |
 | 2 | Secure CI/CD pipeline ([Project 01](../projects/project-01-secure-cicd.md)) | `diagrams/cicd.*` | ☐ |
 | 3 | Hardened EKS / multi-tenant cluster ([Project 02](../projects/project-02-kubernetes-security.md)) | `diagrams/eks.*` | ☐ |
 | 4 | Zero-trust app architecture ([zero-trust.md](zero-trust.md)) | `diagrams/zero-trust.*` | ☐ |

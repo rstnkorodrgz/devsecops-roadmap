@@ -1,7 +1,7 @@
 # Phase 0 — Foundations & Assessment
 
 > **Two parts:** (1) a *starting-advantage map* of credentials you already hold, and (2) a short **foundations track** to solidify the practitioner skills every Senior DevSecOps role assumes. Don't skip Part 2 because it "looks basic" — these are the skills interviewers probe when certifications run out.
-> **Duration:** Weeks 1–4 (run in parallel with the start of Phase 1; skip what you already own).
+> **Duration:** first month, in parallel with the start of [Phase 1 (Terraform)](phase-1-terraform.md); skip what you already own.
 
 ---
 
@@ -12,11 +12,11 @@
 ### CompTIA Security+ (Active)
 Covers the theory layer for the entire roadmap. Key areas that carry forward:
 
-- **Threat, attack & vulnerability concepts** → directly accelerates Phase 3 threat modeling
-- **Architecture & design** → supports AWS security design in Phase 1
-- **Identity & access management** → foundational for IAM deep-dives in Phase 1
-- **Cryptography & PKI** → applies to mTLS (Phase 3) and CISSP Domain 3 (Phase 4)
-- **CISSP credit:** Security+ CPE hours count toward CISSP annual maintenance
+- **Threat, attack & vulnerability concepts** → directly accelerates threat modeling ([tracks/appsec.md](../tracks/appsec.md), Pillar D)
+- **Architecture & design** → supports cloud security design in Phases 1 & 4
+- **Identity & access management** → foundational for the Entra ID deep-dives in Phase 4
+- **Cryptography & PKI** → applies to mTLS, Key Vault work (Phase 4) and CCSP Domain 1 (Phase 5)
+- **ISC2 credit:** Security+ CPE habits carry into CCSP annual maintenance (Phase 5)
 
 ---
 
@@ -25,17 +25,17 @@ Knowledge is intact even if certification is lapsed. Key areas that carry forwar
 
 | CCNA Domain | DevSecOps Application | Phase |
 |---|---|---|
-| Subnetting & VLANs | VPC design, subnet isolation, NACLs | Phase 1 |
-| Routing protocols | Transit Gateway, route table security | Phase 1 |
-| ACLs & firewalling | Security Groups, NACLs, WAF rules | Phase 1 |
-| VPN & tunneling | AWS VPN, Site-to-Site, PrivateLink | Phase 1 |
-| Network troubleshooting | CloudWatch VPC Flow Logs analysis | Phase 1 |
-| Port security | Kubernetes NetworkPolicy, CNI | Phase 2 |
-| Network segmentation | Zero-trust, micro-segmentation | Phase 3 |
-| OSI model depth | mTLS, service mesh (Istio) concepts | Phase 3 |
-| TCP/IP fundamentals | CISSP Domain 4 (13% of exam) | Phase 4 |
+| Subnetting & VLANs | VNet design, subnet isolation, NSGs | Phases 1 & 4 |
+| Routing protocols | Hub-spoke routing, UDRs, Azure Firewall | Phase 4 |
+| ACLs & firewalling | NSGs, Azure Firewall, WAF rules | Phase 4 |
+| VPN & tunneling | VPN Gateway, Private Link / Private Endpoints | Phase 4 |
+| Network troubleshooting | NSG flow logs, Network Watcher | Phase 4 |
+| Port security | Kubernetes NetworkPolicy, CNI | Phases 2–3 |
+| Network segmentation | Zero-trust, micro-segmentation | Pillar D |
+| OSI model depth | mTLS, service mesh concepts | Track: AppSec |
+| TCP/IP fundamentals | CCSP D3 / CISSP D4 (if triggered) | Phase 5 |
 
-> 💡 **CISSP note:** Domain 4 (Communication & Network Security) is essentially your CCNA at a conceptual security lens. You enter Phase 4 with ~13% of the exam already mastered.
+> 💡 **ISC2 note:** your CCNA maps directly onto CCSP Domain 3 infrastructure content (Phase 5) — and if the [CISSP contingency](../electives/cissp-contingency.md) ever fires, Domain 4 (~13% of that exam) is nearly free.
 
 ---
 
@@ -44,14 +44,14 @@ Hands-on firewall administration experience that maps to modern cloud-native sec
 
 | SonicWall Skill | Modern Equivalent | Phase |
 |---|---|---|
-| Stateful firewall rules | AWS Security Groups + NACLs | Phase 1 |
-| IDS/IPS management | GuardDuty, Security Hub findings | Phase 1 |
-| VPN configuration | AWS Client VPN, Site-to-Site VPN | Phase 1 |
-| Content filtering policies | WAF rules, SCPs | Phase 1 |
-| Log monitoring & alerting | CloudTrail + CloudWatch alarms | Phase 1 |
-| Threat signatures | Falco rules, runtime detection | Phase 2 |
-| Network segmentation | Kubernetes NetworkPolicy | Phase 2 |
-| DPI (Deep Packet Inspection) | Service mesh observability | Phase 3 |
+| Stateful firewall rules | NSGs + Azure Firewall | Phase 4 |
+| IDS/IPS management | Defender for Cloud alerts, Sentinel analytics | Phase 4 |
+| VPN configuration | VPN Gateway, Site-to-Site | Phase 4 |
+| Content filtering policies | WAF rules, Azure Policy | Phase 4 |
+| Log monitoring & alerting | Sentinel + KQL analytics rules | Phase 4 |
+| Threat signatures | Falco rules, runtime detection | Phase 3 |
+| Network segmentation | Kubernetes NetworkPolicy | Phase 3 |
+| DPI (Deep Packet Inspection) | Service mesh observability | Track: AppSec |
 
 ---
 
@@ -59,20 +59,20 @@ Hands-on firewall administration experience that maps to modern cloud-native sec
 
 Based on your background, expect to move **~30–40% faster** than a typical learner in these areas:
 
-- ✅ VPC architecture and network security configuration
+- ✅ VNet/VPC architecture and network security configuration
 - ✅ Firewall rules, WAF, and access control design
 - ✅ VPN and secure connectivity patterns
-- ✅ IDS/IPS and log-based detection concepts
-- ✅ CISSP Domain 4 (Network Security)
+- ✅ IDS/IPS and log-based detection concepts (→ Sentinel analytics)
+- ✅ CCSP infrastructure domain (and CISSP D4, if ever triggered)
 - ✅ Kubernetes network policies and CNI security
 
 Areas that will require full study time (no shortcut):
 
 - 🔶 Container image security and supply chain (new domain)
-- 🔶 CI/CD pipeline security (SAST/DAST/SCA tooling)
+- 🔶 KQL and Sentinel content engineering
 - 🔶 Threat modeling frameworks (STRIDE, PASTA, LINDDUN)
-- 🔶 Cloud-native AppSec (OWASP API Top 10, service mesh mTLS)
-- 🔶 CISSP Domains 1–3, 5–8
+- 🔶 AI security (Pillar C — the specialization bet)
+- 🔶 CCSP Domain 6 (legal, risk & compliance)
 
 ---
 
@@ -92,9 +92,9 @@ Areas that will require full study time (no shortcut):
 - [ ] Core: virtualenvs, `pip`, type hints, exceptions, f-strings
 - [ ] `requests` — calling APIs, handling auth headers, pagination, retries
 - [ ] `subprocess` — running tools safely (no `shell=True` with user input)
-- [ ] `boto3` — basic AWS automation (list resources, assume roles)
+- [ ] Cloud SDK — `azure-identity` + `azure-mgmt-*` basics (list resources, managed-identity auth); `boto3` if the AWS elective fires
 - [ ] `argparse` + logging — making a real CLI tool
-- [ ] **Mini-project:** a script that audits something (e.g. lists public S3 buckets or IAM keys older than 90 days)
+- [ ] **Mini-project:** a script that audits something (e.g. lists storage accounts with public blob access, or role assignments unused for 90 days)
 
 ## 🌿 Git & GitHub
 - [ ] Branching, rebasing vs merging, resolving conflicts
@@ -121,4 +121,4 @@ Areas that will require full study time (no shortcut):
 
 ---
 
-_← [Back to README](../README.md) | [Phase 1 →](phase-1-cloud.md)_
+_← [Back to README](../README.md) | [Phase 1 (Terraform) →](phase-1-terraform.md)_

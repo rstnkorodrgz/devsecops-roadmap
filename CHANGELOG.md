@@ -5,6 +5,33 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## Roadmap [v2.0] — 2026-07-03 — Technical Expertise Track
+
+Strategy shift: deep technical IC track (senior → staff/principal). Azure-primary. Quarterly artifact rule.
+
+### Changed
+- **Identity:** target is Staff/Principal deep-technical IC, not the architect/management ladder
+- **CCSP replaces CISSP as capstone** (Phase 5, months 14–18); CISSP demoted to a trigger-gated contingency (`electives/cissp-contingency.md`, ≥2 postings/quarter trigger, 16-week sprint plan). CCSP notes: CAT 100–150 Q/3 h since late 2025; **new outline effective 2026-08-01** — use post-refresh materials
+- **SC-500 replaces the planned AZ-500** (Phase 4, months 10–13): research during implementation found **AZ-500 retired 2026-08-31**, before the phase window; SC-500 (Cloud and AI Security Engineer Associate) is Microsoft's direct replacement and adds AI security — compounds with Pillar C
+- **Azure-primary labs**: Phase 1 landing zone rebuilt on azurerm (hub-spoke, AKS, Key Vault, GitHub OIDC federation); AWS SCS + the complete v1.x AWS track moved to `electives/aws-security-specialty.md` as a **dormant elective** (trigger: USD-remote/AWS-heavy pivot). Multi-cloud lives at design level in the Phase 5 capstone
+- **Cert ladder:** Terraform (M1–3) → CKA (M4–6) → CKS ★ (M7–9) → SC-500 (M10–13) → CCSP (M14–18); exams booked at phase **start**
+- Timeline unit is now **months/quarters** (18-month plan), replacing the v1.3 global 52-week scheme; `progress/quarterly-tracker.md` replaces the weekly table (weekly log kept as optional template)
+- Phase files restructured: `phase-1.5-iac.md` → `phase-1-terraform.md`; `phase-2-cicd.md` → `phase-3-cks.md` (CKA block extracted to new `phase-2-cka.md`); `phase-3-appsec.md` → `tracks/appsec.md`; `phase-3.5-platform-engineering.md` → `tracks/platform-engineering.md`; `phase-1-cloud.md` → `electives/aws-security-specialty.md`; `phase-4-cissp.md` → `electives/cissp-contingency.md`
+- `architect/` reframed as the Pillar D reading library; **SABSA demoted to optional reading** (no SCF/SCP)
+- `projects/README.md` gains a v1.x→v2.0 migration map; the five briefs remain the working specs
+
+### Added
+- **`pillars/`** — Phase 6, the post-certification technical ladder: A open source (ONE CNCF project — Trivy recommended; tfsec explicitly not a target, it merged into Trivy), B research & speaking (2 talks/yr + written versions; Santiago → 8.8 → BSides/DragonJAR ladder), C AI security specialization (LLM testing harness, secure RAG reference architecture, CI/CD AI gates), D architecture depth (reference architectures, ADR habit, quarterly sanitized design doc)
+- **Quarterly artifact rule** as roadmap-wide KPI + `progress/quarterly-tracker.md` with the 6-quarter plan, cert milestones, KPI checklist, and elective-trigger review
+- New phase files: `phase-2-cka.md`, `phase-4-sc500.md`, `phase-5-ccsp.md`
+- `electives/README.md` — explicit trigger table (AWS SCS, CISSP, GWEB/GCP)
+
+### Known gaps
+- `install.sh` still uses the v1.x phase layout (`--phase 1.5` = IaC tools etc.) — functional but numbering no longer matches; Azure-specific SC-500 tooling is minimal (az CLI already covered). Installer v1.5 when tool needs firm up
+- `resources/courses.md` partially retagged; deep SC-500 third-party materials still thin (new exam) — Microsoft Learn is the canonical path
+
+---
+
 ## Roadmap [v1.3] — 2026-07-02
 
 Content-currency and consistency pass on the v1.2 capability-centric restructure.

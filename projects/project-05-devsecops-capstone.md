@@ -1,6 +1,6 @@
 # Project 05 — DevSecOps Capstone
 
-> **Pairs with:** [Phase 4](../phases/phase-4-cissp.md) · **Proves:** everything, end-to-end. This is the repo that gets you shortlisted.
+> **Pairs with:** [Phase 5](../phases/phase-5-ccsp.md) · **Proves:** everything, end-to-end. This is the repo that gets you shortlisted.
 
 ---
 

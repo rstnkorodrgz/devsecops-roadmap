@@ -41,7 +41,7 @@ Zero trust removes implicit trust based on **network location** and instead make
 |---|---|
 | Identity as the perimeter | AWS IAM / OIDC, IRSA, SSO |
 | Per-request authz | OPA / Kyverno admission, API gateway authz |
-| Microsegmentation | K8s NetworkPolicy, service mesh mTLS ([Phase 3](../phases/phase-3-appsec.md)) |
+| Microsegmentation | K8s NetworkPolicy, service mesh mTLS ([AppSec track](../tracks/appsec.md)) |
 | Device/workload posture | Falco runtime, image signing (Cosign) |
 | Continuous monitoring | CloudTrail, GuardDuty, SIEM |
 

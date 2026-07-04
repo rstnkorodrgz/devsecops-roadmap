@@ -14,7 +14,7 @@
 | Automate the Boring Stuff with Python | Al Sweigart | ⭐⭐⭐ | Free online; Python warm-up |
 | Wizard Zines (networking, DNS, Bash) | Julia Evans | ⭐⭐ | wizardzines.com |
 
-### Phase 1 — Cloud Security
+### Elective — AWS Cloud Security (dormant; USD-remote trigger)
 | Title | Author | Priority | Notes |
 |---|---|---|---|
 | AWS Security | Dylan Shields | ⭐⭐⭐ | Best AWS security book available |
@@ -50,7 +50,14 @@
 | Enterprise Security Architecture | Sherwood, Clark & Lynas | ⭐⭐⭐ | The SABSA book — architect track core |
 | Threat Modeling: Designing for Security | Adam Shostack | ⭐⭐⭐ | Also listed under Phase 3 — reread with the architect lens |
 
-### Phase 4 — CISSP
+### Phase 5 — CCSP & Contingency — CISSP
+| Title | Author | Priority | Notes |
+|---|---|---|---|
+| ISC2 Official CCSP Study Guide (post-2026 outline) | Mike Chapple et al. | ⭐⭐⭐ | The Phase 5 core text — verify outline edition |
+| CCSP MindMaps (YouTube) | Destination Certification | ⭐⭐⭐ | Free |
+
+_CISSP titles below apply **only if the [contingency](../electives/cissp-contingency.md) triggers**:_
+
 | Title | Author | Priority | Notes |
 |---|---|---|---|
 | (ISC)² CISSP Official Study Guide, 9th Ed. | Mike Chapple et al. | ⭐⭐⭐ | The bible — read every chapter |
@@ -62,7 +69,14 @@
 
 ## 🎓 Online Courses
 
-### Phase 1 — Cloud Security
+### Phase 4 — SC-500 (Cloud & AI Security on Azure)
+| Course | Platform | Instructor | Priority |
+|---|---|---|---|
+| SC-500 Learning Path (official) | Microsoft Learn | Microsoft | ⭐⭐⭐ (FREE) |
+| Azure security deep dives | YouTube | John Savill | ⭐⭐⭐ (FREE) |
+| Must Learn KQL series | Free online | Rod Trent | ⭐⭐⭐ (FREE) |
+
+### Elective — AWS Cloud Security (dormant)
 | Course | Platform | Instructor | Priority |
 |---|---|---|---|
 | AWS Certified Security Specialty (SCS-C02) | Udemy | Stephane Maarek | ⭐⭐⭐ |
@@ -96,7 +110,15 @@
 | PortSwigger LLM Attack Labs (Web Security Academy) | portswigger.net | PortSwigger team | ⭐⭐⭐ (FREE) |
 | GCP Security Engineer Learning Path | Google Cloud Skills Boost | Google | ⭐⭐ |
 
-### Phase 4 — CISSP
+### Phase 5 — CCSP (+ CISSP contingency)
+| Course | Platform | Instructor | Priority |
+|---|---|---|---|
+| CCSP Exam Cram (full course) | YouTube | Pete Zerger | ⭐⭐⭐ (FREE) |
+| CCSP MindMaps | YouTube | Destination Certification | ⭐⭐⭐ (FREE) |
+| LearnZapp CCSP practice | ISC2 official app | ISC2 | ⭐⭐⭐ |
+
+_CISSP rows below: contingency only:_
+
 | Course | Platform | Instructor | Priority |
 |---|---|---|---|
 | CISSP Full Course | Udemy | Thor Pedersen | ⭐⭐⭐ |

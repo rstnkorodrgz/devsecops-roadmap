@@ -1,6 +1,6 @@
 # Project 01 — Secure CI/CD Pipeline
 
-> **Pairs with:** [Phase 2](../phases/phase-2-cicd.md) · **Proves:** you can design a pipeline where security is automated, gating, and supply-chain-aware.
+> **Pairs with:** [Phase 3](../phases/phase-3-cks.md) · **Proves:** you can design a pipeline where security is automated, gating, and supply-chain-aware.
 
 ---
 

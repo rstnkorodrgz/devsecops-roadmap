@@ -1,23 +1,12 @@
-# Phase 3 — Advanced AppSec, Threat Modeling & AI Security
+# Track — AppSec & Threat Modeling (Background)
 
-> **Duration:** Weeks 29–40 (12 weeks)  
-> **Primary outcome:** **PortSwigger Web Security Academy** completion (practical, free, employer-recognized) + a full **Threat Model Report** for your capstone.  
-> **Optional certs:** GCP Professional Cloud Security Engineer; GIAC GWEB *only if your employer pays* — see the [GWEB note](#-note-on-gweb).  
-> **Accelerated by:** SonicWall DPI experience → service mesh observability
-
-> 🔁 **Roadmap v1.2 change:** GWEB was demoted from a required cert to optional. Market demand for cloud-native + Kubernetes security (AWS Sec, CKS) is higher than for GWEB alone, and PortSwigger gives you the same web-AppSec depth, hands-on and free. See [Recommendation #6 rationale in the README](../README.md#-whats-new-in-v12).
+> **Status: background track — no fixed schedule.** Worked as [Pillar C](../pillars/pillar-c-ai-security.md) (API security, testing methodology) and [Pillar D](../pillars/pillar-d-architecture.md) (threat modeling) need it, and as daily ASPM work demands depth.
+> **Primary outcome:** **PortSwigger Web Security Academy** core topics + threat modeling to reflex level.
+> **Optional certs:** GCP Pro Cloud Security Engineer / GIAC GWEB — employer-funded only (see [electives/README.md](../electives/README.md)).
 
 ---
 
-## 📊 Phase Progress
-
-Count your checked boxes and update the README table.
-
-`Weeks 29–31` `Weeks 32–34` `Weeks 35–37` `Weeks 38–40`
-
----
-
-## 🗓️ Weeks 29–31 — Advanced Threat Modeling
+## 📖 Module A — Advanced Threat Modeling  → feeds Pillar D
 
 ### Concepts
 - [ ] Master **STRIDE** — the six categories, per-element application, and its limits
@@ -58,7 +47,7 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 32–34 — Cloud-Native AppSec & API Security
+## 📖 Module B — Cloud-Native AppSec & API Security  → feeds Pillar C
 
 ### Concepts
 - [ ] Study OWASP API Security Top 10 (2023 edition) — know every category deeply
@@ -91,7 +80,7 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 35–37 — Multi-Cloud Security & CSPM
+## 📖 Module C — Multi-Cloud Security & CSPM  → feeds Phase 5 capstone
 
 ### Concepts
 - [ ] Understand Cloud Security Posture Management (CSPM) — what it detects, how it differs from CSEM
@@ -121,7 +110,7 @@ Count your checked boxes and update the README table.
 
 ---
 
-## 🗓️ Weeks 38–40 — Practical Web AppSec (PortSwigger), AI/LLM Security & Bug Bar
+## 📖 Module D — Practical Web AppSec (PortSwigger) & Bug Bar
 
 > Primary path is hands-on and free. GWEB is optional below.
 
@@ -138,22 +127,8 @@ Count your checked boxes and update the README table.
 - [ ] Write a short blog/README walk-through of 2 exploits you solved (portfolio signal)
 - [ ] Run a full OWASP WSTG-guided assessment on your own capstone app and log findings
 
-### 🤖 AI/LLM Security (new in v1.3)
-
-> AI security shows up in most 2026 senior DevSecOps job descriptions. This is the minimum viable coverage — treat it like any other attack surface.
-
-#### Concepts
-- [ ] Study the **OWASP Top 10 for LLM Applications** — prompt injection (direct & indirect), insecure output handling, sensitive data disclosure, excessive agency
-- [ ] Understand **AI pipeline security** — training data poisoning, model provenance & signing, model registry access control (the supply chain lens from Phase 2 applied to models)
-- [ ] Learn LLM app patterns and their risks — RAG (retrieval poisoning), tool-use/agents (privilege escalation via tools), output validation before execution
-- [ ] Skim the **NIST AI Risk Management Framework** — enough to place AI risk in a governance conversation
-- [ ] Understand where classic controls still apply: secrets in prompts, tenant isolation of context, logging/audit of model I/O
-
-#### Hands-on Labs
-- [ ] Complete a prompt-injection lab (e.g. Lakera's Gandalf, or PortSwigger's LLM attack labs)
-- [ ] Build a small LLM-backed app (API + one tool call) and **threat-model it** — STRIDE plus the LLM Top 10 as a checklist
-- [ ] Add guardrails and demonstrate one blocked attack (input filtering, output validation, tool allow-listing)
-- [ ] Extend your capstone Threat Model Report with an AI/LLM section if the capstone gains any AI-assisted feature
+### 🤖 AI/LLM Security
+Moved to [Pillar C — AI Security Specialization](../pillars/pillar-c-ai-security.md), where it expanded from a module into a specialization pillar (v2.0).
 
 ### GCP Security Engineer (Optional / Parallel)
 - [ ] Complete Google Cloud Skills Boost — Security Engineer learning path
@@ -182,17 +157,12 @@ GIAC GWEB is excellent but expensive (~$2.5k+ with training). Pursue it **only i
 
 ---
 
-## ✅ Phase 3 Completion Checklist
+## ✅ Track Completion Signals
 
-- [ ] All weekly concept boxes checked
-- [ ] All hands-on labs completed
-- [ ] All Phase 3 tools installed and tested
-- [ ] PortSwigger Web Security Academy core topics completed (GWEB optional)
-- [ ] AI/LLM security section completed — one prompt-injection lab + one threat-modeled LLM app
-- [ ] **Threat Model Report** written for your capstone (STRIDE + PASTA + MITRE ATT&CK mapping)
-- [ ] Multi-cloud IaC scanning pipeline built (Checkov + Trivy)
-- [ ] Weekly log entries written for all 12 weeks
+- [ ] PortSwigger Web Security Academy core topics completed
+- [ ] Threat modeling at reflex level — every public artifact repo has a `THREATMODEL.md`
+- [ ] One full threat model report (STRIDE + PASTA + MITRE ATT&CK mapping) feeding a Pillar D reference architecture
 
 ---
 
-_← [Phase 2](phase-2-cicd.md) | [Back to README](../README.md) | [Phase 4 →](phase-4-cissp.md)_
+_← [Pillars](../pillars/README.md) | [Back to README](../README.md)_

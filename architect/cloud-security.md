@@ -1,6 +1,6 @@
 # Cloud Security Architecture
 
-> **Why it matters:** The architect owns the *reference* cloud security design that every team inherits. This module is the organizational lens on the hands-on AWS work from [Phase 1](../phases/phase-1-cloud.md) and [Phase 1.5](../phases/phase-1.5-iac.md).
+> **Why it matters:** The architect owns the *reference* cloud security design that every team inherits. This module is the organizational lens on the hands-on cloud work from [Phase 1](../phases/phase-1-terraform.md) and [Phase 4](../phases/phase-4-sc500.md) (AWS specifics: [dormant elective](../electives/aws-security-specialty.md)).
 
 ---
 

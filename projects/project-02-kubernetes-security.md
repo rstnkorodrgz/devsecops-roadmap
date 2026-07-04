@@ -1,12 +1,12 @@
 # Project 02 — Kubernetes Security
 
-> **Pairs with:** [Phase 2 / CKS](../phases/phase-2-cicd.md) · **Proves:** you can harden a cluster *and* detect attacks against it.
+> **Pairs with:** [Phase 3 / CKS](../phases/phase-3-cks.md) · **Proves:** you can harden a cluster *and* detect attacks against it.
 
 ---
 
 ## Brief
 
-Stand up a Kubernetes cluster (EKS from [Phase 1.5](../phases/phase-1.5-iac.md), or kind/k3s for cost) and take it from default to hardened, then prove the hardening works by attacking it.
+Stand up a Kubernetes cluster (AKS from [Phase 1](../phases/phase-1-terraform.md), or kind/k3s for cost) and take it from default to hardened, then prove the hardening works by attacking it.
 
 ## Two halves — both matter
 
@@ -31,7 +31,7 @@ Stand up a Kubernetes cluster (EKS from [Phase 1.5](../phases/phase-1.5-iac.md),
 - [ ] Controls matrix mapped to NSA/CISA K8s Hardening Guide
 
 ## Stretch
-- [ ] Multi-tenancy: two isolated tenants, prove cross-tenant access fails (ties to [Phase 3.5](../phases/phase-3.5-platform-engineering.md))
+- [ ] Multi-tenancy: two isolated tenants, prove cross-tenant access fails (ties to the [platform track](../tracks/platform-engineering.md))
 - [ ] Service mesh mTLS (Istio/Linkerd) with strict mode
 
 ## Tools

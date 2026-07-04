@@ -39,7 +39,7 @@
 - [ ] Read NIST SP 800-218 (SSDF) and learn the PO/PS/PW/RV mapping
 - [ ] Run an OWASP SAMM self-assessment on your capstone program
 - [ ] Articulate SAMM vs BSIMM vs SSDF differences in two sentences each
-- [ ] Connect SSDF "PS" practices to supply chain (SLSA/SBOM/signing) from [Phase 2](../phases/phase-2-cicd.md)
+- [ ] Connect SSDF "PS" practices to supply chain (SLSA/SBOM/signing) from [Phase 3](../phases/phase-3-cks.md)
 
 ## Deliverable
 - [ ] A SAMM maturity scorecard (current → target) for your capstone program

@@ -1,16 +1,10 @@
-# Phase 1 — Cloud Security Foundations
+# Elective — AWS Security Specialty (Dormant Track)
 
-> **Duration:** Weeks 1–8 (Phase 0 runs in parallel with the first weeks)  
-> **Target Certification:** AWS Certified Security Specialty (SCS-C02)  
-> **Accelerated by:** Security+ theory + CCNA networking depth
-
----
-
-## 📊 Phase Progress
-
-Count your checked boxes and update the README table.
-
-`Week 1` `Week 2` `Week 3` `Week 4` `Week 5` `Week 6` `Week 7` `Week 8`
+> **Status: DORMANT — preserved, not scheduled.**
+> **Trigger:** pivoting to USD-remote / AWS-heavy roles (see [electives/README.md](README.md)).
+> **Duration when activated:** 8 weeks.
+> **Target Certification:** AWS Certified Security Specialty (SCS-C02)
+> **Why preserved:** this is the complete, debugged v1.x AWS track. Terraform, Kubernetes, and supply-chain skills from the core ladder transfer directly — only the provider-specific labs below are new work. Multi-cloud *design* fluency is already covered by the [Phase 5 capstone](../phases/phase-5-ccsp.md); this track is for when you need AWS *hands-on* depth.
 
 ---
 
@@ -155,4 +149,4 @@ Count your checked boxes and update the README table.
 
 ---
 
-_← [Phase 0](phase-0-foundation.md) | [Back to README](../README.md) | [Phase 2 →](phase-2-cicd.md)_
+_← [Electives](README.md) | [Back to README](../README.md)_

@@ -1,7 +1,6 @@
-# 🏛️ Architect Track
+# 🏛️ Architecture Library (Pillar D curriculum)
 
-> **Goal:** Bridge from Senior DevSecOps Engineer → DevSecOps / Security Architect.
-> Run this track in parallel with Phases 3 → 4, then continue past CISSP.
+> **v2.0 role:** the reading library behind [Pillar D — Architecture Depth](../pillars/pillar-d-architecture.md). Worked as design questions arise, not on a schedule. SABSA is **optional reading** — the business-attribute habit matters; the SCF/SCP exams do not.
 
 The engineer proves they can *build and secure* systems. The architect proves they can *design, justify, and govern* them at organizational scale. This track is about frameworks, trade-offs, and reference designs — the language of architecture interviews and design reviews.
 
@@ -35,11 +34,11 @@ By the end of this track you should be able to, on a whiteboard, in 45 minutes:
 
 ## 🪜 Recommended certification ladder (architect-oriented)
 
-See the [root README](../README.md#certification-ladder) for the full rationale.
+See the [root README](../README.md#-certification-ladder) for the v2.0 rationale.
 
 ```
-Security+  →  AWS Security Specialty  →  Terraform Associate
-          →  CKA  →  CKS  →  CISSP  →  SABSA (SCF/SCP)
+Terraform Associate → CKA → CKS ★ → SC-500 → CCSP
+electives by trigger: AWS SCS · CISSP        (SABSA: reading only)
 ```
 
 ---

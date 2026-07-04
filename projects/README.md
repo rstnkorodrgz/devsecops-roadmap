@@ -6,7 +6,19 @@ Each project is a **standalone public GitHub repo** (not just notes here). This 
 
 ---
 
-## The five projects
+## 🔁 v2.0 migration map — where each v1.x project lives now
+
+The five briefs below remain the working specs; v2.0 re-homes each one to a phase or pillar artifact:
+
+| v1.x project | v2.0 destination | Notes |
+|---|---|---|
+| 01 Secure CI/CD | [Phase 3](../phases/phase-3-cks.md) pipeline + [Pillar D](../pillars/pillar-d-architecture.md) **zero-trust CI/CD reference** | Brief unchanged |
+| 02 Kubernetes Security | Phase 3 **hardening playbook** + Pillar D **multi-tenant K8s baseline** | Brief unchanged |
+| 03 Cloud Security (AWS) | **Dormant** with the [AWS elective](../electives/aws-security-specialty.md); superseded day-to-day by the [Phase 4](../phases/phase-4-sc500.md) **Azure security baseline** | Reactivates with the AWS trigger |
+| 04 Platform Engineering | [tracks/platform-engineering.md](../tracks/platform-engineering.md) + Pillar D | Brief unchanged |
+| 05 Capstone | [Phase 5](../phases/phase-5-ccsp.md) **multi-cloud reference architecture** + [Pillar C](../pillars/pillar-c-ai-security.md) artifacts | Cloud substrate is now Azure |
+
+## The five projects (v1.x briefs — still the specs)
 
 | # | Project | Pairs with | Proves you can… |
 |---|---|---|---|
