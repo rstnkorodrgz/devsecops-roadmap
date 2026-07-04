@@ -93,6 +93,9 @@ devsecops-roadmap/
 ├── tracks/                         ← Background tracks (feed the Pillars)
 │   ├── appsec.md                   ← Threat modeling, API security, PortSwigger
 │   └── platform-engineering.md     ← Paved roads, GitOps, multi-tenancy
+├── api-track/                      ← Hands-on: build → secure → test → break an API
+│   ├── README.md                   ← The 12-week API DevSecOps path
+│   └── fastapi-scaffold/           ← Runnable FastAPI service (Phase 1 start)
 ├── electives/                      ← Trigger-gated: nothing here is default work
 │   ├── README.md                   ← The trigger table
 │   ├── aws-security-specialty.md   ← Dormant v1.x AWS track (USD-remote trigger)

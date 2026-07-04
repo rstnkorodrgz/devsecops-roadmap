@@ -49,6 +49,9 @@
 
 ## 📖 Module B — Cloud-Native AppSec & API Security  → feeds Pillar C
 
+> 🛠️ **Hands-on companion:** [`api-track/`](../api-track/) runs a real API through
+> build → secure → test → break, with a runnable FastAPI scaffold. Study here, build there.
+
 ### Concepts
 - [ ] Study OWASP API Security Top 10 (2023 edition) — know every category deeply
 - [ ] Understand API authentication patterns — OAuth 2.0, OIDC, API keys, mTLS

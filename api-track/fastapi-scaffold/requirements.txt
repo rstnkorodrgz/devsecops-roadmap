@@ -1,0 +1,8 @@
+# Findings API — Phase 1 scaffold dependencies
+# Pinned to floors known to work together (Pydantic v2 era).
+fastapi>=0.111,<1.0
+uvicorn[standard]>=0.30
+sqlmodel>=0.0.21
+# --- dev / test ---
+pytest>=8.0
+httpx>=0.27          # required by fastapi.testclient
