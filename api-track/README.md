@@ -6,7 +6,7 @@
 > **Primary outcome:** a running, documented, authenticated API you built yourself — plus the
 > **APIsec CASA** cert and a portfolio-grade pentest write-up.
 > **Feeds:** [Pillar C — AI/App Security](../pillars/pillar-c-ai-security.md) (API security, testing methodology) and [Pillar D — Architecture](../pillars/pillar-d-architecture.md) (API design).
-> **Interactive version:** [the visual roadmap](https://claude.ai/code/artifact/bce73ea8-0fa5-47ef-bec3-1eeca13b06da).
+> **Interactive version:** [the visual roadmap](https://rstnkorodrgz.github.io/devsecops-roadmap/api-track.html) ([source](../docs/api-track.html)).
 
 The premise: you can't secure — or credibly break — what you've never built. This track runs
 one API through the full DevSecOps loop, and the loop *is* the deliverable.

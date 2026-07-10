@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API DevSecOps Path — Build · Secure · Test · Break</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-2: #12181f;
+    --bg-3: #1a222c;
+    --border: #232c37;
+    --border-2: #303c4a;
+    --text: #d6dde5;
+    --text-dim: #8a97a6;
+    --text-faint: #5c6774;
+    --build: #56c7ec;
+    --secure: #63d99f;
+    --test: #e8c25a;
+    --break: #f2726b;
+    --accent: #56c7ec;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --wrap: 980px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .page {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding: 0 clamp(1.1rem, 4vw, 2.4rem);
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible,
+  .card:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: clamp(3rem, 8vw, 5.5rem) 0 clamp(2rem, 5vw, 3rem);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero .eyebrow { color: var(--accent); }
+  .hero h1 {
+    font-family: var(--mono);
+    font-weight: 650;
+    font-size: clamp(2.05rem, 6vw, 3.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin: 1rem 0 0;
+    text-wrap: balance;
+  }
+  .hero h1 .b { color: var(--build); }
+  .hero h1 .s { color: var(--secure); }
+  .hero h1 .t { color: var(--test); }
+  .hero h1 .k { color: var(--break); }
+  .lede {
+    max-width: 60ch;
+    color: var(--text-dim);
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    margin: 1.4rem 0 0;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1.4rem;
+    margin-top: 1.8rem;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    color: var(--text-faint);
+  }
+  .meta span::before { content: "▸ "; color: var(--border-2); }
+
+  /* ---------- Rail ---------- */
+  .rail {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: clamp(2.2rem, 5vw, 3.2rem) 0;
+    position: relative;
+  }
+  .rail::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--build), var(--secure), var(--test), var(--break));
+    opacity: 0.5;
+  }
+  .node { text-align: center; position: relative; }
+  .node .dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    margin: 0 auto 0.7rem;
+    background: var(--bg);
+    border: 2px solid var(--c);
+    box-shadow: 0 0 0 4px var(--bg), 0 0 14px -2px var(--c);
+    position: relative; z-index: 1;
+  }
+  .node .n {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--c);
+    letter-spacing: 0.1em;
+  }
+  .node .lbl {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: clamp(0.82rem, 2.4vw, 1rem);
+    margin-top: 0.15rem;
+    color: var(--text);
+  }
+  .node .sub {
+    font-size: 0.74rem;
+    color: var(--text-faint);
+    margin-top: 0.2rem;
+    line-height: 1.35;
+  }
+
+  /* ---------- Phase section ---------- */
+  .phase { padding: clamp(2.4rem, 6vw, 3.6rem) 0; border-top: 1px solid var(--border); }
+  .phase-head { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .phase-num {
+    font-family: var(--mono);
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 650;
+    color: var(--c);
+    line-height: 1;
+  }
+  .phase-head h2 {
+    font-family: var(--mono);
+    font-size: clamp(1.35rem, 3.6vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .phase-tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c);
+    border: 1px solid var(--c);
+    border-radius: 100px;
+    padding: 0.2rem 0.7rem;
+    align-self: center;
+  }
+  .phase-intro { color: var(--text-dim); max-width: 66ch; margin: 1rem 0 1.8rem; }
+  .phase-intro strong { color: var(--text); font-weight: 600; }
+
+  .cards { display: grid; gap: 0.8rem; }
+
+  .card {
+    display: grid;
+    grid-template-columns: 116px 1fr auto;
+    gap: 0.4rem 1.2rem;
+    align-items: start;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--c);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  }
+  .card:hover { background: var(--bg-3); border-color: var(--border-2); border-left-color: var(--c); transform: translateX(2px); }
+  .card .kind {
+    grid-row: span 2;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c);
+    padding-top: 0.15rem;
+  }
+  .card .title { font-weight: 600; font-size: 1rem; margin: 0; }
+  .card .desc { grid-column: 2; color: var(--text-dim); font-size: 0.9rem; }
+  .cost {
+    grid-row: span 2;
+    align-self: center;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.6rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    border: 1px solid var(--border-2);
+    color: var(--text-dim);
+  }
+  .cost.free { color: var(--secure); border-color: color-mix(in srgb, var(--secure) 45%, transparent); }
+
+  /* ---------- Cloud table ---------- */
+  .cloud { padding: clamp(2.4rem, 6vw, 3.6rem) 0; border-top: 1px solid var(--border); }
+  .cloud h2 {
+    font-family: var(--mono); font-weight: 600;
+    font-size: clamp(1.35rem, 3.6vw, 1.9rem); margin: 0.6rem 0 0.4rem;
+  }
+  .cloud p.sub { color: var(--text-dim); max-width: 66ch; margin: 0 0 1.8rem; }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.9rem; }
+  thead th {
+    font-family: var(--mono);
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    text-align: left; color: var(--text-dim);
+    padding: 0.9rem 1.1rem; background: var(--bg-2);
+    border-bottom: 1px solid var(--border-2);
+  }
+  tbody td { padding: 1rem 1.1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--bg-2); }
+  .prov { font-family: var(--mono); font-weight: 600; color: var(--text); white-space: nowrap; }
+  .prov small { display: block; font-weight: 400; color: var(--text-faint); font-size: 0.72rem; margin-top: 0.15rem; }
+  td .svc { color: var(--build); font-family: var(--mono); font-size: 0.85rem; }
+
+  /* ---------- Sequence ---------- */
+  .seq { padding: clamp(2.4rem, 6vw, 3.6rem) 0; border-top: 1px solid var(--border); }
+  .seq h2 { font-family: var(--mono); font-weight: 600; font-size: clamp(1.35rem, 3.6vw, 1.9rem); margin: 0.6rem 0 1.6rem; }
+  .weeks { display: grid; gap: 0.7rem; }
+  .week {
+    display: grid; grid-template-columns: 92px 1fr; gap: 1.1rem; align-items: baseline;
+    padding: 0.85rem 1rem; background: var(--bg-2);
+    border: 1px solid var(--border); border-radius: 8px;
+  }
+  .week .wk { font-family: var(--mono); font-size: 0.78rem; color: var(--c); letter-spacing: 0.04em; }
+  .week .do { color: var(--text); font-size: 0.94rem; }
+  .week .do em { color: var(--text-faint); font-style: normal; font-family: var(--mono); font-size: 0.8rem; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: clamp(2.4rem, 6vw, 3.4rem) 0 4rem; border-top: 1px solid var(--border); color: var(--text-faint); font-size: 0.82rem; }
+  footer .src { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 0.9rem; font-family: var(--mono); font-size: 0.74rem; }
+  footer h3 { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); margin: 0 0 0.4rem; }
+
+  /* ---------- Motion ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); animation: rise 0.6s cubic-bezier(.2,.7,.3,1) forwards; }
+  .reveal:nth-child(2) { animation-delay: 0.06s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  @media (max-width: 620px) {
+    .card { grid-template-columns: 1fr auto; }
+    .card .kind { grid-row: auto; grid-column: 1; }
+    .card .cost { grid-row: auto; }
+    .card .title, .card .desc { grid-column: 1 / -1; }
+    .rail { grid-template-columns: repeat(2, 1fr); gap: 1.4rem 0.5rem; }
+    .rail::before { display: none; }
+    .week { grid-template-columns: 1fr; gap: 0.3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; transform: none; }
+    .card { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="hero">
+    <p class="eyebrow reveal">DevSecOps · API Track · Curated 2026</p>
+    <h1 class="reveal">
+      <span class="b">Build</span> it. <span class="s">Secure</span> it.<br>
+      <span class="t">Test</span> it. <span class="k">Break</span> it.
+    </h1>
+    <p class="lede reveal">
+      A single learning path that takes an API from an empty repo to a hardened,
+      documented service — and then teaches you to hunt the vulnerabilities you just
+      designed against. Sequenced for someone coming from security research: free-first,
+      hands-on, and heavy on the offense at the end.
+    </p>
+    <div class="meta reveal">
+      <span>~12 weeks part-time</span>
+      <span>Free core, paid optional</span>
+      <span>Python-first, cloud-aware</span>
+      <span>Ends in a live pentest cert</span>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="The four phases">
+    <div class="node" style="--c:var(--build)">
+      <div class="dot"></div>
+      <div class="n">PHASE 01</div>
+      <div class="lbl">Build</div>
+      <div class="sub">Design &amp; ship a REST API</div>
+    </div>
+    <div class="node" style="--c:var(--secure)">
+      <div class="dot"></div>
+      <div class="n">PHASE 02</div>
+      <div class="lbl">Secure</div>
+      <div class="sub">Auth, OWASP, hardening</div>
+    </div>
+    <div class="node" style="--c:var(--test)">
+      <div class="dot"></div>
+      <div class="n">PHASE 03</div>
+      <div class="lbl">Test</div>
+      <div class="sub">Document, automate, validate</div>
+    </div>
+    <div class="node" style="--c:var(--break)">
+      <div class="dot"></div>
+      <div class="n">PHASE 04</div>
+      <div class="lbl">Break</div>
+      <div class="sub">Pentest &amp; certify</div>
+    </div>
+  </nav>
+
+  <!-- PHASE 1 -->
+  <section class="phase" style="--c:var(--build)">
+    <div class="phase-head">
+      <span class="phase-num">01</span>
+      <h2>Build</h2>
+      <span class="phase-tag">Design &amp; ship</span>
+    </div>
+    <p class="phase-intro">
+      Learn the shape of an API before the framework: resources, HTTP verbs, status codes, JSON.
+      Then pick <strong>one</strong> stack and ship a working CRUD service with a database.
+      For your background, <strong>Python / FastAPI</strong> is the recommended default —
+      you already read Python, and its typed validation maps directly to secure design.
+    </p>
+    <div class="cards">
+      <a class="card" href="https://www.udacity.com/course/designing-restful-apis--ud388">
+        <span class="kind">Concepts</span>
+        <p class="title">Designing RESTful APIs — Udacity</p>
+        <p class="desc">Resources, verbs, status codes, JSON. Framework-light. Do this first — one weekend.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://www.classcentral.com/subject/fastapi">
+        <span class="kind">★ Python</span>
+        <p class="title">FastAPI courses — Class Central hub</p>
+        <p class="desc">Recommended build path. Async, Pydantic validation, DB integration, auto-generated OpenAPI docs. Filter to free.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://www.udemy.com/topic/rest-api/">
+        <span class="kind">Python</span>
+        <p class="title">REST APIs with Flask &amp; Python — Udemy</p>
+        <p class="desc">Simpler, classic hands-on build: auth, ORM, Docker, deployment via real projects.</p>
+        <span class="cost">Paid</span>
+      </a>
+      <a class="card" href="https://codewithmukesh.com/courses/dotnet-webapi-zero-to-hero/">
+        <span class="kind">C# / .NET</span>
+        <p class="title">ASP.NET Core Web API — Zero to Hero</p>
+        <p class="desc">The most complete free option overall: 125+ lessons → JWT, Clean Architecture, CQRS, Docker, CI/CD. Choose if you target .NET shops.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://www.coursera.org/courses?query=restful%20api%20express">
+        <span class="kind">Node.js</span>
+        <p class="title">RESTful API with Express — Coursera</p>
+        <p class="desc">JavaScript/TypeScript path. Common in startups; large ecosystem.</p>
+        <span class="cost">Free audit</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="phase" style="--c:var(--secure)">
+    <div class="phase-head">
+      <span class="phase-num">02</span>
+      <h2>Secure</h2>
+      <span class="phase-tag">Harden it</span>
+    </div>
+    <p class="phase-intro">
+      Now bolt security onto the API you just built. Add authentication (JWT / OAuth2),
+      input validation, rate limiting, and secrets handling — then study the
+      <strong>OWASP API Security Top 10</strong> and map each risk back to your own code.
+      This is where your DevSecOps background compounds.
+    </p>
+    <div class="cards">
+      <a class="card" href="https://www.apisecuniversity.com/courses/api-security-fundamentals" style="--c:var(--secure)">
+        <span class="kind">★ Foundations</span>
+        <p class="title">API Security Fundamentals — APIsec University</p>
+        <p class="desc">The best free on-ramp. Start here, then the OWASP module. 135k+ students; actively maintained.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://owasp.org/API-Security/" style="--c:var(--secure)">
+        <span class="kind">Standard</span>
+        <p class="title">OWASP API Security Top 10</p>
+        <p class="desc">The canonical risk list — BOLA, broken auth, mass assignment, SSRF. Your target checklist for the rest of the path.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://www.credly.com/org/apisec-university/badge/owasp-api-security-top-10-2-hours" style="--c:var(--secure)">
+        <span class="kind">Course</span>
+        <p class="title">OWASP API Top 10 — APIsec University</p>
+        <p class="desc">2-hour guided walkthrough of each risk with real breach examples and a completion badge.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://www.freecodecamp.org/news/owasp-api-security-top-10-secure-your-apis/" style="--c:var(--secure)">
+        <span class="kind">Reference</span>
+        <p class="title">Secure Your APIs — freeCodeCamp</p>
+        <p class="desc">Written companion piece to reinforce the Top 10 with code-level mitigations.</p>
+        <span class="cost free">Free</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="phase" style="--c:var(--test)">
+    <div class="phase-head">
+      <span class="phase-num">03</span>
+      <h2>Test</h2>
+      <span class="phase-tag">Prove it works</span>
+    </div>
+    <p class="phase-intro">
+      Before you attack it, learn to <strong>exercise and document</strong> the API properly —
+      the same tools carry straight into offensive work. Postman is the industry standard for
+      requests, collections, automated tests, and contract validation.
+    </p>
+    <div class="cards">
+      <a class="card" href="https://academy.postman.com/" style="--c:var(--test)">
+        <span class="kind">★ Tooling</span>
+        <p class="title">Postman Academy</p>
+        <p class="desc">Modular, free. API exploration → collections → automated tests → CI. The tool you'll use forever, offense included.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://swagger.io/docs/" style="--c:var(--test)">
+        <span class="kind">Docs</span>
+        <p class="title">OpenAPI / Swagger</p>
+        <p class="desc">Contract-first documentation. FastAPI generates this for you — learn to read, edit, and validate against the spec.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://www.classcentral.com/subject/rest-apis" style="--c:var(--test)">
+        <span class="kind">Practice</span>
+        <p class="title">REST API testing courses — Class Central</p>
+        <p class="desc">Postman + curl workflows, status-code assertions, and JSON schema validation across 1,600+ free courses.</p>
+        <span class="cost free">Free</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="phase" style="--c:var(--break)">
+    <div class="phase-head">
+      <span class="phase-num">04</span>
+      <h2>Break</h2>
+      <span class="phase-tag">Red team</span>
+    </div>
+    <p class="phase-intro">
+      The payoff phase, and the one you're built for. Attack deliberately-vulnerable APIs
+      (<strong>vAPI</strong>, <strong>crAPI</strong>), then turn on the service you built yourself.
+      <strong>APIsec University</strong> is the best free resource here — and the certs are
+      respected, culminating in a 12-hour live pentest exam.
+    </p>
+    <div class="cards">
+      <a class="card" href="https://www.apisecuniversity.com/courses/api-penetration-testing" style="--c:var(--break)">
+        <span class="kind">★ Offense</span>
+        <p class="title">API Penetration Testing (12 hrs) — APIsec University</p>
+        <p class="desc">Recon, JWT auditing, auth/BOLA attacks, mass assignment, injection, SSRF — with Postman, Burp Suite &amp; ZAP against live labs.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://www.apisecuniversity.com/" style="--c:var(--break)">
+        <span class="kind">Cert · Entry</span>
+        <p class="title">CASA — Certified API Security Analyst</p>
+        <p class="desc">100-question, 2-hour exam (80% pass). Free, résumé-worthy quick win after the pentest course.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://university.apisec.ai/apisec-certified-expert" style="--c:var(--break)">
+        <span class="kind">Cert · Pro</span>
+        <p class="title">ASCP — API Security Certified Professional</p>
+        <p class="desc">The capstone: a 12-hour practical pentest of two live APIs — no multiple choice. Genuinely respected. Aim here.</p>
+        <span class="cost free">Free</span>
+      </a>
+      <a class="card" href="https://github.com/roottusk/vapi" style="--c:var(--break)">
+        <span class="kind">Lab</span>
+        <p class="title">vAPI &amp; crAPI — vulnerable API ranges</p>
+        <p class="desc">Self-hosted intentionally-broken APIs to practice every OWASP API risk hands-on. Free and open source.</p>
+        <span class="cost free">Free</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- CLOUD -->
+  <section class="cloud">
+    <p class="eyebrow" style="color:var(--build)">Cross-cutting</p>
+    <h2>Cloud provider tracks</h2>
+    <p class="sub">
+      In the real world you rarely expose an API raw — you front it with a managed gateway that
+      handles auth, throttling, keys, and monitoring. Each major cloud has an official learning
+      path. Layer one of these in during Phase 02–03 once your API runs locally.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Service</th>
+            <th>Best training</th>
+            <th>Covers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="prov">AWS<small>Amazon</small></td>
+            <td><span class="svc">API Gateway</span></td>
+            <td>
+              <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-tutorials.html">Official tutorials &amp; workshops</a> ·
+              <a href="https://www.educative.io/courses/aws-api-gateway-the-unsung-warrior">Educative: The Unsung Warrior</a>
+            </td>
+            <td>REST / HTTP / WebSocket APIs, data mapping, authorizers, throttling, serverless integration.</td>
+          </tr>
+          <tr>
+            <td class="prov">Azure<small>Microsoft</small></td>
+            <td><span class="svc">API Management</span></td>
+            <td>
+              <a href="https://learn.microsoft.com/en-us/training/paths/az-204-implement-api-management/">MS Learn: Implement API Management</a> ·
+              <a href="https://learn.microsoft.com/en-us/training/modules/explore-api-management/">Explore API Management</a>
+            </td>
+            <td>Official &amp; free. Policies, transform/secure APIs, backend APIs, AKS integration, lifecycle.</td>
+          </tr>
+          <tr>
+            <td class="prov">GCP<small>Google</small></td>
+            <td><span class="svc">Apigee</span></td>
+            <td>
+              <a href="https://www.coursera.org/specializations/apigee-api-gcp">Coursera: Developing APIs with Apigee</a> (3-course specialization)
+            </td>
+            <td>Full lifecycle across 3 courses — <em>Design &amp; Fundamentals</em>, <em>API Security</em> (OAuth, JWT, federation), <em>Development</em> (traffic mgmt, portals, CI/CD).</td>
+          </tr>
+          <tr>
+            <td class="prov">Others<small>vendor-neutral</small></td>
+            <td><span class="svc">Kong · Cloudflare · IBM API Connect</span></td>
+            <td>Vendor docs &amp; free tiers</td>
+            <td>Worth a look once you know one gateway — the concepts (keys, rate limits, plugins) transfer directly.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SEQUENCE -->
+  <section class="seq">
+    <p class="eyebrow" style="color:var(--test)">Putting it together</p>
+    <h2>A suggested 12-week run</h2>
+    <div class="weeks">
+      <div class="week" style="--c:var(--build)">
+        <span class="wk">Wk 1–2</span>
+        <span class="do">RESTful design concepts + spin up your first FastAPI CRUD service. <em>Phase 01</em></span>
+      </div>
+      <div class="week" style="--c:var(--build)">
+        <span class="wk">Wk 3–4</span>
+        <span class="do">Add a database, error handling, and deploy it once (Docker + a free host). <em>Phase 01</em></span>
+      </div>
+      <div class="week" style="--c:var(--secure)">
+        <span class="wk">Wk 5–6</span>
+        <span class="do">APIsec Fundamentals + add JWT/OAuth2, validation, rate limiting to your API. <em>Phase 02</em></span>
+      </div>
+      <div class="week" style="--c:var(--secure)">
+        <span class="wk">Wk 7</span>
+        <span class="do">OWASP API Top 10 — audit your own code against every item. Layer in a cloud gateway. <em>Phase 02 + Cloud</em></span>
+      </div>
+      <div class="week" style="--c:var(--test)">
+        <span class="wk">Wk 8</span>
+        <span class="do">Postman Academy + write an automated test collection against your API. <em>Phase 03</em></span>
+      </div>
+      <div class="week" style="--c:var(--break)">
+        <span class="wk">Wk 9–10</span>
+        <span class="do">APIsec API Penetration Testing course against vAPI / crAPI — then your own API. <em>Phase 04</em></span>
+      </div>
+      <div class="week" style="--c:var(--break)">
+        <span class="wk">Wk 11</span>
+        <span class="do">Sit the CASA exam. Free, and a clean résumé line. <em>Phase 04</em></span>
+      </div>
+      <div class="week" style="--c:var(--break)">
+        <span class="wk">Wk 12+</span>
+        <span class="do">Work toward the ASCP practical pentest — the real capstone. <em>Phase 04</em></span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h3>Sources</h3>
+    <div class="src">
+      <a href="https://www.apisecuniversity.com/">APIsec University</a>
+      <a href="https://www.classcentral.com/subject/fastapi">Class Central · FastAPI</a>
+      <a href="https://codewithmukesh.com/courses/dotnet-webapi-zero-to-hero/">.NET Zero to Hero</a>
+      <a href="https://academy.postman.com/">Postman Academy</a>
+      <a href="https://owasp.org/API-Security/">OWASP API Security</a>
+      <a href="https://learn.microsoft.com/en-us/training/paths/az-204-implement-api-management/">Azure APIM · MS Learn</a>
+      <a href="https://www.coursera.org/specializations/apigee-api-gcp">Apigee · Coursera</a>
+      <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-tutorials.html">AWS API Gateway</a>
+    </div>
+    <p style="margin-top:1.4rem">Curated July 2026 · free-first, offense-heavy · tuned for a security-research background.</p>
+    <p><a href="index.html">← Progress dashboard</a> · <a href="https://github.com/rstnkorodrgz/devsecops-roadmap">github.com/rstnkorodrgz/devsecops-roadmap</a></p>
+  </footer>
+
+</div>
+
+</body>
+</html>
