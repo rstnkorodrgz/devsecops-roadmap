@@ -249,6 +249,12 @@
     <div class="proj-grid" id="projGrid"></div>
   </section>
 
+  <!-- 06 HOMELAB -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">06</span><span class="sec-title">Homelab Build</span><span class="sec-sub">physical substrate · homelab/</span><span class="sec-rule"></span></div>
+    <div class="phase-grid" style="grid-template-columns:1fr" id="homelabGrid"></div>
+  </section>
+
   <div class="save-note">Progress saves to <b>this browser</b> via localStorage — persists across visits when hosted on GitHub Pages.</div>
   <footer>Path 2 DevSecOps · Staff/Principal Track v2.1 · <a href="https://github.com/rstnkorodrgz/devsecops-roadmap" target="_blank" rel="noopener">github.com/rstnkorodrgz/devsecops-roadmap</a></footer>
 
@@ -353,9 +359,22 @@ const PROJECTS = [
   {n:"05",name:"DevSecOps Capstone"},
 ];
 
+const HOMELAB = {id:"HL", key:"hl", color:"var(--steel)", name:"Hybrid Multi-Arch Homelab", when:"Q3 2026", certLabel:"Exit", cert:"4 isolated segments · k3s on NVMe/PoE+ · logs → Microsoft Sentinel", tasks:[
+  "Pre-purchase: confirm M720q 512GB slot with Tecnoboss (M.2 vs 2.5-inch bay) — decides NVMe vs SATA for the 1TB drive",
+  "Pre-purchase: Amazon 'Deliver to Chile' confirmed per item · P33 HAT height vs UCTRONICS 1U mount checked",
+  "Procurement: local orders (Tecnoboss M720q, Diartek tray) + global Amazon BOM placed",
+  "Track 1 — rack assembly, PoE cabling, PDU mounted",
+  "Track 2 — Pi 3B & Pi 5s flashed (NVMe boot order set), Proxmox VE installed",
+  "Track 3 — TL-SG108PE 802.1Q VLANs 10/20/30/40/99 enforced per port map",
+  "Track 4 — Proxmox post-install: no-sub repo, VLAN-aware bridge, local-lvm-nvme thinpool",
+  "Track 5 — OPNsense router-on-a-stick live, default-deny verified per segment",
+  "Track 6 — Pi 3B sentinel: Pi-hole + Unbound, chrony, Fluent Bit → Microsoft Sentinel ingest confirmed",
+  "Track 7 — hardening checklist green, exit criteria met",
+]};
+
 // ── STATE ────────────────────────────────────────────────────────────
 const SK="p2devsecops_v21";
-let state={},openState={};
+let state={},openState={hl:true};
 function loadS(){try{state=JSON.parse(localStorage.getItem(SK))||{}}catch(e){state={}}}
 function saveS(){try{localStorage.setItem(SK,JSON.stringify(state))}catch(e){}}
 function g(k){return !!state[k]}
@@ -392,15 +411,16 @@ function renderLadder(){
 
 // ── PHASES ───────────────────────────────────────────────────────────
 function pStats(p){let d=0;p.tasks.forEach((_,i)=>{if(g(p.key+"_t"+i))d++});return{d,t:p.tasks.length}}
-function renderPhases(){
-  const grid=document.getElementById("phaseGrid");grid.innerHTML="";
-  PHASES.forEach(p=>{
+function renderPhases(){renderPhaseList(PHASES,"phaseGrid");renderPhaseList([HOMELAB],"homelabGrid");}
+function renderPhaseList(list,containerId){
+  const grid=document.getElementById(containerId);grid.innerHTML="";
+  list.forEach(p=>{
     const {d,t}=pStats(p),pct=Math.round(d/t*100);
     const card=document.createElement("div");card.className="phase";card.style.setProperty("--pc",p.color);
     card.innerHTML=`<div class="phase-hd">
         <div class="phase-tagrow"><span class="phase-id">${p.id}</span><span class="phase-when">${p.when}</span></div>
         <div class="phase-name">${p.name}</div>
-        <div class="phase-cert">Cert: <b>${p.cert}</b></div>
+        <div class="phase-cert">${p.certLabel||"Cert"}: <b>${p.cert}</b></div>
         <div class="phase-bar"><div class="phase-fill" style="width:${pct}%"></div></div>
         <div class="phase-stat"><span class="phase-pct">${pct}%</span><span class="phase-frac">${d}/${t} tasks</span><span class="chev">▶</span></div>
       </div>
@@ -470,6 +490,7 @@ function updateMeter(){
   PILLARS.forEach((_,i)=>{t++;if(g("pillar_"+i))d++});
   API_STAGES.forEach((_,i)=>{t++;if(g("api_"+i))d++});
   PROJECTS.forEach((_,i)=>{t++;if(g("proj_"+i))d++});
+  HOMELAB.tasks.forEach((_,i)=>{t++;if(g("hl_t"+i))d++});
   const pct=t?Math.round(d/t*100):0;
   document.getElementById("meterPct").textContent=pct+"%";
   const circ=414.7;
@@ -477,8 +498,8 @@ function updateMeter(){
 }
 
 // ── CONTROLS ─────────────────────────────────────────────────────────
-function expandAll(){PHASES.forEach(p=>openState[p.key]=true);renderPhases();}
-function collapseAll(){PHASES.forEach(p=>openState[p.key]=false);renderPhases();}
+function expandAll(){PHASES.forEach(p=>openState[p.key]=true);openState[HOMELAB.key]=true;renderPhases();}
+function collapseAll(){PHASES.forEach(p=>openState[p.key]=false);openState[HOMELAB.key]=false;renderPhases();}
 function resetAll(){if(!confirm("Reset all progress? This clears every checkbox."))return;state={};saveS();state.c_secplus=true;saveS();renderAll();}
 function exportProgress(){
   let d=0,t=0;
@@ -487,6 +508,7 @@ function exportProgress(){
   PILLARS.forEach((_,i)=>{t++;if(g("pillar_"+i))d++});
   API_STAGES.forEach((_,i)=>{t++;if(g("api_"+i))d++});
   PROJECTS.forEach((_,i)=>{t++;if(g("proj_"+i))d++});
+  HOMELAB.tasks.forEach((_,i)=>{t++;if(g("hl_t"+i))d++});
   const data={roadmap:"v2.1",exported:new Date().toISOString(),percent:Math.round(d/t*100),completed:d,total:t,state};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="devsecops-progress-v2.1.json";a.click();

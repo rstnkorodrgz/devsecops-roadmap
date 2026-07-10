@@ -14,8 +14,10 @@
 
 ---
 
-## 🆕 What's new in v2.1 (2026-07-04)
+## 🆕 What's new in v2.1 (2026-07-04 · updated 2026-07-10)
 
+- **Interactive progress dashboard** — **[live on GitHub Pages](https://rstnkorodrgz.github.io/devsecops-roadmap/)** ([`docs/index.html`](docs/index.html)): cert ladder, phase tasks, pillars, API track, projects, and the homelab build — progress saves in-browser.
+- **Homelab added** — [`homelab/`](homelab/): hybrid multi-arch lab (Proxmox + OPNsense on a ThinkCentre M720q, dual Pi 5 k3s cluster, Pi 3B sentinel → Microsoft Sentinel) with BOM and Day-1 runbook.
 - **API track added** — [`api-track/`](api-track/): a hands-on Build → Secure → Test → Break path with a runnable FastAPI scaffold. Companion to [tracks/appsec.md](tracks/appsec.md).
 - **Credential presentation cleaned for recruiters** — the baseline now lists active credentials only; older networking / firewall certs are reframed as a *foundation to refresh* in [Phase 0](phases/phase-0-foundation.md), with modern refresher training added.
 
