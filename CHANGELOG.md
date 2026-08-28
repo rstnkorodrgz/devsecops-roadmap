@@ -5,6 +5,34 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## Roadmap [v2.2] — 2026-08-28 — CDP Gap Closure
+
+Coverage pass. A gap analysis against the [Practical DevSecOps CDP syllabus](https://www.practical-devsecops.com/certified-devsecops-professional/) (9 chapters, 100+ labs, 5-challenge/6-hour practical exam) put this roadmap at **~50% syllabus coverage** — deeper than CDP on every overlap, absent on everything CDP inherits from the configuration-management era. This release closes the gap without changing the cert ladder or the Azure-primary strategy.
+
+**Measured gaps (grep-verified, 0 hits in the working tree at `edabf16`):** Ansible, Inspec, OpenSCAP, DefectDojo, GitLab CI, Jenkins/CircleCI/Travis, DSOMM, OWASP Dependency-Check, RetireJS, npm audit, SpotBugs, Brakeman, Gitrob, Burp Dastardly.
+
+### Added
+- **`tracks/README.md`** — track index plus **the CDP gap-closing sequence**: 7 steps, ~34–40 hrs (≈4–5 weeks at the 8–10 hrs/week budget), ordered by exam/market risk rather than syllabus order.
+- **`tracks/config-management.md`** — Ansible and golden images from zero (CDP Ch7, was ~40%). Written assuming no prior Ansible exposure: Multipass lab target, ad-hoc → playbook → role progression, idempotency as the central lesson, a real hardening role, `devsec.hardening` as the comparison, Molecule in CI, golden image via Docker (free) with Packer → Azure Compute Gallery as the stretch.
+- **`tracks/compliance-as-code.md`** — Inspec/CINC and OpenSCAP (CDP Ch8, was ~20% — the thinnest chapter). Includes the **InSpec licensing distinction** (Chef EULA vs the licence-clean CINC Auditor rebuild), profile authoring against the host hardened in the previous track, SCAP datastreams/XCCDF/OVAL, generated Ansible remediation, and compliance as a pipeline stage.
+- **Gap-closing lab section in `tools/lab-environments.md`** — Multipass target VM, DefectDojo via docker compose, and **polyglot scanner targets**: WebGoat (Java → SpotBugs + Dependency-Check), NodeGoat (JS → RetireJS + npm audit), RailsGoat (Ruby → Brakeman). Resource table extended; explicit warning not to run the gap-closing stack alongside kind on 8 GB.
+- **DSOMM** in `architect/secure-sdlc.md` — the four dimensions and levels 1–4, beside the existing SAMM/BSIMM/SSDF/Microsoft SDL comparison, with a "which model for which audience" note. Plus the **DevOps vocabulary** the repo never wrote down: CAMS, People/Process/Technology, deployment strategies, DORA metrics.
+- **CDP gap-closing block in `progress/quarterly-tracker.md`** — the 7 steps as a tracked parallel artifact with per-step hours and exit criteria.
+
+### Changed
+- **`projects/project-01-secure-cicd.md` substantially expanded** — three structural additions:
+  - **DAST promoted from stretch goal to required gate** (CDP Ch6, was ~35%): baseline vs full scan, tuned alert-filter config, **authenticated scanning with session management**, AJAX spider, a documented per-commit/nightly/monthly cadence table, and Burp Dastardly as a second opinion.
+  - **DefectDojo aggregation layer** (CDP Ch9, was ~15%): Product→Engagement→Test→Finding modelling, API-driven import from every scanner, deduplication proof, SLAs by severity, trend graph as the deliverable. Fixes the real architectural hole — findings previously failed a build and then vanished.
+  - **Two CI dialects** (CDP Ch2): a `.gitlab-ci.yml` reproducing the GitHub Actions pipeline, with a concept-mapping table and `gitlab-ci-local` for offline testing.
+- **`projects/project-05-devsecops-capstone.md`** — pipeline diagram now includes the golden image, authenticated DAST, compliance scanning and DefectDojo; new acceptance criteria for finding aggregation and compliance evidence. **Substrate corrected from AWS/EKS to Azure/AKS**, catching up with the v2.0 Azure-primary decision already recorded in `projects/README.md`.
+- **README** — v2.2 section, two new Capability Matrix rows (configuration management, compliance as code), repo structure updated, Quick Start step 6 added.
+
+### Notes
+- Sitting the CDP exam remains **optional and is not added to the certification ladder**. The roadmap's thesis is that artifacts differentiate past senior level; the seven steps produce artifacts, and the exam is only worth booking if a client, employer or tender names it.
+- Nothing was removed. The cert ladder, Azure-primary strategy, pillars and quarterly artifact rule are unchanged.
+
+---
+
 ## Roadmap [v2.1] — 2026-07-04 — API Track + Credential Refresh
 
 Content pass: adds the hands-on API track and cleans the credential presentation for recruiters.

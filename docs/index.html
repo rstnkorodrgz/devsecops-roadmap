@@ -243,20 +243,26 @@
     </div>
   </section>
 
-  <!-- 05 PROJECTS -->
+  <!-- 05 CDP GAP TRACK -->
   <section class="sec">
-    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Portfolio Projects</span><span class="sec-sub">one shipped artifact per quarter</span><span class="sec-rule"></span></div>
+    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">CDP Gap Closure</span><span class="sec-sub">parallel block · ~34–40 hrs · tracks/</span><span class="sec-rule"></span></div>
+    <div class="phase-grid" style="grid-template-columns:1fr" id="gapGrid"></div>
+  </section>
+
+  <!-- 06 PROJECTS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">06</span><span class="sec-title">Portfolio Projects</span><span class="sec-sub">one shipped artifact per quarter</span><span class="sec-rule"></span></div>
     <div class="proj-grid" id="projGrid"></div>
   </section>
 
-  <!-- 06 HOMELAB -->
+  <!-- 07 HOMELAB -->
   <section class="sec">
-    <div class="sec-head"><span class="sec-num">06</span><span class="sec-title">Homelab Build</span><span class="sec-sub">physical substrate · homelab/</span><span class="sec-rule"></span></div>
+    <div class="sec-head"><span class="sec-num">07</span><span class="sec-title">Homelab Build</span><span class="sec-sub">physical substrate · homelab/</span><span class="sec-rule"></span></div>
     <div class="phase-grid" style="grid-template-columns:1fr" id="homelabGrid"></div>
   </section>
 
   <div class="save-note">Progress saves to <b>this browser</b> via localStorage — persists across visits when hosted on GitHub Pages.</div>
-  <footer>Path 2 DevSecOps · Staff/Principal Track v2.1 · <a href="https://github.com/rstnkorodrgz/devsecops-roadmap" target="_blank" rel="noopener">github.com/rstnkorodrgz/devsecops-roadmap</a></footer>
+  <footer>Path 2 DevSecOps · Staff/Principal Track v2.2 · <a href="https://github.com/rstnkorodrgz/devsecops-roadmap" target="_blank" rel="noopener">github.com/rstnkorodrgz/devsecops-roadmap</a></footer>
 
 </div>
 </div>
@@ -372,6 +378,18 @@ const HOMELAB = {id:"HL", key:"hl", color:"var(--steel)", name:"Hybrid Multi-Arc
   "Track 7 — hardening checklist green, exit criteria met",
 ]};
 
+const GAPTRACK = {id:"GAP", key:"gap", color:"var(--p6)", name:"CDP Gap-Closing Sequence", when:"Parallel · ~4–5 weeks", certLabel:"Exit", cert:"Two CI dialects · hardened golden image · executable compliance profile · findings with an SLA", tasks:[
+  "1 · GitLab CI parity — mirror project-01 as .gitlab-ci.yml (~6 h) ★ start here",
+  "2 · Ansible from zero — Multipass target, ad-hoc → playbook → role, idempotency (~4 h)",
+  "2b · Hardening role + golden image, CVE delta documented (~4 h)",
+  "3 · Inspec / CINC profile — fails on unhardened host, passes on hardened (~4 h)",
+  "3b · OpenSCAP scan + generated Ansible remediation, report.html (~4 h)",
+  "4 · DefectDojo — import every scanner, dedupe, SLAs, trend graph (~5 h)",
+  "5 · DAST promoted to a gate — authenticated ZAP, tuned baseline, cadence (~6 h)",
+  "6 · Polyglot scanners — WebGoat / NodeGoat / RailsGoat, one pass (~4 h)",
+  "7 · DSOMM scorecard + DevOps vocabulary (CAMS, DORA) — reading only (~3 h)",
+]};
+
 // ── STATE ────────────────────────────────────────────────────────────
 const SK="p2devsecops_v21";
 let state={},openState={hl:true};
@@ -411,7 +429,7 @@ function renderLadder(){
 
 // ── PHASES ───────────────────────────────────────────────────────────
 function pStats(p){let d=0;p.tasks.forEach((_,i)=>{if(g(p.key+"_t"+i))d++});return{d,t:p.tasks.length}}
-function renderPhases(){renderPhaseList(PHASES,"phaseGrid");renderPhaseList([HOMELAB],"homelabGrid");}
+function renderPhases(){renderPhaseList(PHASES,"phaseGrid");renderPhaseList([GAPTRACK],"gapGrid");renderPhaseList([HOMELAB],"homelabGrid");}
 function renderPhaseList(list,containerId){
   const grid=document.getElementById(containerId);grid.innerHTML="";
   list.forEach(p=>{
@@ -491,6 +509,7 @@ function updateMeter(){
   API_STAGES.forEach((_,i)=>{t++;if(g("api_"+i))d++});
   PROJECTS.forEach((_,i)=>{t++;if(g("proj_"+i))d++});
   HOMELAB.tasks.forEach((_,i)=>{t++;if(g("hl_t"+i))d++});
+  GAPTRACK.tasks.forEach((_,i)=>{t++;if(g("gap_t"+i))d++});
   const pct=t?Math.round(d/t*100):0;
   document.getElementById("meterPct").textContent=pct+"%";
   const circ=414.7;
@@ -498,8 +517,8 @@ function updateMeter(){
 }
 
 // ── CONTROLS ─────────────────────────────────────────────────────────
-function expandAll(){PHASES.forEach(p=>openState[p.key]=true);openState[HOMELAB.key]=true;renderPhases();}
-function collapseAll(){PHASES.forEach(p=>openState[p.key]=false);openState[HOMELAB.key]=false;renderPhases();}
+function expandAll(){PHASES.forEach(p=>openState[p.key]=true);openState[GAPTRACK.key]=true;openState[HOMELAB.key]=true;renderPhases();}
+function collapseAll(){PHASES.forEach(p=>openState[p.key]=false);openState[GAPTRACK.key]=false;openState[HOMELAB.key]=false;renderPhases();}
 function resetAll(){if(!confirm("Reset all progress? This clears every checkbox."))return;state={};saveS();state.c_secplus=true;saveS();renderAll();}
 function exportProgress(){
   let d=0,t=0;
@@ -509,9 +528,10 @@ function exportProgress(){
   API_STAGES.forEach((_,i)=>{t++;if(g("api_"+i))d++});
   PROJECTS.forEach((_,i)=>{t++;if(g("proj_"+i))d++});
   HOMELAB.tasks.forEach((_,i)=>{t++;if(g("hl_t"+i))d++});
-  const data={roadmap:"v2.1",exported:new Date().toISOString(),percent:Math.round(d/t*100),completed:d,total:t,state};
+  GAPTRACK.tasks.forEach((_,i)=>{t++;if(g("gap_t"+i))d++});
+  const data={roadmap:"v2.2",exported:new Date().toISOString(),percent:Math.round(d/t*100),completed:d,total:t,state};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="devsecops-progress-v2.1.json";a.click();
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="devsecops-progress-v2.2.json";a.click();
 }
 
 function renderAll(){renderLadder();renderPhases();renderPillars();renderApi();renderProjects();updateMeter();}

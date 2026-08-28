@@ -258,6 +258,81 @@ echo "Import the Postman collection from ~/labs/vapi/postman/"
 
 ---
 
+## 🧩 Gap-Closing Labs (v2.2 — CDP sequence)
+
+> Targets for the [CDP gap-closing sequence](../tracks/README.md#-the-cdp-gap-closing-sequence). These run **instead of** the kind cluster on an 8 GB machine, not alongside it.
+
+### Ansible / Inspec / OpenSCAP target VM
+
+`oscap` is a Linux tool and Ansible needs a real host — neither works against macOS. Multipass gives you a throwaway Ubuntu VM on both Intel and Apple Silicon.
+
+```bash
+brew install --cask multipass
+
+multipass launch 22.04 --name target --memory 2G --disk 10G
+multipass list                       # note the IP
+multipass shell target               # break it freely
+
+# Reset to a clean host whenever a hardening lab goes wrong
+multipass delete target && multipass purge
+```
+
+- [ ] `target` VM running, key-based SSH working from the Mac
+- [ ] You have reset it at least once (you will need to)
+
+Full walkthrough: [tracks/config-management.md](../tracks/config-management.md) and [tracks/compliance-as-code.md](../tracks/compliance-as-code.md).
+
+### DefectDojo — vulnerability aggregation
+
+```bash
+git clone https://github.com/DefectDojo/django-DefectDojo ~/labs/defectdojo
+cd ~/labs/defectdojo
+docker compose up -d
+docker compose logs initializer | grep -i "admin password"
+
+echo "DefectDojo at http://localhost:8080 — login: admin"
+```
+
+- [ ] DefectDojo reachable, admin password captured
+- [ ] At least one scanner report imported (Semgrep or Trivy JSON)
+- [ ] `docker compose down` when finished — it is the heaviest thing in this file
+
+### Polyglot scanner targets
+
+Your codebases are Python, Go and containers. CDP's SAST and SCA labs run on **Java, JavaScript and Ruby**, and so do a large share of real enterprise estates. You are not learning these languages — you are learning what each scanner prints and how to gate on it. One evening, once.
+
+```bash
+mkdir -p ~/labs/polyglot && cd ~/labs/polyglot
+
+# --- Java: SpotBugs + OWASP Dependency-Check ---
+git clone https://github.com/WebGoat/WebGoat.git
+brew install spotbugs dependency-check
+
+dependency-check --project webgoat --scan ./WebGoat --format HTML --out ./dc-report
+# SpotBugs alone finds *bugs*; the Find Security Bugs plugin is what makes it SAST.
+# Install it from https://find-sec-bugs.github.io/ before drawing conclusions.
+
+# --- JavaScript: RetireJS + npm audit ---
+git clone https://github.com/OWASP/NodeGoat.git && cd NodeGoat
+npm install --package-lock-only
+npm audit --json > ../npm-audit.json
+npx retire --outputformat json --outputpath ../retire.json
+cd ..
+
+# --- Ruby: Brakeman ---
+git clone https://github.com/OWASP/railsgoat.git
+gem install brakeman
+brakeman -o brakeman.json -f json railsgoat/
+```
+
+- [ ] Dependency-Check HTML report opened and read — note how it reports CVEs against **transitive** dependencies
+- [ ] `npm audit` vs RetireJS on the same project: note what each finds that the other misses
+- [ ] Brakeman run once — note that it is Rails-**aware**, not generic, which is why framework-specific SAST still exists
+- [ ] All four JSON outputs imported into DefectDojo, deduplicated
+- [ ] Write down, in one line each, what you'd use in a real pipeline instead — and why Semgrep and Trivy are usually the better answer
+
+---
+
 ## 📊 Lab Resource Usage Guide
 
 | Lab Component | RAM | CPU | Storage |
@@ -269,9 +344,13 @@ echo "Import the Postman collection from ~/labs/vapi/postman/"
 | DVWA container | ~50 MB | minimal | — |
 | Juice Shop | ~100 MB | minimal | — |
 | crAPI stack | ~500 MB | ~5% | — |
-| **Total peak** | **~4.5 GB** | **~25%** | **~25 GB** |
+| Multipass `target` VM | ~2 GB | ~5% | ~10 GB |
+| DefectDojo stack | ~2.5 GB | ~10% | ~5 GB |
+| **Total peak (Phase 2/3 labs)** | **~4.5 GB** | **~25%** | **~25 GB** |
+| **Total peak (gap-closing labs)** | **~4.5 GB** | **~15%** | **~15 GB** |
 
-> Your MacBook Pro 2020 13" with 8 GB RAM can run the full local stack.  
+> ⚠️ **Do not run the gap-closing labs and the kind cluster at the same time** on 8 GB — DefectDojo plus a Multipass VM plus kind will swap. Run one stack per session.
+> Your MacBook Pro 2020 13" with 8 GB RAM can run either stack, one at a time.  
 > Close other apps during lab sessions if you have 8 GB RAM.  
 > 16 GB RAM runs everything comfortably in parallel.
 

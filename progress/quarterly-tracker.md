@@ -28,6 +28,28 @@
 
 ---
 
+## 🎯 CDP gap-closing sequence (v2.2 · parallel block)
+
+> **~34–40 hrs ≈ 4–5 weeks** at 8–10 hrs/week. Closes the [~50% gap](../tracks/README.md#-the-cdp-gap-closing-sequence) against the Practical DevSecOps CDP syllabus. Runs **in parallel** with whatever phase is active — it is a different tool category, so it does not compete for the same mental context as exam prep.
+>
+> **Where to slot it:** step 1 alone is worth doing before the next round of job conversations. The full block fits cleanly as a **Q2 artifact** if Q1 is already committed to the Terraform module. Ship it as one public artifact: *"CDP gap closure"*.
+
+| # | Step | Hrs | Done | Artifact |
+|---|---|---|---|---|
+| 1 | GitLab CI parity for [project-01](../projects/project-01-secure-cicd.md) | ~6 | ☐ | `.gitlab-ci.yml` + platform mapping table |
+| 2 | [Ansible & golden images](../tracks/config-management.md) | ~8 | ☐ | `ansible-hardening` repo, Molecule green |
+| 3 | [Inspec & OpenSCAP](../tracks/compliance-as-code.md) | ~8 | ☐ | `compliance-baseline` repo + before/after evidence |
+| 4 | DefectDojo aggregation layer | ~5 | ☐ | Trend graph screenshot + SLA config |
+| 5 | DAST promoted to a required gate | ~6 | ☐ | Authenticated ZAP scan + cadence doc |
+| 6 | [Polyglot scanners](../tools/lab-environments.md) — Java / JS / Ruby | ~4 | ☐ | Four scanner reports in DefectDojo |
+| 7 | DSOMM + DevOps vocabulary | ~3 | ☐ | DSOMM scorecard in [secure-sdlc.md](../architect/secure-sdlc.md) |
+
+**Exit criteria:** all seven done, and you can walk someone through a pipeline that runs on two CI platforms, hardens its own base image, proves that hardening with an executable profile, and lands every finding in one place with an SLA against it.
+
+**Then decide on the exam.** Sitting CDP is optional and should stay that way unless a client, employer, or tender names it. The artifacts above are the point.
+
+---
+
 ## 📅 Quarter template (copy per quarter)
 
 ```

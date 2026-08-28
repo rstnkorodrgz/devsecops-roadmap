@@ -1,4 +1,4 @@
-# 🛡️ DevSecOps Roadmap v2.1 — Technical Expertise Track
+# 🛡️ DevSecOps Roadmap v2.2 — Technical Expertise Track
 
 > **Goal:** Senior DevSecOps → **Staff/Principal (deep technical IC)** — not the management ladder
 > **Duration:** 18 months of certification phases + an open-ended technical ladder (the Pillars)
@@ -13,6 +13,20 @@
 ![License](https://img.shields.io/badge/License-MIT-0277BD?style=flat-square)
 
 ---
+
+## 🆕 What's new in v2.2 (2026-08-28) — CDP gap closure
+
+A gap analysis against the [Practical DevSecOps **CDP** syllabus](https://www.practical-devsecops.com/certified-devsecops-professional/) found this roadmap covers **~50%** of it. Where the two overlap the roadmap goes *deeper* than CDP — supply chain, Kubernetes, cloud, threat modelling. The gaps all sat in one place: CDP still teaches the **configuration-management era** of DevSecOps and this roadmap jumped straight past it.
+
+- **[The gap-closing sequence](tracks/README.md#-the-cdp-gap-closing-sequence)** — 7 steps, ~34–40 hrs, ordered by risk. Tracked as one quarterly artifact in [`progress/quarterly-tracker.md`](progress/quarterly-tracker.md).
+- **[`tracks/config-management.md`](tracks/config-management.md)** — Ansible and golden images from zero. Phase 1 teaches *provisioning*; this teaches *configuration management*, which is a different tool category and a standing interview question.
+- **[`tracks/compliance-as-code.md`](tracks/compliance-as-code.md)** — Inspec/CINC and OpenSCAP. Turns "we hardened the fleet" into evidence an auditor can read — the most transferable skill on this roadmap for the Chilean regulated market.
+- **[`tracks/README.md`](tracks/README.md)** — new track index and the start-here sequence.
+- **[Project 01](projects/project-01-secure-cicd.md) substantially expanded** — DAST promoted from stretch goal to a **required gate** (authenticated scanning, tuned baseline, documented cadence); a **DefectDojo** aggregation layer so findings stop vanishing into build logs; and the whole pipeline shipped in **two CI dialects** (`.gitlab-ci.yml` alongside GitHub Actions).
+- **DSOMM added** to [`architect/secure-sdlc.md`](architect/secure-sdlc.md) beside SAMM, BSIMM and SSDF, plus the DevOps vocabulary (CAMS, DORA) this repo had never written down.
+- **Polyglot scanner lab** in [`tools/lab-environments.md`](tools/lab-environments.md) — Java, JavaScript and Ruby targets, because your codebases are Python/Go/containers and half the market's are not.
+
+> **On sitting the exam:** optional, and it should stay that way. This roadmap's own thesis is that past senior level certifications stop differentiating and artifacts do — and the seven steps above produce the artifacts. Sit CDP only if a client, employer or tender names it.
 
 ## 🆕 What's new in v2.1 (2026-07-04 · updated 2026-07-10)
 
@@ -80,6 +94,8 @@ What a staff-level panel actually evaluates — and where you build and prove it
 | Kubernetes & supply chain security | [Phase 3](phases/phase-3-cks.md) | Hardening playbook (CIS-mapped) + signed pipeline |
 | Cloud & AI security (Azure) | [Phase 4](phases/phase-4-sc500.md) | Azure security baseline |
 | Cloud security architecture | [Phase 5](phases/phase-5-ccsp.md) | Multi-cloud reference architecture |
+| Configuration management & golden images | [Track](tracks/config-management.md) | Idempotent hardening role + scanned golden image |
+| Compliance as code | [Track](tracks/compliance-as-code.md) | Executable profile + auditor-readable evidence |
 | Open-source credibility | [Pillar A](pillars/pillar-a-open-source.md) | Merged PRs in one CNCF security project |
 | Public technical voice | [Pillar B](pillars/pillar-b-research-speaking.md) | 2 talks/year + written versions |
 | AI security | [Pillar C](pillars/pillar-c-ai-security.md) | LLM testing harness + secure RAG architecture |
@@ -103,9 +119,12 @@ devsecops-roadmap/
 │   ├── README.md                   ← Quarterly artifact rule + KPIs
 │   ├── pillar-a-open-source.md     ├── pillar-b-research-speaking.md
 │   ├── pillar-c-ai-security.md     └── pillar-d-architecture.md
-├── tracks/                         ← Background tracks (feed the Pillars)
+├── tracks/                         ← Background + gap-closing tracks
+│   ├── README.md                   ← Track index + the CDP gap-closing sequence
 │   ├── appsec.md                   ← Threat modeling, API security, PortSwigger
-│   └── platform-engineering.md     ← Paved roads, GitOps, multi-tenancy
+│   ├── platform-engineering.md     ← Paved roads, GitOps, multi-tenancy
+│   ├── config-management.md        ← Ansible, golden images        (v2.2)
+│   └── compliance-as-code.md       ← Inspec / CINC, OpenSCAP       (v2.2)
 ├── api-track/                      ← Hands-on: build → secure → test → break an API
 │   ├── README.md                   ← The 12-week API DevSecOps path
 │   └── fastapi-scaffold/           ← Runnable FastAPI service (Phase 1 start)
@@ -128,9 +147,10 @@ devsecops-roadmap/
 3. Run `bash install.sh --phase 1.5` for the IaC toolchain (installer still uses v1.x phase numbers — see CHANGELOG).
 4. Copy the Q1 template into [`progress/quarterly-tracker.md`](progress/quarterly-tracker.md) and put the artifact + exam date in it.
 5. Ship the Q1 artifact: hardened Terraform module + Checkov policy set on the Azure landing zone.
+6. **In parallel**, start [step 1 of the CDP gap sequence](tracks/README.md#-the-cdp-gap-closing-sequence) — a `.gitlab-ci.yml` for [project-01](projects/project-01-secure-cicd.md). It is one weekend and it removes a common screening-call disqualifier.
 
 > 💸 **Cost note:** Azure labs cost real money (AKS, Defender plans, Sentinel ingestion). Use the free tier + trial credits where possible, set a **budget alert in week 1**, `terraform destroy` after every session, and prefer `kind` locally for anything that doesn't strictly need AKS. Defender plans have 30-day free trials — time the Phase 4 labs around them.
 
 ---
 
-_Last updated: 2026-07-04 (v2.1 — API track + credential refresh) | Azure-primary · quarterly artifacts · 8–10 hrs/week_
+_Last updated: 2026-08-28 (v2.2 — CDP gap closure) | Azure-primary · quarterly artifacts · 8–10 hrs/week_
