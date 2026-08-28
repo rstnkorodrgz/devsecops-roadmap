@@ -5,6 +5,36 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## Roadmap [v2.3] — 2026-08-28 — Foundations On-Ramp
+
+Corrects the roadmap's starting assumption. Every version up to v2.2 was written for a senior engineer who already builds daily — v2.0's own framing was "Senior DevSecOps → Staff/Principal." The actual starting point is a **DevSecOps Lead title doing risk-analyst review work**: strong security judgement and control-framework fluency, but no build reps and no ability yet to write code from a blank file. Since every phase asks you to *build* something, the ladder had no bottom rung.
+
+Nothing in the existing roadmap was wrong — it was just missing its first nine months.
+
+### Added
+- **`foundations/`** — a 9-month **conversion track** (from reviewing systems to building them), ~340 hrs at the roadmap's 8–10 hrs/week budget. Explicitly framed as a conversion, not a beginner path: the concepts are assumed present, only the hands are missing.
+  - **`f1-code.md`** (months 1–3, ~110 hrs) — Python and Bash, project-driven, with a "no copy-paste, type everything" rule. Deliberate-error exercises for traceback fluency. Ends in the **ASPM ranker**: automating the manual vulnerability prioritisation already performed at work — a real artifact encoding judgement a tutorial project cannot.
+  - **`f2-linux-containers.md`** (months 3–5, ~80 hrs) — Linux and Docker via Multipass, structured around **deliberate break/fix** rather than reading. Includes proving the deleted-secret-in-a-layer problem by hand. Ends in a deployed app, a runbook, and a post-mortem written from the operator's chair.
+  - **`f3-azure.md`** (months 5–8, ~110 hrs) ★ — **AZ-104** as the forcing function, portal-then-CLI, ending in a built Azure environment with a `SECURITY.md` stating residual risk. **The job search starts here, at month 8**, not at the end of the roadmap.
+  - **`f4-first-pipeline.md`** (months 8–9, ~40 hrs) — build the thing you have spent years reviewing. Five planted failures, each screenshotted. The distinguishing exercise: over-tune every gate to maximum, measure how much it blocks, then tune back and document why — turning risk judgement into pipeline design evidence.
+- **A sequencing rule** (`foundations/README.md`): no hands-on technical screens before F3. A Lead title opens doors the hands cannot yet walk through; that is worth managing deliberately rather than discovering in an interview.
+- **Monthly artifact cadence during foundations**, replacing quarterly. The quarterly rule assumes an existing body of work; monthly reps beat quarterly polish when building one from zero.
+- **A "when it stalls" section** — the four common failure modes of self-directed plans, with the fix for each.
+
+### Changed
+- **README goal reframed**: "hands-on Cloud Security Engineer → Senior DevSecOps → Staff/Principal," with the starting point stated plainly. Duration is now 9 months of foundations + the existing 18.
+- **Certification ladder diagram** gains the F1–F4 on-ramp above Phase 1; months restart at 1 for the main ladder.
+- **Quick Start split into two entry points** — foundations first, the original main-ladder steps second.
+- **Capability Matrix** gains four foundational rows (writing code, operating systems, cloud engineering, pipeline construction).
+- **Credential baseline** adds AZ-104 as the month-8 target.
+
+### Notes
+- **Why AZ-104 rather than another security certificate:** the gap is not security knowledge. Security+ is active, the Lead title is real, cloud security decisions are daily work. AZ-104 proves the thing that cannot currently be claimed — building and operating cloud infrastructure — and is the standard baseline for Cloud Security Engineer roles in Azure-heavy markets. SC-500 stays in Phase 4 and is easier afterwards.
+- Total horizon to CCSP is now ~27 months, but the target role change lands around **month 10–14**, well before the ladder completes.
+- Nothing removed. The cert ladder, Azure-primary strategy, pillars, CDP gap sequence and quarterly artifact rule are all unchanged for the post-foundations phases.
+
+---
+
 ## Roadmap [v2.2] — 2026-08-28 — CDP Gap Closure
 
 Coverage pass. A gap analysis against the [Practical DevSecOps CDP syllabus](https://www.practical-devsecops.com/certified-devsecops-professional/) (9 chapters, 100+ labs, 5-challenge/6-hour practical exam) put this roadmap at **~50% syllabus coverage** — deeper than CDP on every overlap, absent on everything CDP inherits from the configuration-management era. This release closes the gap without changing the cert ladder or the Azure-primary strategy.

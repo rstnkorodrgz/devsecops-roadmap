@@ -1,7 +1,8 @@
-# 🛡️ DevSecOps Roadmap v2.2 — Technical Expertise Track
+# 🛡️ DevSecOps Roadmap v2.3 — Technical Expertise Track
 
-> **Goal:** Senior DevSecOps → **Staff/Principal (deep technical IC)** — not the management ladder
-> **Duration:** 18 months of certification phases + an open-ended technical ladder (the Pillars)
+> **Goal:** hands-on **Cloud Security Engineer** → Senior DevSecOps → **Staff/Principal (deep technical IC)** — not the management ladder
+> **Duration:** **9 months of foundations** + 18 months of certification phases + an open-ended technical ladder (the Pillars)
+> **Starting point:** DevSecOps Lead by title, risk-and-assurance in practice. The [Foundations track](foundations/README.md) converts reviewing into building.
 > **Strategy:** **Azure-primary** (daily work + Chilean regulated market), AWS preserved as a dormant elective, multi-cloud at the *design* level
 > **Philosophy:** past senior level, certifications stop differentiating — **public artifacts do**. One artifact ships every quarter, no exceptions.
 > **Budget:** 8–10 hrs/week (two weeknights + one weekend block)
@@ -13,6 +14,20 @@
 ![License](https://img.shields.io/badge/License-MIT-0277BD?style=flat-square)
 
 ---
+
+## 🆕 What's new in v2.3 (2026-08-28) — the Foundations on-ramp
+
+The roadmap was written for a senior engineer who already builds daily. That was the wrong starting point: the real position is a **DevSecOps Lead title doing risk-analyst review work** — strong judgement, no build reps, cannot yet write code from a blank file. Every phase here asks you to *build* something, so the ladder had no bottom rung.
+
+- **[`foundations/`](foundations/README.md)** — a 9-month **conversion track**: from reviewing systems to building them. Not a beginner path; it assumes the DevSecOps concepts are already there and only the hands are missing.
+  - **[F1 — Code you can write](foundations/f1-code.md)** (M1–3) · Python and Bash, project-driven, no copy-paste. Ends in the **ASPM ranker**: automating the manual vulnerability prioritisation already done at work.
+  - **[F2 — Systems you can operate](foundations/f2-linux-containers.md)** (M3–5) · Linux and Docker, with deliberate break/fix. Ends in a deployed app, a runbook, and a post-mortem.
+  - **[F3 — Cloud you can build in](foundations/f3-azure.md) ★** (M5–8) · **AZ-104** as the forcing function — the credential that says you *operate* Azure rather than assess it. **Job applications start here, at month 8.**
+  - **[F4 — Your first pipeline](foundations/f4-first-pipeline.md)** (M8–9) · Build the thing you have spent years reviewing, then over-tune it until it hurts and write down why you tuned it back.
+- **Monthly artifacts during foundations**, not quarterly — the quarterly cadence assumes an existing body of work.
+- **A sequencing rule**: no hands-on technical screens before F3. The title opens doors the hands cannot yet walk through, and that is worth managing deliberately.
+
+> **On AZ-104 over another security cert:** the gap is not security knowledge — Security+ is active, the Lead title is real, cloud security decisions are daily work. AZ-104 proves the thing that cannot currently be claimed: building and operating cloud infrastructure. SC-500 stays where it was, in [Phase 4](phases/phase-4-sc500.md), and will be far easier afterwards.
 
 ## 🆕 What's new in v2.2 (2026-08-28) — CDP gap closure
 
@@ -56,6 +71,7 @@ Full history in [`CHANGELOG.md`](CHANGELOG.md).
 | Credential | Status | Notes |
 |---|---|---|
 | CompTIA Security+ | ✅ Active | Theory foundation across the roadmap |
+| Microsoft AZ-104 | 🎯 Target — month 8 | The pivot credential: proves you *operate* Azure, not just assess it ([F3](foundations/f3-azure.md)) |
 
 > Backed by hands-on **networking and network-security** experience — routing & segmentation, firewall and IDS/IPS administration — now being **refreshed to its cloud-native equivalents** in [Phase 0](phases/phase-0-foundation.md). Only current, active certifications are listed above.
 
@@ -64,6 +80,13 @@ Full history in [`CHANGELOG.md`](CHANGELOG.md).
 ## 🗺️ Certification Ladder
 
 ```
+FOUNDATIONS (foundations/) — the on-ramp, months 1–9
+F1  Code you can write       ──► Python & Bash, 3 shipped tools   months 1–3
+F2  Systems you can operate  ──► Linux + Docker, deploy & operate months 3–5
+F3  Cloud you can build in   ──► AZ-104 ★ apply for jobs here     months 5–8
+F4  Your first pipeline      ──► build it, don't review it        months 8–9
+════════════════════════════════════════════════════════════════
+THE MAIN LADDER — months restart at 1 below
 Phase 1  Terraform Associate ──► hands-on IaC baseline           months 1–3
 Phase 2  CKA                 ──► Kubernetes core (CKS prereq)    months 4–6
 Phase 3  CKS                 ──► Kubernetes security ★ key diff  months 7–9
@@ -89,6 +112,10 @@ What a staff-level panel actually evaluates — and where you build and prove it
 
 | Capability | Built in | Proven by |
 |---|---|---|
+| Writing code | [F1](foundations/f1-code.md) | Three shipped tools, incl. the ASPM ranker |
+| Operating systems & containers | [F2](foundations/f2-linux-containers.md) | Deployed app + runbook + post-mortem |
+| Cloud engineering | [F3](foundations/f3-azure.md) | AZ-104 + a built Azure environment |
+| Pipeline construction | [F4](foundations/f4-first-pipeline.md) | A pipeline you built, with planted failures |
 | Infrastructure as Code | [Phase 1](phases/phase-1-terraform.md) | Hardened module + Checkov policy set |
 | Kubernetes operations | [Phase 2](phases/phase-2-cka.md) | Cluster build & troubleshooting runbook |
 | Kubernetes & supply chain security | [Phase 3](phases/phase-3-cks.md) | Hardening playbook (CIS-mapped) + signed pipeline |
@@ -108,6 +135,12 @@ What a staff-level panel actually evaluates — and where you build and prove it
 ```
 devsecops-roadmap/
 ├── README.md                       ← You are here
+├── foundations/                    ← START HERE — the 9-month conversion track (v2.3)
+│   ├── README.md                   ← The honest diagnosis + how it connects
+│   ├── f1-code.md                  ← Python & Bash          months 1–3
+│   ├── f2-linux-containers.md      ← Linux & Docker         months 3–5
+│   ├── f3-azure.md                 ← AZ-104 ★ apply for jobs months 5–8
+│   └── f4-first-pipeline.md        ← Build one, don't review it  months 8–9
 ├── phases/                         ← The 18-month certification ladder
 │   ├── phase-0-foundation.md       ← Leverage map + foundations (parallel with Phase 1)
 │   ├── phase-1-terraform.md        ← IaC + Azure landing zone      (months 1–3)
@@ -142,8 +175,18 @@ devsecops-roadmap/
 
 ## 🚀 Quick Start
 
+> **Start with [`foundations/`](foundations/README.md), not Phase 1.** The certification ladder assumes you already build daily. Foundations is what makes that true.
+
+### If you are starting from here (months 1–9)
+1. Read [`foundations/README.md`](foundations/README.md) — the diagnosis, the risk, and the conversion strategy.
+2. Start [F1](foundations/f1-code.md) this week. Type, do not copy-paste.
+3. Ship something public **every month**, however small.
+4. Convert your day job: every system you review this week is a thing you can build a minimal version of this weekend.
+5. Book **AZ-104** at the start of month 6 — execution rule #1 applies to foundations too.
+
+### Once foundations are done (the main ladder)
 1. **Book the Terraform Associate exam** for ~month 3. Yes, now — execution rule #1.
-2. Self-assess [`phases/phase-0-foundation.md`](phases/phase-0-foundation.md) in parallel with starting [Phase 1](phases/phase-1-terraform.md).
+2. Self-assess [`phases/phase-0-foundation.md`](phases/phase-0-foundation.md) — after foundations this is a genuine checklist rather than a wall.
 3. Run `bash install.sh --phase 1.5` for the IaC toolchain (installer still uses v1.x phase numbers — see CHANGELOG).
 4. Copy the Q1 template into [`progress/quarterly-tracker.md`](progress/quarterly-tracker.md) and put the artifact + exam date in it.
 5. Ship the Q1 artifact: hardened Terraform module + Checkov policy set on the Azure landing zone.
@@ -153,4 +196,4 @@ devsecops-roadmap/
 
 ---
 
-_Last updated: 2026-08-28 (v2.2 — CDP gap closure) | Azure-primary · quarterly artifacts · 8–10 hrs/week_
+_Last updated: 2026-08-28 (v2.3 — Foundations on-ramp) | Azure-primary · monthly artifacts in foundations, quarterly after · 8–10 hrs/week_

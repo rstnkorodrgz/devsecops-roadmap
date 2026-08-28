@@ -4,6 +4,37 @@
 
 ---
 
+## 🔧 Foundations — monthly artifacts (months 1–9)
+
+> The quarterly rule assumes an existing body of work. While building one from zero, **ship monthly**: twelve small finished things beat one large unfinished one. See [`foundations/README.md`](../foundations/README.md).
+
+| Month | Track | Artifact to ship | Done |
+|---|---|---|---|
+| 1 | [F1](../foundations/f1-code.md) | Script: count vulnerability findings by severity from a CSV | ☐ |
+| 2 | [F1](../foundations/f1-code.md) | **The ASPM ranker** — automate your own manual triage | ☐ |
+| 3 | [F1](../foundations/f1-code.md) | Ranker packaged: tests, README, GitHub Actions running them | ☐ |
+| 4 | [F2](../foundations/f2-linux-containers.md) | systemd unit + a break/fix write-up from the Linux drills | ☐ |
+| 5 | [F2](../foundations/f2-linux-containers.md) | Deployed app + runbook + post-mortem of one real failure | ☐ |
+| 6 | [F3](../foundations/f3-azure.md) | ASPM ranker extended to pull live Azure data via the SDK | ☐ |
+| 7 | [F3](../foundations/f3-azure.md) | Bicep template + hub-spoke VNet, diagrammed | ☐ |
+| 8 | [F3](../foundations/f3-azure.md) | **AZ-104 passed** ★ + Azure environment repo with `SECURITY.md` · **start applying** | ☐ |
+| 9 | [F4](../foundations/f4-first-pipeline.md) | Pipeline with 5 planted failures + gate-tuning writeup | ☐ |
+
+**Foundations exit → join [Phase 1](../phases/phase-1-terraform.md).** The 18-month plan below restarts its month count from there.
+
+### Monthly check-in (copy per month)
+
+```
+## M[N] — [track] — [dates]
+
+- [ ] Artifact shipped (public, with a README): ___________
+- [ ] Converted one work review into a build: ___________
+- [ ] Hours logged this month (target ~36): ___
+- [ ] Stuck on anything > 2 evenings? Skipped and noted: ___________
+```
+
+---
+
 ## The 18-month plan at a glance
 
 | Quarter | Months | Phase | Exam (book at phase start) | Quarterly artifact |
