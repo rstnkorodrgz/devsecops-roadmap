@@ -102,6 +102,60 @@ They do not have to be impressive. A 40-line script with a README and a passing 
 
 - [ ] Track monthly artifacts in [`progress/quarterly-tracker.md`](../progress/quarterly-tracker.md) alongside the quarterly ones
 
+## 🛠️ How to use this repo
+
+### This repo tracks the plan. Your artifacts live elsewhere.
+
+Do **not** build the ASPM ranker inside `devsecops-roadmap`. Each artifact gets its own public repo:
+
+```
+devsecops-roadmap     ← the plan + your progress (this repo)
+aspm-ranker           ← F1 · the tool that ranks your findings
+azure-baseline        ← F3 · the environment you build
+secure-pipeline-lab   ← F4 · the pipeline with planted failures
+```
+
+A hiring manager opens your GitHub profile and sees a list of repos. Four focused repos with READMEs read as a practitioner. One monorepo called *"my-learning"* reads as a student. Same work, opposite signal — and you already know this instinctively from reviewing other people's evidence.
+
+Month 1's small script can just be the first commit of `aspm-ranker`. Same lineage, no extra repo.
+
+### Three tracking layers, one source of truth
+
+| Layer | Role | Lives in |
+|---|---|---|
+| **Markdown checkboxes** | **Authoritative.** In git, diffable, survives browsers and laptops | This repo |
+| [`progress/quarterly-tracker.md`](../progress/quarterly-tracker.md) | The accountability artifact — the monthly table + a 5-minute check-in at month end | This repo |
+| [The dashboard](https://rstnkorodrgz.github.io/devsecops-roadmap/) | Motivation only. Saves to browser `localStorage` — **not synced, not in git** | Your browser |
+
+The tracker is the one that keeps you honest, because it asks *"did you ship?"* rather than *"did you study?"*
+
+### The daily loop
+
+Edit locally, not in the GitHub web UI. Ticking a checkbox is the lowest-stakes possible Git rep, and [F1 month 3](f1-code.md) is literally *"learn Git properly"* — take the practice.
+
+```bash
+cd ~/Security_Research/devsecops-roadmap
+git pull                                    # always first
+# ... tick your boxes ...
+git add -A
+git commit -m "progress: F1 M1 — Python basics done"
+git push
+```
+
+> ⚠️ **Pick one place to edit, not both.** Editing in the web UI *and* locally in the same week is how you get merge conflicts you do not yet know how to resolve.
+
+Pages serves from the `version-2.3` branch, so every push updates the live dashboard within a minute or two. No merge to `main` required.
+
+### Your first week
+
+- [ ] Read this file end to end — especially [the highest-leverage move](#-the-highest-leverage-move-available-to-you)
+- [ ] Open [`f1-code.md`](f1-code.md) and start Month 1. *Automate the Boring Stuff* ch. 1–2, **typed, not copy-pasted**
+- [ ] Create the `aspm-ranker` repo — empty, with a README saying what it will do. Claiming the name makes it real
+- [ ] Tick what you finish, commit, push. Even one box
+- [ ] Put a calendar reminder at **month 6: book AZ-104**
+
+---
+
 ## 🧯 What to do when it stalls
 
 It will. Plan for it now rather than treating it as evidence you cannot do this.
