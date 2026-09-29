@@ -19,7 +19,7 @@ Every lab below assumes you type it. When you look something up — and you will
 ## 🗓️ Month 1 — Python that runs
 
 ### Concepts
-- [X] Values and types — `str`, `int`, `float`, `bool`, `None`, and why `"5" + 5` fails
+- [ ] Values and types — `str`, `int`, `float`, `bool`, `None`, and why `"5" + 5` fails
 - [ ] Collections — `list`, `dict`, `set`, `tuple`, and when each is the right shape
 - [ ] Control flow — `if`/`elif`/`else`, `for`, `while`, `break`/`continue`
 - [ ] **Functions** — arguments, defaults, return values, and why a function that does one thing is easier to fix
